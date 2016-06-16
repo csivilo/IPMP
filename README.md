@@ -2,5 +2,6 @@
 USDA Modeling Tools
 Web App for IPMP Modeling software 
 
-
-Dean's change here
+Using:
+Python 2.7.11
+Django 1.9.7
