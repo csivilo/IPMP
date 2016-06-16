@@ -1,0 +1,7 @@
+<html>
+{% load staticfiles %}
+<title>
+IPMP Gompertz Simulation
+</title>
+<h1>IPMP Modeling Tool</h1>
+</html>
