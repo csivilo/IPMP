@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+{%  load staticfiles %}
+<html>
+    <title>IPMP</title>
+    <head>
+    <link rel="stylesheet" href="{%  static "js/webix/codebase/webix.css" %}" type="text/css">
+    <script src="{%  static "js/webix/codebase/webix.js" %}" type="text/javascript"></script>
+    </head>
+    <body>
+
+        <script type="text/javascript" charset="utf-8">
+    webix.ui({
+            view:"chart",
+            type:"scatter",
+			value:"#b#",
+			xValue: "#a#",
+            yAxis:{
+                title:"Value B"
+            },
+            xAxis:{
+                title:"Value A"
+            },
+            item:{
+                radius:5,
+                borderColor:"#f38f00",
+                borderWidth:1,
+                color:"#ff9600",
+                type:"d",
+                shadow:true
+            },
+    });
+
+        </script>
+    </body>
+</html>
