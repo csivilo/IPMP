@@ -23,8 +23,5 @@ def data(request):
         )
         gompertz_model.save()
 
-        lst = []
-        for i in range(10):
-            lst.append(growth_model.getTime(),growth_model.getY())
-            growth_model.setTime(1+ growth_model.getTime())
+
      return render(request, "IPsamp/index.html/")
