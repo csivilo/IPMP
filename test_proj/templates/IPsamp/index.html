@@ -31,7 +31,7 @@
                    height:250,
                    width:200,
                    data:[
-                        {  id: 1, time_input: 0, conc_input:0},
+                        { id: 1, time_input: 0, conc_input:0},
                         { id: 2, time_input: 0, conc_input:0},
                         { id: 3, time_input: 0, conc_input:0},
                         { id: 4, time_input: 0, conc_input:0},
@@ -86,6 +86,7 @@
                     value:"#conc#",
                     xValue: "#time#",
                     origin: 0,
+                    id: "plot",
                     yAxis:{
                         title:"Log Concentration of Bacteria",
                     },
@@ -100,7 +101,7 @@
                         type:"d",
                         shadow:true
                     },
-                    data: null/*[
+                    data: [
                         { time: 1, conc: 1},
                         { time: 1, conc: 1},
                         { time: 2, conc: 1.5},
@@ -110,9 +111,7 @@
                         { time: 6, conc: 6},
                         { time: 7, conc: 6},
 
-                    ]*/
-                        dataPoints
-                        ,
+                    ],
                },
                {view: "datatable",
                 id:"output_table",
@@ -157,18 +156,21 @@
         }
     }
 
-    var dataPoints = []; //global data points to be used for plotting
+    var dataPoints; //global data points to be used for plotting
     function plotData(){
 
-        var id = 0;
-        var size = $$('input_table').size();
-        while($$('input_table').getIdByIndex(id).value < size){
-            dataPoints.push([$$('input_table').getIdByIndex(id).time_input,
-                    $$('input_table').getIdByIndex(id++).conc_input]);
+        var time = [];
+        var counter = 0;
+         while($$('input_table').getLastId() > counter){
+             time.push([$$('input_table').getIdByIndex(counter).time_input, $$('input_table').getIdByIndex(counter).conc_input]);
+             counter++;
+         }
 
+        for(var r=0; r<time.size(); r++){
+            for(var c=0; c<time[0].size(); c++){
+                document.writeln(time[r][c]);
+            }
         }
-        document.writeln(dataPoints.size());
-
     }
 
 
