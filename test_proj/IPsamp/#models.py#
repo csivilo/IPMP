@@ -6,11 +6,8 @@ import numpy
 
 class Gompertz(models.Model):
         nO = models.IntegerField()
-        nmax = models.IntegerField()
+        nmax= models.IntegerField()
         rate = models.IntegerField()
         m = models.IntegerField()
-        t =models.IntegerField()
-
-        def getY(self):
-            return self.nO + (self.nmax-self.nO)*numpy.exp(-1*(numpy.exp(-(self.rate)*(self.t-self.m))))
-                  
+        t = models.IntegerField()
+    

@@ -5,6 +5,6 @@ from IPsamp import views
 
 
 urlpatterns = [
-	url(r'^$', views.index, name= 'index1'),
-	url(r'^samp/', views.sample, name =  'sample'),
+	url(r'^$', views.index, name= 'IPMPindex'),
+	url(r'^data/', views.data, name =  'IPMPdata'),
 ]
