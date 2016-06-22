@@ -1,0 +1,20 @@
+"""
+Created for use in USDA Modeling tool IPMP
+
+Author: Carlo Sivilotti
+Date: 6/20/16
+"""
+
+import numpy
+
+class Gompertz:
+
+	def __init__(self,nO,nmax,rate,m,t):
+		  self.nO = nO
+		  self.nmax = nmax
+		  self.rate = rate
+		  self.m = m
+		  self.t = t
+	def getY(self):
+		  return self.nO + (self.nmax-self.nO)*numpy.exp(-1*(numpy.exp(-(self.rate)*(self.t-self.m))))
+	 	  
