@@ -11,7 +11,13 @@
     <body>
     <script type="text/javascript" charset="utf-8">
 
-       var data_out = 0.; //this is a placeholder variable that will hold y that was passed in from django
+
+        //assigns data passed in from django
+        {% if plot %}
+            var data_out = {{ plot }}
+            console.log(data_out)
+            var data_id = {{ id }}
+        {% endif %}
 
         webix.ui({
             rows:[
@@ -31,7 +37,7 @@
                    editable: true,
                    height:250,
                    width:200,
-                   data:[
+                   data: [
                         {  id: 1, time_input: 0, conc_input:0},
                         { id: 2, time_input: 0, conc_input:0},
                         { id: 3, time_input: 0, conc_input:0},
@@ -46,7 +52,7 @@
                     },
                    {view: "toolbar", id:"toolbar", elements:[
 
-                       {view:"button", value:"Compute", width:80 , click:"plotData()"},
+                       {view:"button", value:"Compute", width:80 , click:"computeData()"},
                        {view:"button", value:"gatherData", width:80 , click:"getData()"},
                        ]
                    },
@@ -104,7 +110,8 @@
                         type:"d",
                         shadow:true
                     },
-                    data: null/*[
+                    data: //data_out
+                         [
                         { time: 1, conc: 1},
                         { time: 1, conc: 1},
                         { time: 2, conc: 1.5},
@@ -114,7 +121,7 @@
                         { time: 6, conc: 6},
                         { time: 7, conc: 6},
 
-                    ]*/
+                    ]
                         //To be defined
                         //dataPoints
                         ,
@@ -143,42 +150,21 @@
         $$('insert_input').setValues(data);
     }
 
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-
-    }
-
-    var csrftoken = getCookie('csrftoken');
-
-
     function computeData(){
+
+        var data_set = getData()
 
         $.ajax({
             type: "POST",
             url: 'data/',
-            dataType: "text",
-
+            dataType: "json",
             data: {
-                /*
-                csrfmiddlewaretoken: {{ csrf_token }},
-                */
-                nO: $('#nO').val(),
-                nMax: $('#nmax').val(),
-                rate: $('#rate').val(),
-                time: $('#time').val(),
-                m: $('#m').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                nO: data_set[0],
+                nmax: data_set[1],
+                rate: data_set[2],
+                time: data_set[3],
+                m: data_set[4],
 
             }
 
@@ -191,18 +177,14 @@
         //the array hold the data in the same order:
             //NO, NMax, Rate, Time, and M
 
-        var data = [];
-        data.push( $$('slider_input').getValues().s1); //NO
-        data.push( $$('slider_input').getValues().s2); //NMax
-        data.push( $$('slider_input').getValues().s3); //Rate
-        data.push( $$('slider_input').getValues().s4); //Time
-        data.push( $$('slider_input').getValues().s5); //M
+        var input_data = [];
+        input_data.push( $$('slider_input').getValues().s1); //NO
+        input_data.push( $$('slider_input').getValues().s2); //NMax
+        input_data.push( $$('slider_input').getValues().s3); //Rate
+        input_data.push( $$('slider_input').getValues().s4); //Time
+        input_data.push( $$('slider_input').getValues().s5); //M
 
-        //prints out each value of the array on a separate page-----will be deleted later on as it is not necessary,
-        // but works for now as specified
-        for(var count=0; count<= data.length - 1; count++){
-            document.writeln(data[count]);
-        }
+        return input_data
     }
 
     var dataPoints = []; //global data points to be used for plotting

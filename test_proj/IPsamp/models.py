@@ -9,8 +9,8 @@ class Gompertz(models.Model):
         nmax = models.IntegerField()
         rate = models.IntegerField()
         m = models.IntegerField()
-        t =models.IntegerField()
+        time = models.IntegerField()
 
         def getY(self):
-            return self.nO + (self.nmax-self.nO)*numpy.exp(-1*(numpy.exp(-(self.rate)*(self.t-self.m))))
+            return self.nO + (self.nmax-self.nO)*numpy.exp(-1*(numpy.exp(-(self.rate)*(self.time-self.m))))
                   
