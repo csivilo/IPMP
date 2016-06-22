@@ -14,11 +14,24 @@
 
         //assigns data passed in from django
         {% if plot %}
-            var data_out = {{ plot }}
+            var data_out = {{ plot }};
             //console.log(data_out);
-            var data_id = {{ id }}
+            var data_id = {{ id }};
         {% endif %}
 
+        var data_points = [ //original data points from data table, will be updated and pushed to update the plot
+                           //originally set to null, to avoid plotting of the points that have not been inputed by the user
+                        { id: 1, time_input: null, conc_input:null},
+                        { id: 2, time_input: null, conc_input:null},
+                        { id: 3, time_input: null, conc_input:null},
+                        { id: 4, time_input: null, conc_input:null},
+                        { id: 5, time_input: null, conc_input:null},
+                        { id: 6, time_input: null, conc_input:null},
+                        { id: 7, time_input: null, conc_input:null},
+                        { id: 8, time_input: null, conc_input:null},
+                        { id: 9, time_input: null, conc_input:null},
+                        { id:10, time_input: null, conc_input:null}
+                         ];
         webix.ui({
             rows:[
                {view: "toolbar", id:"toolbar", elements:[
@@ -37,23 +50,12 @@
                         height:250,
                         width:200,
 
-                        data: [
-                            {  id: 1, time_input: 0, conc_input:0},
-                            { id: 2, time_input: 0, conc_input:0},
-                            { id: 3, time_input: 0, conc_input:0},
-                            { id: 4, time_input: 0, conc_input:0},
-                            { id: 5, time_input: 0, conc_input:0},
-                            { id: 6, time_input: 0, conc_input:0},
-                            { id: 7, time_input: 0, conc_input:0},
-                            { id: 8, time_input: 0, conc_input:0},
-                            { id: 9, time_input: 0, conc_input:0},
-                            { id: 10, time_input: 0, conc_input:0}
-                             ]
+                        data: data_points,
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
                             {view:"button", value:"Compute", width:80 , click:"computeData()"},
-                            {view:"button", value:"gatherData", width:80 , click:"plotData()"},
+                            {view:"button", value:"Plot Data", width:80 , click:"plotData()"},
                         ]},
                         {rows:[
 						    {view:"form", id:"slider_input", height: 160,elements:[
@@ -66,9 +68,9 @@
 						    {view:"form", id:"insert_input", elements:[{
 								type:"clean",
 								cols:[
-									{ view:"button", type: "form", id:"slider_set", label:"Set values", click:"set()",
+									{ view:"button", type: "form", id:"slider_set", label:"Set values", click:"set(); getData()",
                                         align:"right", width: 90,},
-									{ view:"button", id:"slider_get", label:"Get values", click:"get()",
+									{ view:"button", id:"slider_get", label:"Get values", click:"get(); getData()",
                                         align:"left", width: 90, }
 								]},
 							    {view: "fieldset", label:"Data", body:{
@@ -126,13 +128,12 @@
             $$('slider_input').setValues(data);
         }
 
-        function get(){
+        function get() {
             var data = $$('slider_input').getValues();
             $$('insert_input').setValues(data);
         }
 
         function computeData(){
-
             var data_set = getData();
 
             $.ajax({
@@ -146,13 +147,12 @@
                     rate: data_set[2],
                     time: data_set[3],
                     m: data_set[4],
-
                 }
-
             });
         }
 
-        function getData() {
+
+         function getData() {
             //creates new array and pushes each value in the slider to the array
             //the array hold the data in the same order:
                 //NO, NMax, Rate, Time, and M
@@ -164,25 +164,16 @@
             input_data.push( $$('slider_input').getValues().s4); //Time
             input_data.push( $$('slider_input').getValues().s5); //M
 
+
             return input_data
         }
 
-        var data_points; //global data points to be used for plotting
 
+
+        //will refresh the scatter plot with the updated data passed in via the datatable
         function plotData(){
-
-            var time = [];
-            var counter = 0;
-             while($$('input_table').getLastId() > counter){
-                 time.push([$$('input_table').getIdByIndex(counter).time_input, $$('input_table').getIdByIndex(counter).conc_input]);
-                 counter++;
-             }
-
-            for(var r=0; r<time.size(); r++){
-                for(var c=0; c<time[0].size(); c++){
-                    document.writeln(time[r][c]);
-                }
-            }
+            $$('data_chart').refresh();
+            $$('data_chart').show();
         }
 
     </script>
