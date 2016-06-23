@@ -40,34 +40,6 @@
                {view:"button", value:"Help", width:80 /* ,click:ipmp_help}*/},
                ]},
                 {cols:[
-<<<<<<< HEAD
-               {rows:[
-                   {view: "datatable",
-                   id: "input_table",
-                   columns: [
-                       {id: "time_input", editor: "text", header: "Time", width: 100},
-                       {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
-                   editable: true,
-                   height:250,
-                   width:200,
-                   data: data_points
-                    },
-                   {view: "toolbar", id:"toolbar", elements:[
-
-                       {view:"button", value:"Compute", width:80 , click:"plotData(); printData()"}
-                       ]
-                   },
-                   {rows:[
-						{view:"form", id:"slider_input", height: 160,elements:[
-							{ view:"slider",  height: 20, type:"alt", min:0, max:5, label:"N0(0-5)", value:"0", name:"s1"},
-							{ view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
-							{ view:"slider", height: 20, type:"alt", min:0, max:5, label:"Rate(0-5)", value:"0", name:"s3"},
-                            { view:"slider", height: 20, type:"alt",  label:"Time", value:"0", name:"s4"},
-                            { view:"slider", height: 20, type:"alt",  label:"M", value:"0", name:"s5"}
-						]},
-						{view:"form", id:"insert_input", elements:[
-							{
-=======
                     {rows:[
                         {view: "datatable",
                         id: "input_table",
@@ -83,7 +55,7 @@
 
                         {view: "toolbar", id:"toolbar", elements:[
                             {view:"button", value:"Compute", width:80 , click:"computeData()"},
-                            {view:"button", value:"Plot Data", width:80 , click:"plotData()"},
+                            {view:"button", value:"Plot Data", width:80 , click:"plotData(); printData()"},
                         ]},
                         {rows:[
 						    {view:"form", id:"slider_input", height: 160,elements:[
@@ -94,93 +66,11 @@
                                 { view:"slider", height: 20, type:"alt",  label:"M", value:"0", name:"s5"},
 						    ]},
 						    {view:"form", id:"insert_input", elements:[{
->>>>>>> origin/master
 								type:"clean",
 								cols:[
 									{ view:"button", type: "form", id:"slider_set", label:"Set values", click:"set(); getData()",
                                         align:"right", width: 90,},
 									{ view:"button", id:"slider_get", label:"Get values", click:"get(); getData()",
-<<<<<<< HEAD
-                                        align:"left", width: 90 }
-
-								]
-							},
-							{ view: "fieldset", label:"Data", body:{
-								//view:"form",
-								rows:[
-									{ view:"text", id: "nO", label:"N0", value:"0", name:"s1"},
-									{ view:"text", id: "nmax", label:"NMax", value:"0", name:"s2"},
-									{ view:"text", id: "rate", label:"Rate", value:"0", name:"s3"},
-                                    { view:"text", id: "time", label:"Time", value:"0", name:"s4"},
-                                    { view:"text", id: "m", label:"M", value:"0", name:"s5"}
-								]
-							}}
-						]}
-                   ]}
-                ]},
-               {rows:[
-                    {view:"chart",
-                    id: "data_chart",
-                    type:"scatter",
-                    scale: "logarithmic",
-                    value:"#conc_input#",
-                    xValue: "#time_input#",
-                    origin: 0,
-
-
-                    yAxis:{
-                        title:"Log Concentration of Bacteria"
-                    },
-                    xAxis:{
-                        title:"Time (h)"
-                    },
-                    item:{
-                        radius:5,
-                        borderColor:"#f38f00",
-                        borderWidth:1,
-                        color:"#ff9600",
-                        type:"d",
-                        shadow: true
-                    },
-                    data: data_points,
-                    isVisible: false //hidden originally, but after first pass of coordinates the scatter plot is shown
-               },
-               {view: "datatable",
-                id:"output_table",
-                columns: [
-                       {id: "export", header: "Export Data"}
-                ],
-                editable: false
-
-
-               }
-               ]}
-
-           ]}
-        ]
-    });
-
-    function set(){
-        var data = $$('insert_input').getValues();
-        $$('slider_input').setValues(data);
-    }
-
-    function get(){
-        var data = $$('slider_input').getValues();
-        $$('insert_input').setValues(data);
-    }
-
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-=======
                                         align:"left", width: 90, }
 								]},
 							    {view: "fieldset", label:"Data", body:{
@@ -218,6 +108,7 @@
                             shadow:true
                         },
                         data: data_points,
+                        isVisible:false
                         },
 
 
@@ -258,7 +149,6 @@
                     rate: data_set[2],
                     time: data_set[3],
                     m: data_set[4],
->>>>>>> origin/master
                 }
             });
         }
@@ -288,9 +178,9 @@
             $$('data_chart').show();
         }
 
-    function printData(){
-        $$('output_table').add(data_points);
-    }
+        function printData(){
+            $$('output_table').add(data_points);
+        }
 
     </script>
     </body>
