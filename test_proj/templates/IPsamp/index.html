@@ -13,22 +13,19 @@
     <body>
     <script type="text/javascript" charset="utf-8">
 
-        {% if plot %}
-                var data_points = "{{plot}}"
-                console.log(data_points);
-            {% else %}
-                var data_points = [
-                    { id: 1, time_input: null, conc_input:null},
-                    { id: 2, time_input: null, conc_input:null},
-                    { id: 3, time_input: null, conc_input:null},
-                    { id: 4, time_input: null, conc_input:null},
-                    { id: 5, time_input: null, conc_input:null},
-                    { id: 6, time_input: null, conc_input:null},
-                    { id: 7, time_input: null, conc_input:null},
-                    { id: 8, time_input: null, conc_input:null},
-                    { id: 9, time_input: null, conc_input:null}
-                    ];
-        {% endif %}
+
+            var data_points = [
+                { id: 1, time_input: null, conc_input:null},
+                { id: 2, time_input: null, conc_input:null},
+                { id: 3, time_input: null, conc_input:null},
+                { id: 4, time_input: null, conc_input:null},
+                { id: 5, time_input: null, conc_input:null},
+                { id: 6, time_input: null, conc_input:null},
+                { id: 7, time_input: null, conc_input:null},
+                { id: 8, time_input: null, conc_input:null},
+                { id: 9, time_input: null, conc_input:null}
+            ]
+            console.log(data_points);
 
         webix.ui({
             rows:[
@@ -150,15 +147,26 @@
                 },
                 success: function(json) {
                     var data = json;
-                    console.log(data);
+                    updateData(data)
+
                 },
 
 
             });
         }
 
+        function updateData(new_data) {
+            data_points = []
+            console.log(data_points);
+            for (var i = 0; i < new_data["plot"].length; i++) {
+                data_points.push(new_data["plot"][i])
+            };
+            console.log(data_points);
 
-         function getData() {
+            plotData();
+        }
+
+        function getData() {
             //creates new array and pushes each value in the slider to the array
             //the array hold the data in the same order:
                 //NO, NMax, Rate, Time, and M
@@ -180,6 +188,7 @@
         function plotData(){
             $$('data_chart').refresh();
             $$('data_chart').show();
+            console.log(data_points);
         }
 
         function printData(){
