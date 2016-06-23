@@ -3,17 +3,23 @@
 <html>
     <title>IPMP</title>
     <head>
-    <link rel="stylesheet" href="{%  static 'js/webix/codebase/webix.css' %}" type="text/css">
-    <script src="{%  static 'js/webix/codebase/webix.js' %}" type="text/javascript"></script>
-    <script src="{%  static 'js/jquery-3.0.0.js' %}" type="text/javascript"></script>
+        <link rel="stylesheet" href='{%  static "js/webix/codebase/webix.css" %}' type="text/css">
+        <script src="{%  static 'js/webix/codebase/webix.js' %}" type="text/javascript"></script>
+        <script src="{%  static 'js/jquery-3.0.0.js' %}" type="text/javascript"></script>
     </head>
     
     <body>
     <script type="text/javascript" charset="utf-8">
 
-       var data_out = 0.; //this is a placeholder variable that will hold y that was passed in from django
 
-       var data_points = [ //original data points from data table, will be updated and pushed to update the plot
+        //assigns data passed in from django
+        {% if plot %}
+            var data_out = {{ plot }};
+            //console.log(data_out);
+            var data_id = {{ id }};
+        {% endif %}
+
+        var data_points = [ //original data points from data table, will be updated and pushed to update the plot
                            //originally set to null, to avoid plotting of the points that have not been inputed by the user
                         { id: 1, time_input: null, conc_input:null},
                         { id: 2, time_input: null, conc_input:null},
@@ -31,10 +37,10 @@
                {view: "toolbar", id:"toolbar", elements:[
                {view:"button", value:"File", width:80 /*, click:file_options*/},
                {view:"button", value:"Disclaimer", width:80 /* ,click:ipmp_disclaim*/},
-               {view:"button", value:"Help", width:80 /* ,click:ipmp_help}*/}
-                ]
-                },
+               {view:"button", value:"Help", width:80 /* ,click:ipmp_help}*/},
+               ]},
                 {cols:[
+<<<<<<< HEAD
                {rows:[
                    {view: "datatable",
                    id: "input_table",
@@ -61,11 +67,40 @@
 						]},
 						{view:"form", id:"insert_input", elements:[
 							{
+=======
+                    {rows:[
+                        {view: "datatable",
+                        id: "input_table",
+                        columns: [
+                           {id: "time_input", editor: "text", header: "Time", width: 100},
+                           {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
+                        editable: true,
+                        height:250,
+                        width:200,
+
+                        data: data_points,
+                        },
+
+                        {view: "toolbar", id:"toolbar", elements:[
+                            {view:"button", value:"Compute", width:80 , click:"computeData()"},
+                            {view:"button", value:"Plot Data", width:80 , click:"plotData()"},
+                        ]},
+                        {rows:[
+						    {view:"form", id:"slider_input", height: 160,elements:[
+                                { view:"slider",  height: 20, type:"alt", min:0, max:5, label:"N0(0-5)", value:"0", name:"s1"},
+                                { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
+                                { view:"slider", height: 20, type:"alt", min:0, max:5, label:"Rate(0-5)", value:"0", name:"s3"},
+                                { view:"slider", height: 20, type:"alt",  label:"Time", value:"0", name:"s4"},
+                                { view:"slider", height: 20, type:"alt",  label:"M", value:"0", name:"s5"},
+						    ]},
+						    {view:"form", id:"insert_input", elements:[{
+>>>>>>> origin/master
 								type:"clean",
 								cols:[
 									{ view:"button", type: "form", id:"slider_set", label:"Set values", click:"set(); getData()",
-                                        align:"right", width: 90},
+                                        align:"right", width: 90,},
 									{ view:"button", id:"slider_get", label:"Get values", click:"get(); getData()",
+<<<<<<< HEAD
                                         align:"left", width: 90 }
 
 								]
@@ -145,62 +180,113 @@
                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
-                }
-            }
-        }
-        return cookieValue;
+=======
+                                        align:"left", width: 90, }
+								]},
+							    {view: "fieldset", label:"Data", body:{
+								    rows:[
+									    { view:"text", id: "nO", label:"N0", value:"0", name:"s1"},
+									    { view:"text", id: "nmax", label:"NMax", value:"0", name:"s2"},
+									    { view:"text", id: "rate", label:"Rate", value:"0", name:"s3"},
+                                        { view:"text", id: "time", label:"Time", value:"0", name:"s4"},
+                                        { view:"text", id: "m", label:"M", value:"0", name:"s5"},
+								    ]
+							    }}
+						    ]}
+                        ]}
+                    ]},
+                    {rows:[
+                        {view:"chart",
+                        id: "data_chart",
+                        type:"scatter",
+                        scale: "logarithmic",
+                        value:"#conc_input#",
+                        xValue: "#time_input#",
+                        origin: 0,
+                        yAxis:{
+                            title:"Log Concentration of Bacteria",
+                        },
+                        xAxis:{
+                            title:"Time (h)"
+                        },
+                        item:{
+                            radius:5,
+                            borderColor:"#f38f00",
+                            borderWidth:1,
+                            color:"#ff9600",
+                            type:"d",
+                            shadow:true
+                        },
+                        data: data_points,
+                        },
 
-    }
 
-    var csrftoken = getCookie('csrftoken');
+                        {view: "datatable",
+                            id:"output_table",
+                        columns: [
+                           {id: "export", header: "Export Data"},
+                        ],
+                        editable: false,
+                        }
+                    ]}
 
-
-    function computeData(){
-
-        $.ajax({
-            type: "POST",
-            url: 'data/',
-            dataType: "text",
-
-            data: {
-                /*
-                csrfmiddlewaretoken: {{ csrf_token }},
-                */
-                nO: $('#nO').val(),
-                nMax: $('#nmax').val(),
-                rate: $('#rate').val(),
-                time: $('#time').val(),
-                m: $('#m').val()
-
-            }
-
+                ]}
+            ]
         });
-    //$$("data_chart").define
-    }
 
-    function getData() {
-        //creates new array and pushes each value in the slider to the array
-        //the array hold the data in the same order:
-            //NO, NMax, Rate, Time, and M
-        var data = [];
-        data.push( $$('slider_input').getValues().s1); //NO
-        data.push( $$('slider_input').getValues().s2); //NMax
-        data.push( $$('slider_input').getValues().s3); //Rate
-        data.push( $$('slider_input').getValues().s4); //Time
-        data.push( $$('slider_input').getValues().s5); //M
+        function set(){
+            var data = $$('insert_input').getValues();
+            $$('slider_input').setValues(data);
+        }
 
-        //prints out each value of the array on a separate page-----will be deleted later on as it is not necessary,
-        // but works for now as specified
-//        for(var count=0; count<= data.length - 1; count++){
-//            document.writeln(data[count]);
-//        }
-    }
+        function get() {
+            var data = $$('slider_input').getValues();
+            $$('insert_input').setValues(data);
+        }
 
-    //will refresh the scatter plot with the updated data passed in via the datatable
-    function plotData(){
-        $$('data_chart').refresh();
-        $$('data_chart').show();
-    }
+        function computeData(){
+            var data_set = getData();
+
+            $.ajax({
+                type: "POST",
+                url: 'data/',
+                dataType: "json",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    nO: data_set[0],
+                    nmax: data_set[1],
+                    rate: data_set[2],
+                    time: data_set[3],
+                    m: data_set[4],
+>>>>>>> origin/master
+                }
+            });
+        }
+
+
+         function getData() {
+            //creates new array and pushes each value in the slider to the array
+            //the array hold the data in the same order:
+                //NO, NMax, Rate, Time, and M
+
+            var input_data = [];
+            input_data.push( $$('slider_input').getValues().s1); //NO
+            input_data.push( $$('slider_input').getValues().s2); //NMax
+            input_data.push( $$('slider_input').getValues().s3); //Rate
+            input_data.push( $$('slider_input').getValues().s4); //Time
+            input_data.push( $$('slider_input').getValues().s5); //M
+
+
+            return input_data
+        }
+
+
+
+        //will refresh the scatter plot with the updated data passed in via the datatable
+        function plotData(){
+            $$('data_chart').refresh();
+            $$('data_chart').show();
+        }
 
     function printData(){
         $$('output_table').add(data_points);
