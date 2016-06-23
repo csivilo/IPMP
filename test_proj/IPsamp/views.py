@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.context_processors import csrf
 from IPsamp.models import Gompertz
-from django.shortcuts import HttpResponse
+from django.http import JsonResponse
 import json
 
 
@@ -12,8 +12,6 @@ def index(request):
 
 def data(request):
     if request.method == 'POST':
-        print(request.POST.dict())
-
         nO = int(request.POST.get("nO"))
         nmax = int(request.POST.get('nmax'))
         rate = int(request.POST.get('rate'))
@@ -34,16 +32,10 @@ def data(request):
 
         #run simulation over time range
         lst = gompertz_model.runSim(time+10,40)
-
-
-
+        print(lst)
 
         #create context dictionary from simulation data
         cont = {'plot': lst}
 
-        jarray = json.dumps(cont)
 
-        print(jarray)
-
-
-        return HttpResponse(jarray, content_type="application/json")
+        return JsonResponse(cont)

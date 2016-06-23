@@ -18,7 +18,7 @@ class Gompertz(models.Model):
         lst = []
         current_time = self.time
         for i in range(increments+1):
-            lst.append([self.time, self.getY()])
+            lst.append({"time_input": self.time, "conc_input":self.getY()})
             self.time += ((end_time - float(current_time))/increments)
         self.time = current_time
         return lst
