@@ -48,7 +48,7 @@
                     },
                    {view: "toolbar", id:"toolbar", elements:[
 
-                       {view:"button", value:"Compute", width:80 , click:"plotData()"}
+                       {view:"button", value:"Compute", width:80 , click:"plotData(); printData()"}
                        ]
                    },
                    {rows:[
@@ -92,6 +92,7 @@
                     xValue: "#time_input#",
                     origin: 0,
 
+
                     yAxis:{
                         title:"Log Concentration of Bacteria"
                     },
@@ -104,10 +105,10 @@
                         borderWidth:1,
                         color:"#ff9600",
                         type:"d",
-                        shadow:true
+                        shadow: true
                     },
                     data: data_points,
-                    hidden: true //hidden originally, but after first pass of coordinates the scatter plot is shown
+                    isVisible: false //hidden originally, but after first pass of coordinates the scatter plot is shown
                },
                {view: "datatable",
                 id:"output_table",
@@ -115,6 +116,7 @@
                        {id: "export", header: "Export Data"}
                 ],
                 editable: false
+
 
                }
                ]}
@@ -198,6 +200,10 @@
     function plotData(){
         $$('data_chart').refresh();
         $$('data_chart').show();
+    }
+
+    function printData(){
+        $$('output_table').add(data_points);
     }
 
     </script>
