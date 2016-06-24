@@ -14,18 +14,17 @@
     <script type="text/javascript" charset="utf-8">
 
 
-            var data_points = [
-                { id: 1, time_input: null, conc_input:null},
-                { id: 2, time_input: null, conc_input:null},
-                { id: 3, time_input: null, conc_input:null},
-                { id: 4, time_input: null, conc_input:null},
-                { id: 5, time_input: null, conc_input:null},
-                { id: 6, time_input: null, conc_input:null},
-                { id: 7, time_input: null, conc_input:null},
-                { id: 8, time_input: null, conc_input:null},
-                { id: 9, time_input: null, conc_input:null}
-            ]
-            console.log(data_points);
+        var data_points = [
+            { id: 1, time_input: null, conc_input:null},
+            { id: 2, time_input: null, conc_input:null},
+            { id: 3, time_input: null, conc_input:null},
+            { id: 4, time_input: null, conc_input:null},
+            { id: 5, time_input: null, conc_input:null},
+            { id: 6, time_input: null, conc_input:null},
+            { id: 7, time_input: null, conc_input:null},
+            { id: 8, time_input: null, conc_input:null},
+            { id: 9, time_input: null, conc_input:null}
+        ]
 
         webix.ui({
             rows:[
@@ -44,8 +43,7 @@
                         editable: true,
                         height:250,
                         width:200,
-
-                        data: data_points,
+                        data: data_points
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
@@ -95,15 +93,15 @@
                             title:"Time (h)"
                         },
                         item:{
-                            radius:5,
+                            radius:2,
                             borderColor:"#f38f00",
                             borderWidth:1,
                             color:"#ff9600",
-                            type:"d",
-                            shadow:true
+                            type:"c",
+                            shadow:false
                         },
                         data: data_points,
-                        isVisible:false
+                        isVisible:true,
                         },
 
 
@@ -134,7 +132,7 @@
             var data_set = getData();
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: 'data/',
                 dataType: "json",
                 data: {
@@ -145,9 +143,16 @@
                     time: data_set[3],
                     m: data_set[4],
                 },
-                success: function(json) {
-                    var data = json;
-                    updateData(data)
+
+                success: function(json,data_points) {
+                    data = json;
+                    var new_points = data["plot"]
+                    $$("data_chart").clearAll();
+                    $$("data_chart").parse(new_points);
+                    //plotData();
+
+
+
 
                 },
 
@@ -155,16 +160,19 @@
             });
         }
 
+
+/*
         function updateData(new_data) {
             data_points = []
             console.log(data_points);
             for (var i = 0; i < new_data["plot"].length; i++) {
                 data_points.push(new_data["plot"][i])
             };
-            console.log(data_points);
+            console.log(data_points)
 
-            plotData();
         }
+*/
+
 
         function getData() {
             //creates new array and pushes each value in the slider to the array
@@ -186,8 +194,10 @@
 
         //will refresh the scatter plot with the updated data passed in via the datatable
         function plotData(){
-            $$('data_chart').refresh();
+            $$("data_chart").clearAll();
+            $$("data_chart").parse(data_points);
             $$('data_chart').show();
+
             console.log(data_points);
         }
 

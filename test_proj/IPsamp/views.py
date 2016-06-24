@@ -11,12 +11,12 @@ def index(request):
     return render(request,"IPsamp/index.html/")
 
 def data(request):
-    if request.method == 'POST':
-        nO = int(request.POST.get("nO"))
-        nmax = int(request.POST.get('nmax'))
-        rate = int(request.POST.get('rate'))
-        time = int(request.POST.get('time'))
-        m = int(request.POST.get('m'))
+    if request.method == 'GET':
+        nO = int(request.GET.get("nO"))
+        nmax = int(request.GET.get('nmax'))
+        rate = int(request.GET.get('rate'))
+        time = int(request.GET.get('time'))
+        m = int(request.GET.get('m'))
 
 
 
@@ -31,10 +31,10 @@ def data(request):
         )
 
         #run simulation over time range
-        lst = gompertz_model.runSim(time+10,40)
+        lst = gompertz_model.runSim(time+10,1000)
 
         #create context dictionary from simulation data
         cont = {'plot': lst}
-
+        print(cont)
 
         return JsonResponse(cont)
