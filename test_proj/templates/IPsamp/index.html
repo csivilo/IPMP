@@ -5,6 +5,7 @@
     <head>
         <link rel="stylesheet" href='{%  static "js/webix/codebase/webix.css" %}' type="text/css">
         <script src="{%  static 'js/webix/codebase/webix.js' %}" type="text/javascript"></script>
+        <script src="{%  static 'js/library.js' %}" type="text/javascript"></script>
         <script src="{%  static 'js/jquery-3.0.0.js' %}" type="text/javascript">
 
         </script>
@@ -12,7 +13,6 @@
     
     <body>
     <script type="text/javascript" charset="utf-8">
-
 
         var data_points = [
             { id: 1, time_input: 0, conc_input:null},
@@ -56,6 +56,7 @@
                         {view: "toolbar", id:"toolbar", elements:[
                             {view:"button", value:"Submit Data", width:100 , click:"computeData()"},
                             {view:"button", value:"Clear Data", width:100 , click:"clearData()"},
+
                         ]},
                         {rows:[
 						    {view:"form", id:"slider_input", height: 160,elements:[
@@ -63,32 +64,56 @@
                                 { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
                                 { view:"slider", height: 20, type:"alt", min:0, max:5, label:"Rate(0-5)", value:"0", name:"s3"},
                                 { view:"slider", height: 20, type:"alt",  label:"Time", value:"0", name:"s4"},
-                                { view:"slider", height: 20, type:"alt",  label:"M", value:"0", name:"s5"},
+                                { view:"slider", height: 20, type:"alt",  label:"M", value:"0", name:"s5"}
 						    ]},
 						    {view:"form", id:"insert_input", elements:[{
-								type:"clean",
-								rows:[
-                                    {view: "fieldset", label:"Data", body:{
-                                        rows:[
-                                            { view:"text", id: "nO", label:"N0", value:"0", name:"s1"},
-                                            { view:"text", id: "nmax", label:"NMax", value:"0", name:"s2"},
-                                            { view:"text", id: "rate", label:"Rate", value:"0", name:"s3"},
-                                            { view:"text", id: "time", label:"Time", value:"0", name:"s4"},
-                                            { view:"text", id: "m", label:"M", value:"0", name:"s5"},
+                                type: "clean",
+                                rows: [
+                                    {
+                                        view: "fieldset", label: "Data", body: {
+                                        rows: [
+                                            {view: "text", id: "nO", label: "N0", value: "0", name: "s1"},
+                                            {view: "text", id: "nmax", label: "NMax", value: "0", name: "s2"},
+                                            {view: "text", id: "rate", label: "Rate", value: "0", name: "s3"},
+                                            {view: "text", id: "time", label: "Time", value: "0", name: "s4"},
+                                            {view: "text", id: "m", label: "M", value: "0", name: "s5"},
                                         ]
-                                    }},
-                                    {cols:[
+                                    }
+                                    },
+                                    {
+                                        cols: [
 
-									{ view:"button", type: "form", id:"slider_set", label:"Set values", click:"set(); getData()",
-                                        align:"right", width: 90,},
-									{ view:"button", id:"slider_get", label:"Get values", click:"get(); getData()",
-                                        align:"left", width: 90, }
-								    ]},
-
-                                    { view:"button", type: "form", id:"model_submit", label:"Model Submit", click:"",
-                                        align:"right"},
+                                            {
+                                                view: "button",
+                                                type: "form",
+                                                id: "slider_set",
+                                                label: "Set values",
+                                                click: "set(); getData()",
+                                                align: "right",
+                                                width: 90
+                                            },
+                                            {
+                                                view: "button",
+                                                id: "slider_get",
+                                                label: "Get values",
+                                                click: "get(); getData()",
+                                                align: "left",
+                                                width: 90,
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        view: "button",
+                                        type: "form",
+                                        id: "model_submit",
+                                        label: "Model Submit",
+                                        click: "",
+                                        align: "right"
+                                    },
                                 ]
-                            }]}
+                            }]
+                            },
+
                         ]}
                     ]},
                     {rows:[
@@ -98,7 +123,7 @@
                         yValue:"#conc_input#",
                         origin: 0,
                         yAxis:{
-                            title:"Log Concentration of Bacteria",
+                            title:"Log Concentration of Bacteria"
                         },
                         xAxis:{
                             title:"Time (h)",
@@ -114,6 +139,7 @@
                             shadow:false
                         },
                         data: data_points,
+
                         isVisible:false,
                         },
 
@@ -127,6 +153,7 @@
                                {id: "report_table", header: "Report", },
                             ],
                             editable: false,
+
                         }
                     ]}
 
@@ -134,115 +161,7 @@
             ]
         });
 
-        function set(){
-            var data = $$('insert_input').getValues();
-            $$('slider_input').setValues(data);
-        }
 
-
-
-        function get() {
-            var data = $$('slider_input').getValues();
-            $$('insert_input').setValues(data);
-        }
-
-        function clearData(){
-            $$("input_table").clearAll();
-
-            data = [
-            { id: 1, time_input: 0, conc_input:null},
-            { id: 2, time_input: 1, conc_input:null},
-            { id: 3, time_input: 2, conc_input:null},
-            { id: 4, time_input: 3, conc_input:null},
-            { id: 5, time_input: 4, conc_input:null},
-            { id: 6, time_input: 5, conc_input:null},
-            { id: 7, time_input: 6, conc_input:null},
-            { id: 8, time_input: 7, conc_input:null},
-            { id: 9, time_input: 8, conc_input:null}
-        ]
-            $$("input_data").add(data);
-
-
-        }
-
-
-        function computeData(){
-            var data_set = getData();
-
-            $.ajax({
-                type: "GET",
-                url: 'data/',
-                dataType: "json",
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    nO: data_set[0],
-                    nmax: data_set[1],
-                    rate: data_set[2],
-                    time: data_set[3],
-                    m: data_set[4],
-                },
-
-                success: function(json,data_points) {
-                    data = json;
-                    var new_points = data["plot"]
-                    $$("data_chart").clearAll();
-                    $$("data_chart").parse(new_points);
-                    $$('output_table').parse(new_points);
-                    //plotData();
-
-
-
-
-                },
-
-
-            });
-        }
-
-
-/*
-        function updateData(new_data) {
-            data_points = []
-            console.log(data_points);
-            for (var i = 0; i < new_data["plot"].length; i++) {
-                data_points.push(new_data["plot"][i])
-            };
-            console.log(data_points)
-
-        }
-*/
-
-
-        function getData() {
-            //creates new array and pushes each value in the slider to the array
-            //the array hold the data in the same order:
-                //NO, NMax, Rate, Time, and M
-
-            var input_data = [];
-            input_data.push( $$('slider_input').getValues().s1); //NO
-            input_data.push( $$('slider_input').getValues().s2); //NMax
-            input_data.push( $$('slider_input').getValues().s3); //Rate
-            input_data.push( $$('slider_input').getValues().s4); //Time
-            input_data.push( $$('slider_input').getValues().s5); //M
-
-
-            return input_data
-        }
-
-
-
-        //will refresh the scatter plot with the updated data passed in via the datatable
-        function plotData(){
-            $$("data_chart").clearAll();
-            $$("data_chart").parse(data_points);
-            $$('data_chart').show();
-
-
-        }
-
-        function printData(){
-            $$('output_table').add(data_points);
-        }
 
     </script>
     </body>
