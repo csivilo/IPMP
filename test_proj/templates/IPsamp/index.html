@@ -28,13 +28,18 @@
 
         webix.ui({
             rows:[
-               {view: "toolbar", height: 60, id:"main_toolbar", elements:[
-               {view:"button", value:"Open", width:80 /*, click:file_options*/},
-               {view:"button", value:"Paste", width:80 /* ,click:ipmp_disclaim*/},
-               {view:"menu", data:[
-                   {id: "models", value: "Models", height: 60, submenu:[
-                       { id: "inc_models", value: "Incomplete Models", submenu:["Sub models"]},
-                       { id: "full_models", value: "Full Models", submenu:["Sub models"]},
+                {view: "toolbar", height: 60, id:"main_toolbar", elements:[
+                {view:"button", value:"Open", width:80 /*, click:file_options*/},
+                {view:"button", value:"Paste", width:80 /* ,click:ipmp_disclaim*/},
+                {view:"menu", data:[
+                    {id: "models", value: "Models", width:200, height: 60, submenu:[
+                        {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
+                        {id: "full_models", value: "Full", submenu:[
+                            {id: "gompertz", value: "Gompertz", click: "plotModel('gompertz')"},
+                            {id: "huang", value: "Huang", click: "plotModel('huang')"},
+                            {id: "baranyi", value: "Baranyi", click: "plotModel('baranyi')"},
+                            {id: "buchanan", value: "Buchanan", click: "plotModel('buchanan')"},
+                        ]},
                    ]}
                ]},
                {view: "button" ,width:150, align: "right", value: "Plot"},
@@ -108,7 +113,6 @@
                                         id: "model_submit",
                                         label: "Model Submit",
                                         click: "",
-                                        align: "right"
                                     },
                                 ]
                             }]

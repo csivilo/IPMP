@@ -35,6 +35,5 @@ def data(request):
 
         #create context dictionary from simulation data
         cont = {'plot': lst}
-        print(cont)
 
         return JsonResponse(cont)
