@@ -31,7 +31,7 @@ def data(request):
         )
 
         #run simulation over time range
-        lst = gompertz_model.runSim(time+10,1000)
+        lst = gompertz_model.runSim(time+10,10)
 
         #create context dictionary from simulation data
         cont = {'plot': lst}

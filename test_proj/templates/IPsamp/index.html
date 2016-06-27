@@ -15,40 +15,47 @@
 
 
         var data_points = [
-            { id: 1, time_input: null, conc_input:null},
-            { id: 2, time_input: null, conc_input:null},
-            { id: 3, time_input: null, conc_input:null},
-            { id: 4, time_input: null, conc_input:null},
-            { id: 5, time_input: null, conc_input:null},
-            { id: 6, time_input: null, conc_input:null},
-            { id: 7, time_input: null, conc_input:null},
-            { id: 8, time_input: null, conc_input:null},
-            { id: 9, time_input: null, conc_input:null}
+            { id: 1, time_input: 0, conc_input:null},
+            { id: 2, time_input: 1, conc_input:null},
+            { id: 3, time_input: 2, conc_input:null},
+            { id: 4, time_input: 3, conc_input:null},
+            { id: 5, time_input: 4, conc_input:null},
+            { id: 6, time_input: 5, conc_input:null},
+            { id: 7, time_input: 6, conc_input:null},
+            { id: 8, time_input: 7, conc_input:null},
+            { id: 9, time_input: 8, conc_input:null}
         ]
 
         webix.ui({
             rows:[
-               {view: "toolbar", id:"toolbar", elements:[
-               {view:"button", value:"File", width:80 /*, click:file_options*/},
-               {view:"button", value:"Disclaimer", width:80 /* ,click:ipmp_disclaim*/},
-               {view:"button", value:"Help", width:80 /* ,click:ipmp_help}*/},
+               {view: "toolbar", height: 60, id:"main_toolbar", elements:[
+               {view:"button", value:"Open", width:80 /*, click:file_options*/},
+               {view:"button", value:"Paste", width:80 /* ,click:ipmp_disclaim*/},
+               {view:"menu", data:[
+                   {id: "models", value: "Models", height: 60, submenu:[
+                       { id: "inc_models", value: "Incomplete Models", submenu:["Sub models"]},
+                       { id: "full_models", value: "Full Models", submenu:["Sub models"]},
+                   ]}
+               ]},
+               {view: "button" ,width:150, align: "right", value: "Plot"},
+               {view: "button", width:150, align: "right", value: "Model Output"}
                ]},
                 {cols:[
                     {rows:[
                         {view: "datatable",
                         id: "input_table",
                         columns: [
-                           {id: "time_input", editor: "text", header: "Time", width: 100},
+                           {id: "time_input", editor: "text", header: "Time", width: 120},
                            {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
                         editable: true,
                         height:250,
-                        width:200,
+                        width:250,
                         data: data_points
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
-                            {view:"button", value:"Compute", width:80 , click:"computeData()"},
-                            {view:"button", value:"Plot Data", width:80 , click:"plotData(); printData()"},
+                            {view:"button", value:"Submit Data", width:100 , click:"computeData()"},
+                            {view:"button", value:"Clear Data", width:100 , click:"clearData()"},
                         ]},
                         {rows:[
 						    {view:"form", id:"slider_input", height: 160,elements:[
@@ -60,57 +67,66 @@
 						    ]},
 						    {view:"form", id:"insert_input", elements:[{
 								type:"clean",
-								cols:[
+								rows:[
+                                    {view: "fieldset", label:"Data", body:{
+                                        rows:[
+                                            { view:"text", id: "nO", label:"N0", value:"0", name:"s1"},
+                                            { view:"text", id: "nmax", label:"NMax", value:"0", name:"s2"},
+                                            { view:"text", id: "rate", label:"Rate", value:"0", name:"s3"},
+                                            { view:"text", id: "time", label:"Time", value:"0", name:"s4"},
+                                            { view:"text", id: "m", label:"M", value:"0", name:"s5"},
+                                        ]
+                                    }},
+                                    {cols:[
+
 									{ view:"button", type: "form", id:"slider_set", label:"Set values", click:"set(); getData()",
                                         align:"right", width: 90,},
 									{ view:"button", id:"slider_get", label:"Get values", click:"get(); getData()",
                                         align:"left", width: 90, }
-								]},
-							    {view: "fieldset", label:"Data", body:{
-								    rows:[
-									    { view:"text", id: "nO", label:"N0", value:"0", name:"s1"},
-									    { view:"text", id: "nmax", label:"NMax", value:"0", name:"s2"},
-									    { view:"text", id: "rate", label:"Rate", value:"0", name:"s3"},
-                                        { view:"text", id: "time", label:"Time", value:"0", name:"s4"},
-                                        { view:"text", id: "m", label:"M", value:"0", name:"s5"},
-								    ]
-							    }}
-						    ]}
+								    ]},
+
+                                    { view:"button", type: "form", id:"model_submit", label:"Model Submit", click:"",
+                                        align:"right"},
+                                ]
+                            }]}
                         ]}
                     ]},
                     {rows:[
                         {view:"chart",
                         id: "data_chart",
-                        type:"scatter",
-                        scale: "logarithmic",
-                        value:"#conc_input#",
-                        xValue: "#time_input#",
+                        type:"spline",
+                        yValue:"#conc_input#",
                         origin: 0,
                         yAxis:{
                             title:"Log Concentration of Bacteria",
                         },
                         xAxis:{
-                            title:"Time (h)"
+                            title:"Time (h)",
+                            template: "#time_input#",
+                        },
+                        line:{
+                            color: "#1293f8"
                         },
                         item:{
-                            radius:2,
-                            borderColor:"#f38f00",
-                            borderWidth:1,
-                            color:"#ff9600",
+                            radius:.01,
+                            color:"#1293f8",
                             type:"c",
                             shadow:false
                         },
                         data: data_points,
-                        isVisible:true,
+                        isVisible:false,
                         },
 
-
+                        {view: "toolbar", elements:[
+                            {view: "button", width: 100, align: "right",  label: "Save Report",  },
+                            {view: "button", width: 100, align: "right",   label: "Print Report", }
+                        ]},
                         {view: "datatable",
                             id:"output_table",
-                        columns: [
-                           {id: "export", header: "Export Data"},
-                        ],
-                        editable: false,
+                            columns: [
+                               {id: "report_table", header: "Report", },
+                            ],
+                            editable: false,
                         }
                     ]}
 
@@ -123,10 +139,32 @@
             $$('slider_input').setValues(data);
         }
 
+
+
         function get() {
             var data = $$('slider_input').getValues();
             $$('insert_input').setValues(data);
         }
+
+        function clearData(){
+            $$("input_table").clearAll();
+
+            data = [
+            { id: 1, time_input: 0, conc_input:null},
+            { id: 2, time_input: 1, conc_input:null},
+            { id: 3, time_input: 2, conc_input:null},
+            { id: 4, time_input: 3, conc_input:null},
+            { id: 5, time_input: 4, conc_input:null},
+            { id: 6, time_input: 5, conc_input:null},
+            { id: 7, time_input: 6, conc_input:null},
+            { id: 8, time_input: 7, conc_input:null},
+            { id: 9, time_input: 8, conc_input:null}
+        ]
+            $$("input_data").add(data);
+
+
+        }
+
 
         function computeData(){
             var data_set = getData();
@@ -149,6 +187,7 @@
                     var new_points = data["plot"]
                     $$("data_chart").clearAll();
                     $$("data_chart").parse(new_points);
+                    $$('output_table').parse(new_points);
                     //plotData();
 
 
@@ -198,7 +237,7 @@
             $$("data_chart").parse(data_points);
             $$('data_chart').show();
 
-            console.log(data_points);
+
         }
 
         function printData(){
