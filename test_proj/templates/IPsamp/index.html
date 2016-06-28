@@ -15,7 +15,7 @@
     <script type="text/javascript" charset="utf-8">
 
         var data_points = [
-            { id: 1, time_input: null, conc_input: null},
+            { id: 1, time_input: null, conc_input: 0},
             { id: 2, time_input: null, conc_input: null},
             { id: 3, time_input: null, conc_input: null},
             { id: 4, time_input: null, conc_input: null},
@@ -24,7 +24,7 @@
             { id: 7, time_input: null, conc_input: null},
             { id: 8, time_input: null, conc_input: null},
             { id: 9, time_input: null, conc_input: null},
-            { id:10, time_input: null, conc_input: null}
+            { id:10, time_input: null, conc_input: 6}
 
         ];
 
@@ -49,7 +49,7 @@
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
-                            {view:"button", value:"Compute", width:80 , click:"computeData()"},
+                            {view:"button", value:"Compute", width:80 , click:"computeData(); dataIsValid(); plotData()"},
                             {view:"button", value:"Plot Data", width:80 , click:"plotData(); printData()"}
                         ]},
                         {rows:[
@@ -119,6 +119,75 @@
             ]
         });
 
+        //checks to see if you data points has valid input
+        function dataIsValid(){
+            var min = data_points[0].conc_input;
+            var popBox = true;
+            var max = data_points[data_points.length - 1].conc_input;
+            for(var i = 0; i < data_points.length; i++){
+                //converts the strings to floats, if not valid floats they evaluate to NaN
+               // console.log(data_points);
+                var timeValid = parseFloat(data_points[i].time_input); //x
+                 var conValid = parseFloat(data_points[i].conc_input); //y
+                if(!isInt(conValid) || !isInt(timeValid)){ //if either inputs arent valid, have them verify
+                    webix.alert({
+                            type: "alert-warning",
+                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
+                    });
+                    popBox = false;
+                    break;
+                }
+                //determines the min and max values to be used later to determine if y values are in log or ln
+                if(conValid < min){
+                    min = conValid;
+                }
+                if(conValid > max){
+                    max = conValid;
+                }
+            }
+            //we only want to alert one box at a time
+            //if
+            if(popBox == true){
+                //check if the Y value is within the correct range and alert if it isn't
+                if(min < 6.0 && max < 10.0){
+                    console.log("here");
+                    webix.confirm({
+                        ok: "Yes",
+                        cancel: "No",
+                        type: "confirm-error",
+                        text: "Warning!- The colony counts appear to be in log CFU. They must be converted to ln " +
+                            "CFU for data analysis. Do you want to convert data to ln CFU?",
+                        callback: function(result){
+                            //if they clicked ok ("yes")
+                            if(result === true){
+                                convert();
+                            }
+                        }
+                    });
+                }
+            }
+
+        }
+
+        //if it is an int or null or float value, return true, otherwise false
+        function isInt(n){
+            //if it evaluates to NaN, it must have been a string
+            if(isNaN(n)){
+                return false;
+            }
+           //was not a string, if it's correct input, return true
+            else if(typeof n == 'number' && Math.round(n) % 1 == 0 || n == null) {
+                return true;
+            }
+            return false;
+        }
+
+        //will convert from log to ln
+        function convert(){
+            for(var i = 0; i < data_points.length; i++){
+                data_points[i].conc_input *= 2.303; //multiply by 2.303 puts the data into ln form
+            }
+        }
 
     </script>
     </body>
