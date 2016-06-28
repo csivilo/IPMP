@@ -15,6 +15,7 @@
     <script type="text/javascript" charset="utf-8">
 
         var data_points = [
+
             { id: 1, time_input: 0, conc_input:1},
             { id: 2, time_input: 1, conc_input:1},
             { id: 3, time_input: 2, conc_input:2},
@@ -27,6 +28,7 @@
         ]
 
         webix.ui({
+
             rows:[
                 {view: "toolbar", height: 60, id:"main_toolbar", elements:[
                 {view:"button", value:"Open", width:80 /*, click:file_options*/},
@@ -38,8 +40,8 @@
                             {id: "gompertz", value: "Gompertz", click: "initialModel('Gompertz')"},
                             {id: "huang", value: "Huang", click: "plotModel('huang')"},
                             {id: "baranyi", value: "Baranyi", click: "plotModel('baranyi')"},
-                            {id: "buchanan", value: "Buchanan", click: "plotModel('buchanan')"},
-                        ]},
+                            {id: "buchanan", value: "Buchanan", click: "plotModel('buchanan')"}
+                        ]}
                    ]}
                ]},
                {view: "button" ,width:150, align: "right", value: "Plot"},
@@ -51,16 +53,22 @@
                         id: "input_table",
                         columns: [
                            {id: "time_input", editor: "text", header: "Time", width: 120},
-                           {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
+                           {id: "conc_input", editor: "text", header: "Conc.", width: 100, cssformat: background}],
                         editable: true,
                         height:250,
                         width:250,
                         data: data_points
+
+                       // select: "cell",
+                       // on: {'onMouseOut': function(){$$("input_table").unselect(data_points[data_points.length].id)}}
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
+                            {view:"button", value:"Compute", width:80 , click:"computeData(); plotData()"},
+                            {view:"button", value:"Plot Data", width:80 , click:"plotData(); printData(); dataIsValid()"},
                             {view:"button", value:"Submit Data", width:100 , click:"computeData()"},
-                            {view:"button", value:"Clear Data", width:100 , click:"clearData()"},
+                            {view:"button", value:"Clear Data", width:100 , click:"clearData()"}
+
 
                         ]},
                         {rows:[
@@ -81,7 +89,7 @@
                                             {view: "text", id: "nmax", label: "NMax", value: "0", name: "s2"},
                                             {view: "text", id: "rate", label: "Rate", value: "0", name: "s3"},
                                             {view: "text", id: "time", label: "Time", value: "0", name: "s4"},
-                                            {view: "text", id: "m", label: "M", value: "0", name: "s5"},
+                                            {view: "text", id: "m", label: "M", value: "0", name: "s5"}
                                         ]
                                     }
                                     },
@@ -102,8 +110,8 @@
                                                 label: "Get values",
                                                 click: "get(); getData()",
                                                 align: "left",
-                                                width: 90,
-                                            },
+                                                width: 90
+                                            }
                                         ]
                                     },
                                     {
@@ -111,11 +119,11 @@
                                         type: "form",
                                         id: "model_submit",
                                         label: "Model Submit",
-                                        click: "",
-                                    },
+                                        click: ""
+                                    }
                                 ]
                             }]
-                            },
+                            }
 
                         ]}
                     ]},
@@ -130,7 +138,7 @@
                         },
                         xAxis:{
                             title:"Time (h)",
-                            template: "#time_input#",
+                            template: "#time_input#"
                         },
                         line:{
                             color: "#1293f8"
@@ -143,19 +151,19 @@
                         },
                         data: data_points,
 
-                        isVisible:false,
+                        isVisible:false
                         },
 
                         {view: "toolbar", elements:[
-                            {view: "button", width: 100, align: "right",  label: "Save Report",  },
-                            {view: "button", width: 100, align: "right",   label: "Print Report", }
+                            {view: "button", width: 100, align: "right",  label: "Save Report" },
+                            {view: "button", width: 100, align: "right",   label: "Print Report" }
                         ]},
                         {view: "datatable",
                             id:"output_table",
                             columns: [
-                               {id: "report_table", header: "Report", },
+                               {id: "report_table", header: "Report" }
                             ],
-                            editable: false,
+                            editable: false
 
                         }
                     ]}
@@ -165,7 +173,107 @@
         });
 
 
+        function background(){
 
+        }
+
+
+        //checks to see if you data points has valid input
+        function dataIsValid(){
+            var min = data_points[0].conc_input;
+            var popBox = true;
+            var max = data_points[data_points.length - 1].conc_input;
+            $$('input_table').editStop(); //makes editing stop so the last value is properly put in data_points
+            for(var i = 0; i < data_points.length; i++){
+                //converts the strings to floats, if not valid floats they evaluate to NaN
+                var timeValid = parseFloat(data_points[i].time_input); //x
+                var conValid = parseFloat(data_points[i].conc_input); //y
+
+                if(!isInt(conValid)){ //if conc input isnt valid, have them verify
+                    console.log(timeValid);
+                    console.log(conValid);
+
+                    webix.alert({
+                            type: "alert-warning",
+                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
+                    });
+                    popBox = false;
+                    $$('input_table').addCellCss(data_points[i].id, "conc_input", "my_style");
+                    break;
+
+                } //if the time value is not valid
+                else if(!isInt(timeValid)){
+                    webix.alert({
+                            type: "alert-warning",
+                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
+                    });
+                    popBox = false;
+                    $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
+                    break;
+                }
+
+                //determines the min and max values to be used later to determine if y values are in log or ln
+                if(conValid < min){
+                    min = conValid;
+                }
+                if(conValid > max){
+                    max = conValid;
+                }
+                //$$('input_table').clearCss("my_style");
+                //$$('input_table').refresh();
+            }
+            //we only want to alert one box at a time
+            //if true, we want to display the following warning and convert if necessary
+            if(popBox == true){
+                //check if the Y value is within the correct range and alert if it isn't
+                if(min < 6.0 && max < 10.0){
+                    //console.log("here");
+                    webix.confirm({
+                        ok: "Yes",
+                        cancel: "No",
+                        type: "confirm-error",
+                        text: "Warning!- The colony counts appear to be in log CFU. They must be converted to ln " +
+                            "CFU for data analysis. Do you want to convert data to ln CFU?",
+                        callback: function(result){
+                            //if they clicked ok ("yes")
+                            if(result === true){
+                                convert();
+                            }
+                        }
+                    });
+                }
+            }
+
+        }
+
+        //if it is an int or null or float value, return true, otherwise false
+        function isInt(n){
+            //if it evaluates to NaN, it must have been a string
+            if(isNaN(n) || n == null){
+                return false;
+            }
+           //was not a string, if it's correct input, return true
+            else if(typeof n == 'number' && Math.round(n) % 1 == 0 ) {
+                return true;
+            }
+            return false;
+        }
+
+        //will convert from log to ln
+        function convert(){
+            for(var i = 0; i < data_points.length; i++){
+                data_points[i].conc_input *= 2.303; //multiply by 2.303 puts the data into ln form
+
+            }
+            $$('input_table').refresh();
+        }
     </script>
+
+
     </body>
+ <style type = "text/css">
+        .my_style{
+            background: #ff7b82;
+        }
+    </style>
 </html>
