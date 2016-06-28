@@ -60,6 +60,45 @@
             return input_data
         }
 
+        function initialModel(model_type){
+
+            var table_data = getTableData()
+
+            $.ajax({
+                type: "GET",
+                url: 'model/',
+                dataType: "json",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    model: model_type,
+                    time_array: JSON.stringify(table_data[0]),
+                    conc_array: JSON.stringify(table_data[1]),
+                    rate: $$('slider_input').getValues().s3,
+                    lag: $$('slider_input').getValues().s5
+                },
+            });
+        }
+
+
+
+
+        function getTableData(){
+             //creates two new arrays filled with x and y data from the input table, then pushes them to a master array
+            var time_array = []
+            var conc_array = []
+            var indexed = 0;
+
+            while($$("input_table").getIdByIndex(indexed)){
+                time_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input))
+                conc_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input))
+                indexed++
+            }
+
+            var master_array = [time_array, conc_array]
+
+            return master_array
+        }
+
 
         //will refresh the scatter plot with the updated data passed in via the datatable
         function plotData(){

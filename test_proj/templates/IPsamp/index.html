@@ -15,15 +15,15 @@
     <script type="text/javascript" charset="utf-8">
 
         var data_points = [
-            { id: 1, time_input: 0, conc_input:null},
-            { id: 2, time_input: 1, conc_input:null},
-            { id: 3, time_input: 2, conc_input:null},
-            { id: 4, time_input: 3, conc_input:null},
-            { id: 5, time_input: 4, conc_input:null},
-            { id: 6, time_input: 5, conc_input:null},
-            { id: 7, time_input: 6, conc_input:null},
-            { id: 8, time_input: 7, conc_input:null},
-            { id: 9, time_input: 8, conc_input:null}
+            { id: 1, time_input: 0, conc_input:1},
+            { id: 2, time_input: 1, conc_input:1},
+            { id: 3, time_input: 2, conc_input:2},
+            { id: 4, time_input: 3, conc_input:4},
+            { id: 5, time_input: 4, conc_input:7},
+            { id: 6, time_input: 5, conc_input:8},
+            { id: 7, time_input: 6, conc_input:8},
+            { id: 8, time_input: 7, conc_input:8},
+            { id: 9, time_input: 8, conc_input:8}
         ]
 
         webix.ui({
@@ -35,7 +35,7 @@
                     {id: "models", value: "Models", width:200, height: 60, submenu:[
                         {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
                         {id: "full_models", value: "Full", submenu:[
-                            {id: "gompertz", value: "Gompertz", click: "plotModel('gompertz')"},
+                            {id: "gompertz", value: "Gompertz", click: "initialModel('Gompertz')"},
                             {id: "huang", value: "Huang", click: "plotModel('huang')"},
                             {id: "baranyi", value: "Baranyi", click: "plotModel('baranyi')"},
                             {id: "buchanan", value: "Buchanan", click: "plotModel('buchanan')"},
@@ -43,7 +43,7 @@
                    ]}
                ]},
                {view: "button" ,width:150, align: "right", value: "Plot"},
-               {view: "button", width:150, align: "right", value: "Model Output"}
+               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz')"}
                ]},
                 {cols:[
                     {rows:[
@@ -87,7 +87,6 @@
                                     },
                                     {
                                         cols: [
-
                                             {
                                                 view: "button",
                                                 type: "form",
