@@ -1,4 +1,4 @@
-function set(){
+        function set(){
             var data = $$('insert_input').getValues();
             $$('slider_input').setValues(data);
         }
@@ -72,4 +72,26 @@ function set(){
 
         function printData(){
             $$('output_table').add(data_points);
+        }
+
+        
+         function clearData(){
+            $$('input_table').clearAll()
+            
+        }
+
+        function plotModel(type){
+            console.log(type)
+
+            webix.ui({
+                view: "window",
+                id: "model_param",
+                body: [
+                    {view:"form", id:"slider_input", height: 160,elements:[
+                                { view:"slider",  height: 20, type:"alt", min:0, max:5, label:"N0(0-5)", value:"0", name:"s1"},
+                                { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
+                    ]}
+                ]
+            })
+
         }
