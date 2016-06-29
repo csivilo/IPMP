@@ -37,31 +37,39 @@
         function getData() {
             //creates new array and pushes each value in the slider to the array
             //the array hold the data in the same order:
-                //NO, NMax, Rate, Time, and M
+                //NO, NMax, Rate, Time, and Lag
 
             var input_data = [];
 
+            var y_initial = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(0)).conc_input)
+            var t_initial = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(0)).time_input)
 
+            //finds last valid data point
+            var indexed = 0;
+            while($$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).conc_input != null &&
+                    $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
+                indexed++
+            }
+            var y_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input)
+            var t_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input)
 
+            input_data.push( y_initial); //N0
+            input_data.push( y_max); //Nmax
+            input_data.push( parseInt($$('slider_input').getValues().s3)); //Rate
+            input_data.push((t_max - t_initial)) //time
+            input_data.push( parseInt($$('slider_input').getValues().s5)); //Lag
 
-            
-
-
-            input_data.push( $$('slider_input').getValues().s3); //Rate
-
-            input_data.push( $$('slider_input').getValues().s5); //M
-
-
+            console.log(input_data)
             return input_data
         }
 
-        function initialModel(model_type){
+        function submitModel(model_type){
 
             var table_data = getTableData()
 
             $.ajax({
                 type: "GET",
-                url: 'model/',
+                url: 'data/',
                 dataType: "json",
                 data: {
                     csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -83,7 +91,8 @@
             var conc_array = []
             var indexed = 0;
 
-            while($$("input_table").getIdByIndex(indexed)){
+            while($$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).conc_input != null &&
+                    $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
                 time_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input))
                 conc_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input))
                 indexed++
@@ -131,10 +140,37 @@
         }
 
 
+        function initialModel(model_type){
+            //Runs a default simulation based off of known data and creates a rough, adjustable model
 
-        function gompertzModel(y_max,y_initial,mu_max,lag,x){
-            //used to run a simulation of the gompertz model, outputs an array of conc values
-            y_array = y_initial + (y_max-y_initial)*math.exp(-math.exp(-((x - lag)*mu_max*math.exp(1)/(y_max-y_initial) - 1.0)));
-            return y_array;
+            model_data = []
+            data_set = getData()
+            mu_approx = ((data_set[1]-data_set[0])/data_set[2])
+            var time = 0
+
+            if(model_type.localeCompare('Gompertz') == 0){
+                for(time = 0; time <10; time++){
+                    model_data.push({time_input: time, conc_input:gompertzModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
+                }
+
+            console.log(model_data)
+            $$('data_chart').parse(model_data)
+            }
+            else if(model_type.localCompare('Huang') == 0){
+                console.log("Huang")
+            }
+
+
+
+        }
+
+
+
+
+        function gompertzModel(y_initial, y_max,mu_max,lag,x){
+            //used to run a simulation of the gompertz model, outputs a conc value
+            y = y_initial + (y_max-y_initial)*Math.exp(-1*(Math.exp(-1*(((x - lag)*mu_max*Math.exp(1))/(y_max-y_initial) - 1.0))));
+
+            return y;
         }
 

@@ -12,7 +12,7 @@ def index(request):
     return render(request,"IPsamp/index.html/")
 
 
-def model(request):
+def data(request):
     print("hella")
     if request.method == "GET":
         xarray = json.loads(request.GET.get("time_array"))
@@ -24,34 +24,7 @@ def model(request):
 
 
 
-
-
-    return HttpResponse("Hello")
-
-def data(request):
-    if request.method == 'GET':
-        nO = int(request.GET.get("nO"))
-        nmax = int(request.GET.get('nmax'))
-        rate = int(request.GET.get('rate'))
-        time = int(request.GET.get('time'))
-        m = int(request.GET.get('m'))
-
-
-
-
-        #create model object for data
-        gompertz_model = Gompertz(
-            nO = nO,
-            nmax = nmax,
-            rate = rate,
-            time = time,
-            m = m
-        )
-
-        #run simulation over time range
-        lst = gompertz_model.runSim(time+10,10)
-
         #create context dictionary from simulation data
-        cont = {'plot': lst}
+        #cont = {'plot': lst}
 
-        return JsonResponse(cont)
+        #return JsonResponse(cont)

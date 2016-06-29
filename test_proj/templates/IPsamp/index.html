@@ -24,7 +24,7 @@
             { id: 6, time_input: 5, conc_input:8},
             { id: 7, time_input: 6, conc_input:8},
             { id: 8, time_input: 7, conc_input:8},
-            { id: 9, time_input: 8, conc_input:8}
+            { id: 9, time_input: null, conc_input:null}
         ]
 
         webix.ui({
@@ -38,7 +38,7 @@
                         {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
                         {id: "full_models", value: "Full", submenu:[
                             {id: "gompertz", value: "Gompertz", click: "initialModel('Gompertz')"},
-                            {id: "huang", value: "Huang", click: "plotModel('huang')"},
+                            {id: "huang", value: "Huang", click: "initialModel('huang')"},
                             {id: "baranyi", value: "Baranyi", click: "plotModel('baranyi')"},
                             {id: "buchanan", value: "Buchanan", click: "plotModel('buchanan')"}
                         ]}
@@ -95,7 +95,7 @@
                                                 type: "form",
                                                 id: "slider_set",
                                                 label: "Set values",
-                                                click: "set(); getData()",
+                                                click: "set();",
                                                 align: "right",
                                                 width: 90
                                             },
@@ -103,7 +103,7 @@
                                                 view: "button",
                                                 id: "slider_get",
                                                 label: "Get values",
-                                                click: "get(); getData()",
+                                                click: "get()",
                                                 align: "left",
                                                 width: 90
                                             }
@@ -127,23 +127,51 @@
                         id: "data_chart",
                         type:"spline",
                         yValue:"#conc_input#",
+                        //xValue:"#time_input",
                         origin: 0,
                         yAxis:{
-                            title:"Log Concentration of Bacteria"
+                            title:"CFU/g",
+                            start: 0,
+                            stop: 10,
+                            step: 1,
                         },
                         xAxis:{
                             title:"Time (h)",
                             template: "#time_input#"
                         },
-                        line:{
-                            color: "#1293f8"
-                        },
+                        //line:{
+                        //    color: "#1293f8"
+                        //},
                         item:{
                             radius:.01,
                             color:"#1293f8",
                             type:"c",
                             shadow:false
                         },
+                        series:[
+                            {
+                                type: "spline",
+                                value: "#conc_input#",
+                                xValue: "#time_input#",
+                                xAxis:{
+                                    value:"#time_input",
+                                    title:"Time",
+                                    start: 0,
+                                    stop: 10,
+                                    step: 1,
+                                },
+                                item: {
+                                    radius: 1,
+                                    color: "#1293f8",
+                                    type: "c",
+                                    shadow: false
+                                },
+                                line:{
+                                    color: "#FFFFFF",
+                                    width: .001
+                                }
+                            }
+                        ],
                         data: data_points,
 
                         isVisible:false
