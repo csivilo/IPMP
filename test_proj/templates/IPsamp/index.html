@@ -79,8 +79,9 @@
                            {id: "time_input", editor: "text", header: "Time", width: 120},
                            {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
                         editable: true,
-                        height:250,
                         width:250,
+                        height:250,
+
                         data: data_points
 
                        // select: "cell",
@@ -88,20 +89,17 @@
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
-                            {view:"button", value:"Compute", width:80 , click:"computeData(); plotData()"},
-                            {view:"button", value:"Plot Data", width:80 , click:"plotData(); printData(); dataIsValid()"},
                             {view:"button", value:"Submit Data", width:100 , click:"computeData()"},
                             {view:"button", value:"Clear Data", width:100 , click:"clearData()"}
 
 
                         ]},
                         {rows:[
-						    {view:"form", id:"slider_input", height: 160,elements:[
-                                { view:"slider",  height: 20, type:"alt", min:0, max:5, label:"N0(0-5)", value:"0", name:"s1"},
-                                { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
-                                { view:"slider", height: 20, type:"alt", min:0, max:5, label:"Rate(0-5)", value:"0", name:"s3"},
-                                { view:"slider", height: 20, type:"alt",  label:"Time", value:"0", name:"s4"},
-                                { view:"slider", height: 20, type:"alt",  label:"M", value:"0", name:"s5"}
+						    {view:"form", id:"slider_input",elements:[
+                                { view:"slider", type:"alt", min:0, max:10, label:"Rate", value:"1", name:"s3",
+                                    title:webix.template("#value#")},
+                                { view:"slider",type:"alt",  label:"Lag", value:"1", name:"s5",
+                                    title:webix.template("#value#")}
 						    ]},
 						    {view:"form", id:"insert_input", elements:[{
                                 type: "clean",
@@ -109,11 +107,8 @@
                                     {
                                         view: "fieldset", label: "Data", body: {
                                         rows: [
-                                            {view: "text", id: "nO", label: "N0", value: "0", name: "s1"},
-                                            {view: "text", id: "nmax", label: "NMax", value: "0", name: "s2"},
-                                            {view: "text", id: "rate", label: "Rate", value: "0", name: "s3"},
-                                            {view: "text", id: "time", label: "Time", value: "0", name: "s4"},
-                                            {view: "text", id: "m", label: "M", value: "0", name: "s5"}
+                                            {view: "text", id: "rate", label: "Rate (0-5)", value: "1", name: "s3"},
+                                            {view: "text", id: "m", label: "Lag", value: "1", name: "s5"}
                                         ]
                                     }
                                     },
@@ -282,6 +277,11 @@
             //default is false
             return false;
         }
+
+
+
+
+
 
         //will convert from log to ln
         function convert(){
