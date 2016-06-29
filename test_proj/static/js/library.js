@@ -33,27 +33,22 @@
                 }
             });
         }
-/*
-        function updateData(new_data) {
-            data_points = []
-            console.log(data_points);
-            for (var i = 0; i < new_data["plot"].length; i++) {
-                data_points.push(new_data["plot"][i])
-            };
-            console.log(data_points)
 
-        }
-*/
         function getData() {
             //creates new array and pushes each value in the slider to the array
             //the array hold the data in the same order:
                 //NO, NMax, Rate, Time, and M
 
             var input_data = [];
-            input_data.push( $$('slider_input').getValues().s1); //NO
-            input_data.push( $$('slider_input').getValues().s2); //NMax
+
+
+
+
+            
+
+
             input_data.push( $$('slider_input').getValues().s3); //Rate
-            input_data.push( $$('slider_input').getValues().s4); //Time
+
             input_data.push( $$('slider_input').getValues().s5); //M
 
 
@@ -134,3 +129,12 @@
             })
 
         }
+
+
+
+        function gompertzModel(y_max,y_initial,mu_max,lag,x){
+            //used to run a simulation of the gompertz model, outputs an array of conc values
+            y_array = y_initial + (y_max-y_initial)*math.exp(-math.exp(-((x - lag)*mu_max*math.exp(1)/(y_max-y_initial) - 1.0)));
+            return y_array;
+        }
+
