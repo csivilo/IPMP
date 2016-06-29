@@ -17,15 +17,40 @@
         var data_points = [
 
             { id: 1, time_input: 0, conc_input:1},
-            { id: 2, time_input: 1, conc_input:1},
-            { id: 3, time_input: 2, conc_input:2},
-            { id: 4, time_input: 3, conc_input:4},
-            { id: 5, time_input: 4, conc_input:7},
-            { id: 6, time_input: 5, conc_input:8},
-            { id: 7, time_input: 6, conc_input:8},
-            { id: 8, time_input: 7, conc_input:8},
-            { id: 9, time_input: null, conc_input:null}
-        ]
+            { id: 2, time_input: null, conc_input:null},
+            { id: 3, time_input: null, conc_input:null},
+            { id: 4, time_input: null, conc_input:null},
+            { id: 5, time_input: null, conc_input:null},
+            { id: 6, time_input: null, conc_input:null},
+            { id: 7, time_input: null, conc_input:null},
+            { id: 8, time_input: null, conc_input:null},
+            { id: 9, time_input: null, conc_input:null},
+            { id: 10, time_input: null, conc_input:null},
+            { id: 11, time_input: null, conc_input:null},
+            { id: 12, time_input: null, conc_input:null},
+            { id: 13, time_input: null, conc_input:null},
+            { id: 14, time_input: null, conc_input:null},
+            { id: 15, time_input: null, conc_input:null},
+            { id: 16, time_input: null, conc_input:null},
+            { id: 17, time_input: null, conc_input:null},
+            { id: 18, time_input: null, conc_input:null},
+            { id: 19, time_input: null, conc_input:null},
+            { id: 20, time_input: null, conc_input:null},
+            { id: 21, time_input: null, conc_input:null},
+            { id: 22, time_input: null, conc_input:null},
+            { id: 23, time_input: null, conc_input:null},
+            { id: 24, time_input: null, conc_input:null},
+            { id: 25, time_input: null, conc_input:null},
+            { id: 26, time_input: null, conc_input:null},
+            { id: 27, time_input: null, conc_input:null},
+            { id: 28, time_input: null, conc_input:null},
+            { id: 29, time_input: null, conc_input:null},
+            { id: 30, time_input: null, conc_input:null},
+            { id: 31, time_input: null, conc_input:null},
+            { id: 32, time_input: null, conc_input:null},
+            { id: 33, time_input: null, conc_input:null}
+        ];
+        var updatedData = [];
 
         webix.ui({
 
@@ -45,7 +70,7 @@
                    ]}
                ]},
                {view: "button" ,width:150, align: "right", value: "Plot"},
-               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz')"}
+               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz'); initialModel('Huang');initialModel('Baranyi')"}
                ]},
                 {cols:[
                     {rows:[
@@ -53,7 +78,7 @@
                         id: "input_table",
                         columns: [
                            {id: "time_input", editor: "text", header: "Time", width: 120},
-                           {id: "conc_input", editor: "text", header: "Conc.", width: 100, cssformat: background}],
+                           {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
                         editable: true,
                         width:250,
                         height:250,
@@ -148,31 +173,9 @@
                             type:"c",
                             shadow:false
                         },
-                        series:[
-                            {
-                                type: "spline",
-                                value: "#conc_input#",
-                                xValue: "#time_input#",
-                                xAxis:{
-                                    value:"#time_input",
-                                    title:"Time",
-                                    start: 0,
-                                    stop: 10,
-                                    step: 1,
-                                },
-                                item: {
-                                    radius: 1,
-                                    color: "#1293f8",
-                                    type: "c",
-                                    shadow: false
-                                },
-                                line:{
-                                    color: "#FFFFFF",
-                                    width: .001
-                                }
-                            }
-                        ],
-                        data: data_points,
+
+                        data: updatedData,
+
 
                         isVisible:false
                         },
@@ -196,11 +199,6 @@
         });
 
 
-        function background(){
-
-        }
-
-
         //checks to see if you data points has valid input
         function dataIsValid(){
             var min = data_points[0].conc_input;
@@ -209,13 +207,24 @@
             $$('input_table').editStop(); //makes editing stop so the last value is properly put in data_points
 
             for(var i = 0; i < data_points.length; i++){
+                //if both inputs are null, we assume user doesnt want to add it to the list of data
+                if(data_points[i].conc_input == null && data_points[i].time_input == null){
+                    continue;
+                }
                 //converts the strings to floats, if not valid floats they evaluate to NaN
                 var timeValid = parseFloat(data_points[i].time_input); //x
                 var conValid = parseFloat(data_points[i].conc_input); //y
 
-                if(!isInt(conValid)){ //if conc input isnt valid, have them verify
-                    console.log(timeValid);
-                    console.log(conValid);
+                if(!isInt(timeValid)){ //if timeValid is not valid input
+                    webix.alert({
+                            type: "alert-warning",
+                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
+                    });
+                    popBox = false;
+                    $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
+                    break;
+                }
+                else if(!isInt(conValid)){ //if conc input isnt valid, have them verify
 
                     webix.alert({
                             type: "alert-warning",
@@ -225,16 +234,7 @@
                     $$('input_table').addCellCss(data_points[i].id, "conc_input", "my_style");
                     break;
 
-                } //if the time value is not valid
-                else if(!isInt(timeValid)){
-                    webix.alert({
-                            type: "alert-warning",
-                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
-                    });
-                    popBox = false;
-                    $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
-                    break;
-                } else { //if there are no issues, clear the background error color
+                } else{ //if there are no issues, clear the background error color
                     $$('input_table').addCellCss(data_points[i].id, "time_input", "no_style");
                     $$('input_table').addCellCss(data_points[i].id, "conc_input", "no_style");
                 }
@@ -252,7 +252,6 @@
             if(popBox == true){
                 //check if the Y value is within the correct range and alert if it isn't
                 if(min < 6.0 && max < 10.0){
-                    //console.log("here");
                     webix.confirm({
                         ok: "Yes",
                         cancel: "No",
@@ -262,7 +261,8 @@
                         callback: function(result){
                             //if they clicked ok ("yes")
                             if(result === true){
-                                convert();
+                                convert(); //converts data to ln
+                               // plotData();//plots the data
                             }
                         }
                     });
@@ -281,6 +281,7 @@
             else if(typeof n == 'number' && Math.round(n) % 1 == 0 ) {
                 return true;
             }
+            //default is false
             return false;
         }
 
@@ -292,11 +293,16 @@
         //will convert from log to ln
         function convert(){
             for(var i = 0; i < data_points.length; i++){
+                if(data_points[i].conc_input == null && data_points[i].time_input == null){
+                    continue;
+                }
                 data_points[i].conc_input *= 2.303; //multiply by 2.303 puts the data into ln form
-
             }
             $$('input_table').refresh();
         }
+
+
+
     </script>
 
 

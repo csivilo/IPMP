@@ -41,8 +41,8 @@
 
             var input_data = [];
 
-            var y_initial = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(0)).conc_input)
-            var t_initial = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(0)).time_input)
+            var y_initial = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(0)).conc_input);
+            var t_initial = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(0)).time_input);
 
             //finds last valid data point
             var indexed = 0;
@@ -50,22 +50,22 @@
                     $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
                 indexed++
             }
-            var y_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input)
-            var t_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input)
+            var y_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input);
+            var t_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input);
 
             input_data.push( y_initial); //N0
             input_data.push( y_max); //Nmax
             input_data.push( parseInt($$('slider_input').getValues().s3)); //Rate
-            input_data.push((t_max - t_initial)) //time
+            input_data.push((t_max - t_initial));//time
             input_data.push( parseInt($$('slider_input').getValues().s5)); //Lag
 
-            console.log(input_data)
+            console.log(input_data);
             return input_data
         }
 
         function submitModel(model_type){
 
-            var table_data = getTableData()
+            var table_data = getTableData();
 
             $.ajax({
                 type: "GET",
@@ -81,46 +81,67 @@
                 },
             });
         }
+	
+	//will refresh the scatter plot with the updated data passed in via the datatable
+        function plotData(){
+            updatedData = [];
+            $$("data_chart").clearAll();
+            $$('input_table').editStop();
 
-
+            for(var i = 0; i < data_points.length; i++){
+                //if inputs are both null, we don't add it to the new array, otherwise we do
+                if(data_points[i].conc_input !=  null && data_points[i].time_input != null) {
+                    updatedData.push(data_points[i]);
+                }
+            }
+           // console.log(updatedData);
+            $$("data_chart").parse(updatedData);
+            $$('data_chart').show();
+        }
 
 
         function getTableData(){
              //creates two new arrays filled with x and y data from the input table, then pushes them to a master array
-            var time_array = []
-            var conc_array = []
+            var time_array = [];
+            var conc_array = [];
             var indexed = 0;
 
             while($$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).conc_input != null &&
                     $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
-                time_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input))
-                conc_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input))
+                time_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input));
+                conc_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
                 indexed++
             }
 
-            var master_array = [time_array, conc_array]
+            return [time_array, conc_array];
 
-            return master_array
         }
 
 
-        //will refresh the scatter plot with the updated data passed in via the datatable
-        function plotData(){
-            $$("data_chart").clearAll();
-            $$("data_chart").parse(data_points);
-            $$('data_chart').show();
-
-            console.log(data_points);
-        }
+        
 
         function printData(){
             $$('output_table').add(data_points);
         }
 
-        
-         function clearData(){
-            $$('input_table').clearAll()
-            
+        function clearData(){
+            //$$('input_table').clearAll()
+            webix.confirm({
+               ok: "Yes",
+               cancel: "No",
+               type: "alert-warning",
+               text: "Are you sure you want to clear all data?",
+               callback: function(result){
+                   //if they clicked ok ("yes")
+                   if(result === true){
+                       for(var i = 0; i < data_points.length; i++){
+                           data_points[i].conc_input = null;
+                           data_points[i].time_input = null;
+                       }
+                       $$('input_table').refresh();
+                   }
+               }
+           });
         }
 
         function plotModel(type){
@@ -141,26 +162,46 @@
 
 
         function initialModel(model_type){
-            //Runs a default simulation based off of known data and creates a rough, adjustable model
+            //Runs a default simulation based off of known models sets up a user editable model
+            //Inputs: model_type, the string of the type of model used
 
-            model_data = []
-            data_set = getData()
-            mu_approx = ((data_set[1]-data_set[0])/data_set[2])
-            var time = 0
+            model_data = [];
+            data_set = getData();
+            mu_approx = ((data_set[1]-data_set[0])/data_set[2]);
+            var time = 0;
 
             if(model_type.localeCompare('Gompertz') == 0){
-                for(time = 0; time <10; time++){
-                    model_data.push({time_input: time, conc_input:gompertzModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
+                for(time = 0; time <10; time++) {
+                    model_data.push({
+                        time_input: time,
+                        conc_input: gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], time)
+                    })
+                }
+                console.log(model_data);
+
                 }
 
-            console.log(model_data)
-            $$('data_chart').parse(model_data)
+
+
+
+            else if(model_type.localeCompare('Huang') == 0){
+                for(time = 0; time <10; time++){
+                    model_data.push({time_input: time, conc_input:
+                        huangModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
+                }
+                console.log(model_data);
+
             }
-            else if(model_type.localCompare('Huang') == 0){
-                console.log("Huang")
+            else if(model_type.localeCompare('Baranyi') == 0){
+                for(time = 0; time <10; time++){
+                    model_data.push({time_input: time, conc_input:
+                        baranyiModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
+                }
+                console.log(model_data);
             }
 
 
+        $$('data_chart').parse(model_data)
 
         }
 
@@ -169,8 +210,25 @@
 
         function gompertzModel(y_initial, y_max,mu_max,lag,x){
             //used to run a simulation of the gompertz model, outputs a conc value
-            y = y_initial + (y_max-y_initial)*Math.exp(-1*(Math.exp(-1*(((x - lag)*mu_max*Math.exp(1))/(y_max-y_initial) - 1.0))));
+            return y_initial + (y_max-y_initial)*Math.exp(-1*
+                                (Math.exp(-1*(((x - lag)*mu_max*Math.exp(1))/(y_max-y_initial) - 1.0))));
 
-            return y;
         }
 
+        function huangModel(y_initial, y_max,mu_max,lag,x) {
+            //used to run a simulation of the gompertz model, outputs a conc value
+            var b = x + (0.25*(Math.log(1+Math.exp(-4.0*(x-lag))))) - (0.25*(Math.log(1+Math.exp(4.0*lag))));
+            return y_initial + y_max - (Math.log((Math.exp(y_initial)) + (Math.exp(y_max)-Math.exp(y_initial)) *
+                                                                                        Math.exp(-mu_max*b)))
+
+
+
+        }
+
+        function baranyiModel(y_initial, y_max,mu_max,lag,x) {
+            //used to run a simulation of the gompertz model, outputs a conc value
+
+            var a = mu_max*x + Math.log(Math.exp(-mu_max*x) + Math.exp(-lag) - Math.exp((-mu_max*x)-lag));
+            return (y_initial + a - Math.log(1.0 + (Math.exp(a) - 1.0)/Math.exp(y_max-y_initial)))
+
+        }
