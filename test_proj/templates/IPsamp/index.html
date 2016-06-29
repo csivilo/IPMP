@@ -184,6 +184,7 @@
             var popBox = true;
             var max = data_points[data_points.length - 1].conc_input;
             $$('input_table').editStop(); //makes editing stop so the last value is properly put in data_points
+
             for(var i = 0; i < data_points.length; i++){
                 //converts the strings to floats, if not valid floats they evaluate to NaN
                 var timeValid = parseFloat(data_points[i].time_input); //x
@@ -210,6 +211,9 @@
                     popBox = false;
                     $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
                     break;
+                } else { //if there are no issues, clear the background error color
+                    $$('input_table').addCellCss(data_points[i].id, "time_input", "no_style");
+                    $$('input_table').addCellCss(data_points[i].id, "conc_input", "no_style");
                 }
 
                 //determines the min and max values to be used later to determine if y values are in log or ln
@@ -219,8 +223,6 @@
                 if(conValid > max){
                     max = conValid;
                 }
-                //$$('input_table').clearCss("my_style");
-                //$$('input_table').refresh();
             }
             //we only want to alert one box at a time
             //if true, we want to display the following warning and convert if necessary
@@ -271,9 +273,12 @@
 
 
     </body>
- <style type = "text/css">
+    <style type = "text/css">
         .my_style{
             background: #ff7b82;
+        }
+        .no_style{
+            background: #ffffff;
         }
     </style>
 </html>
