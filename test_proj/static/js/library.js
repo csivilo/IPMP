@@ -78,8 +78,23 @@
                 },
             });
         }
+	
+	//will refresh the scatter plot with the updated data passed in via the datatable
+        function plotData(){
+            updatedData = [];
+            $$("data_chart").clearAll();
+            $$('input_table').editStop();
 
-
+            for(var i = 0; i < data_points.length; i++){
+                //if inputs are both null, we don't add it to the new array, otherwise we do
+                if(data_points[i].conc_input !=  null && data_points[i].time_input != null) {
+                    updatedData.push(data_points[i]);
+                }
+            }
+           // console.log(updatedData);
+            $$("data_chart").parse(updatedData);
+            $$('data_chart').show();
+        }
 
 
         function getTableData(){
@@ -100,23 +115,30 @@
         }
 
 
-        //will refresh the scatter plot with the updated data passed in via the datatable
-        function plotData(){
-            $$("data_chart").clearAll();
-            $$("data_chart").parse(data_points);
-            $$('data_chart').show();
-
-            console.log(data_points);
-        }
+        
 
         function printData(){
             $$('output_table').add(data_points);
         }
 
-        
-         function clearData(){
-            $$('input_table').clearAll()
-            
+        function clearData(){
+            //$$('input_table').clearAll()
+            webix.confirm({
+               ok: "Yes",
+               cancel: "No",
+               type: "alert-warning",
+               text: "Are you sure you want to clear all data?",
+               callback: function(result){
+                   //if they clicked ok ("yes")
+                   if(result === true){
+                       for(var i = 0; i < data_points.length; i++){
+                           data_points[i].conc_input = null;
+                           data_points[i].time_input = null;
+                       }
+                       $$('input_table').refresh();
+                   }
+               }
+           });
         }
 
         function plotModel(type){
