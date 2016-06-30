@@ -15,40 +15,40 @@
     <script type="text/javascript" charset="utf-8">
 
         var data_points = [
-
-            { id: 1, time_input: 0, conc_input:1},
-            { id: 2, time_input: null, conc_input:null},
-            { id: 3, time_input: null, conc_input:null},
-            { id: 4, time_input: null, conc_input:null},
-            { id: 5, time_input: null, conc_input:null},
-            { id: 6, time_input: null, conc_input:null},
-            { id: 7, time_input: null, conc_input:null},
-            { id: 8, time_input: null, conc_input:null},
-            { id: 9, time_input: null, conc_input:null},
-            { id: 10, time_input: null, conc_input:null},
-            { id: 11, time_input: null, conc_input:null},
-            { id: 12, time_input: null, conc_input:null},
-            { id: 13, time_input: null, conc_input:null},
-            { id: 14, time_input: null, conc_input:null},
-            { id: 15, time_input: null, conc_input:null},
-            { id: 16, time_input: null, conc_input:null},
-            { id: 17, time_input: null, conc_input:null},
-            { id: 18, time_input: null, conc_input:null},
-            { id: 19, time_input: null, conc_input:null},
-            { id: 20, time_input: null, conc_input:null},
-            { id: 21, time_input: null, conc_input:null},
-            { id: 22, time_input: null, conc_input:null},
-            { id: 23, time_input: null, conc_input:null},
-            { id: 24, time_input: null, conc_input:null},
-            { id: 25, time_input: null, conc_input:null},
-            { id: 26, time_input: null, conc_input:null},
-            { id: 27, time_input: null, conc_input:null},
-            { id: 28, time_input: null, conc_input:null},
-            { id: 29, time_input: null, conc_input:null},
-            { id: 30, time_input: null, conc_input:null},
-            { id: 31, time_input: null, conc_input:null},
-            { id: 32, time_input: null, conc_input:null},
-            { id: 33, time_input: null, conc_input:null}
+            { id: 1, time_input: 0, conc_input:1, conc_input2: 5},
+            { id: 2, time_input: 1, conc_input:null, conc_input2: 15},
+            { id: 3, time_input: 2, conc_input:17, conc_input2: null},
+            { id: 4, time_input: 3, conc_input:4, conc_input2: 1},
+            { id: 5, time_input: null, conc_input:null, conc_input2: null},
+            { id: 6, time_input: null, conc_input:null, conc_input2: null},
+            { id: 7, time_input: null, conc_input:null, conc_input2: null},
+            { id: 8, time_input: null, conc_input:null, conc_input2: null},
+            { id: 9, time_input: null, conc_input:null, conc_input2: null},
+            { id: 10, time_input: null, conc_input:null, conc_input2: null},
+            { id: 11, time_input: null, conc_input:null, conc_input2: null},
+            { id: 12, time_input: null, conc_input:null, conc_input2: null},
+            { id: 13, time_input: null, conc_input:null, conc_input2: null},
+            { id: 14, time_input: null, conc_input:null, conc_input2: null},
+            { id: 15, time_input: null, conc_input:null, conc_input2: null},
+            { id: 16, time_input: null, conc_input:null, conc_input2: null},
+            { id: 17, time_input: null, conc_input:null, conc_input2: null},
+            { id: 18, time_input: null, conc_input:null, conc_input2: null},
+            { id: 19, time_input: null, conc_input:null, conc_input2: null},
+            { id: 20, time_input: null, conc_input:null, conc_input2: null},
+            { id: 21, time_input: null, conc_input:null, conc_input2: null},
+            { id: 22, time_input: null, conc_input:null, conc_input2: null},
+            { id: 23, time_input: null, conc_input:null, conc_input2: null},
+            { id: 24, time_input: null, conc_input:null, conc_input2: null},
+            { id: 25, time_input: null, conc_input:null, conc_input2: null},
+            { id: 26, time_input: null, conc_input:null, conc_input2: null},
+            { id: 27, time_input: null, conc_input:null, conc_input2: null},
+            { id: 28, time_input: null, conc_input:null, conc_input2: null},
+            { id: 29, time_input: null, conc_input:null, conc_input2: null},
+            { id: 30, time_input: null, conc_input:null, conc_input2: null},
+            { id: 31, time_input: null, conc_input:null, conc_input2: null},
+            { id: 32, time_input: null, conc_input:null, conc_input2: null},
+            { id: 33, time_input: null, conc_input:null, conc_input2: null},
+            {id: 34, time_input: 10, conc_input: null, conc_input2: 0}
         ];
         var updatedData = [];
 
@@ -69,8 +69,8 @@
                         ]}
                    ]}
                ]},
-               {view: "button" ,width:150, align: "right", value: "Plot"},
-               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz'); initialModel('Huang');initialModel('Baranyi')"}
+               {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
+               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz'); /*initialModel('Huang');initialModel('Baranyi')*/"}
                ]},
                 {cols:[
                     {rows:[
@@ -90,7 +90,7 @@
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
-                            {view:"button", value:"Submit Data", width:100 , click:"computeData()"},
+                            {view:"button", value:"Submit Data", width:100 , click:"computeData(); dataIsValid()"},
                             {view:"button", value:"Clear Data", width:100 , click:"clearData()"}
 
 
@@ -158,7 +158,7 @@
                             title:"CFU/g",
                             start: 0,
                             stop: 10,
-                            step: 1,
+                            step: 1
                         },
                         xAxis:{
                             title:"Time (h)",
@@ -173,13 +173,36 @@
                             type:"c",
                             shadow:false
                         },
+                        series: [{
+                            line: {
+                                width: .01,
+                                color: "#FFFFFF"
+                            },
+                            item: {
+                                radius: 3
+                            },
+                            value: "#conc_input#",
+                            tooltip: {
+                                template: "#conc_input#"
+                            }
+                        },
+                        {
+                            value: "#conc_input2#",
+                             line: {
+                                width: 1
+                            },
+                            item: {
+                                radius: .01
+                            },
+                            tooltip: {
+                                template: "#conc_input2#"
+                            }
+                        }
+                        ],
 
                         data: updatedData,
-
-
                         isVisible:false
                         },
-
                         {view: "toolbar", elements:[
                             {view: "button", width: 100, align: "right",  label: "Save Report" },
                             {view: "button", width: 100, align: "right",   label: "Print Report" }
@@ -190,10 +213,8 @@
                                {id: "report_table", header: "Report" }
                             ],
                             editable: false
-
                         }
                     ]}
-
                 ]}
             ]
         });
@@ -214,6 +235,8 @@
                 //converts the strings to floats, if not valid floats they evaluate to NaN
                 var timeValid = parseFloat(data_points[i].time_input); //x
                 var conValid = parseFloat(data_points[i].conc_input); //y
+                data_points[i].conc_input = conValid; //make the inputed values(strings) to floats in data_points in conc_input
+                data_points[i].time_input = timeValid;//make the inputed values(strings) to floats in data_points in time_input
 
                 if(!isInt(timeValid)){ //if timeValid is not valid input
                     webix.alert({
@@ -262,7 +285,7 @@
                             //if they clicked ok ("yes")
                             if(result === true){
                                 convert(); //converts data to ln
-                               // plotData();//plots the data
+                                plotData();//plots the data
                             }
                         }
                     });
@@ -285,11 +308,6 @@
             return false;
         }
 
-
-
-
-
-
         //will convert from log to ln
         function convert(){
             for(var i = 0; i < data_points.length; i++){
@@ -300,12 +318,7 @@
             }
             $$('input_table').refresh();
         }
-
-
-
     </script>
-
-
     </body>
     <style type = "text/css">
         .my_style{

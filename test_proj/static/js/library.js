@@ -89,9 +89,10 @@
             $$('input_table').editStop();
 
             for(var i = 0; i < data_points.length; i++){
-                //if inputs are both null, we don't add it to the new array, otherwise we do
-                if(data_points[i].conc_input !=  null && data_points[i].time_input != null) {
+                //if either conc_inputs have a value and time_input is not null, we want to add it to the array
+                if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     updatedData.push(data_points[i]);
+                    console.log(data_points[i]);
                 }
             }
            // console.log(updatedData);
