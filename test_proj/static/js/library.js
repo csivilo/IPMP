@@ -62,7 +62,7 @@
             input_data.push((t_max - t_initial));//time
             input_data.push( parseInt($$('slider_input').getValues().s5)); //Lag
 
-            console.log(input_data);
+            //console.log(input_data);
             return input_data
         }
 
@@ -90,7 +90,7 @@
             updatedData = [];
             $$("data_chart").clearAll();
             $$('input_table').editStop();
-
+            
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
@@ -148,7 +148,7 @@
         }
 
         function plotModel(type){
-            console.log(type)
+            //console.log(type)
 
             webix.ui({
                 view: "window",
@@ -204,6 +204,7 @@
 
 
         $$('data_chart').parse(model_data)
+
 
         }
 
