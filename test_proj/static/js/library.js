@@ -1,3 +1,6 @@
+        
+
+
         function set(){
             var data = $$('insert_input').getValues();
             $$('slider_input').setValues(data);
@@ -92,7 +95,6 @@
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     updatedData.push(data_points[i]);
-                    console.log(data_points[i]);
                 }
             }
            // console.log(updatedData);
@@ -169,37 +171,36 @@
             model_data = [];
             data_set = getData();
             mu_approx = ((data_set[1]-data_set[0])/data_set[2]);
-            var time = 0;
+            var t_max = data_set[3]
+
 
             if(model_type.localeCompare('Gompertz') == 0){
-                for(time = 0; time <10; time++) {
-                    model_data.push({
-                        time_input: time,
-                        conc_input: gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], time)
-                    })
-                }
-                console.log(model_data);
+                model = "Gompertz"
+                model_data = gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+
 
                 }
-
-
-
 
             else if(model_type.localeCompare('Huang') == 0){
-                for(time = 0; time <10; time++){
-                    model_data.push({time_input: time, conc_input:
-                        huangModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
-                }
-                console.log(model_data);
+                model = "Huang"
+                model_data = huangModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+
 
             }
             else if(model_type.localeCompare('Baranyi') == 0){
-                for(time = 0; time <10; time++){
-                    model_data.push({time_input: time, conc_input:
-                        baranyiModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
-                }
-                console.log(model_data);
+                model = "Baranyi"
+                model_data = baranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+
             }
+
+            for(var i = 0; i < data_points.length; i++){
+                //if either conc_inputs have a value and time_input is not null, we want to add it to the array
+                if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
+                    model_data.push(data_points[i]);
+
+                }
+            }
+
 
 
         $$('data_chart').parse(model_data)
@@ -210,26 +211,48 @@
 
 
         function gompertzModel(y_initial, y_max,mu_max,lag,x){
-            //used to run a simulation of the gompertz model, outputs a conc value
-            return y_initial + (y_max-y_initial)*Math.exp(-1*
-                                (Math.exp(-1*(((x - lag)*mu_max*Math.exp(1))/(y_max-y_initial) - 1.0))));
+            //used to run a simulation of the gompertz model, outputs a time/conc obj array
+            model = "Gompertz"
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+            }
+
+            return array
 
         }
 
         function huangModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the gompertz model, outputs a conc value
-            var b = x + (0.25*(Math.log(1+Math.exp(-4.0*(x-lag))))) - (0.25*(Math.log(1+Math.exp(4.0*lag))));
-            return y_initial + y_max - (Math.log((Math.exp(y_initial)) + (Math.exp(y_max)-Math.exp(y_initial)) *
-                                                                                        Math.exp(-mu_max*b)))
+            //used to run a simulation of the huang model, outputs a conc obj array
+
+            model = "Huang";
+            var array = [];
+            var b;
+            for(time = 0; time <x; time+= (x/500.)) {
+                b = x + (0.25 * (Math.log(1 + Math.exp(-4.0 * (x - lag))))) -
+                    (0.25 * (Math.log(1 + Math.exp(4.0 * lag))));
+                array.push({time_input: time, conc_input2 : y_initial + y_max - (Math.log((Math.exp(y_initial)) +
+                        (Math.exp(y_max) - Math.exp(y_initial)) * Math.exp(-mu_max * b)))})
+            }
+
+            return array
 
 
 
         }
 
         function baranyiModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the gompertz model, outputs a conc value
+            //used to run a simulation of the baranyi model, outputs a time/conc obj array
+            
+            var array = [];
+            var a;
+            for(time = 0; time <x; time+= (x/500.)) {
+                a = mu_max * x + Math.log(Math.exp(-mu_max * x) + Math.exp(-lag) - Math.exp((-mu_max * x) - lag));
+                array.push({time_input: time,
+                    conc_input2: y_initial + a - Math.log(1.0 + (Math.exp(a) - 1.0) / Math.exp(y_max - y_initial))})
+            }
 
-            var a = mu_max*x + Math.log(Math.exp(-mu_max*x) + Math.exp(-lag) - Math.exp((-mu_max*x)-lag));
-            return (y_initial + a - Math.log(1.0 + (Math.exp(a) - 1.0)/Math.exp(y_max-y_initial)))
-
+            return array
         }

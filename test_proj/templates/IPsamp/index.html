@@ -13,14 +13,15 @@
     
     <body>
     <script type="text/javascript" charset="utf-8">
+        var model
 
         var data_points = [
-            { id: 1, time_input: 0, conc_input:1, conc_input2: 5},
-            { id: 2, time_input: 1, conc_input:null, conc_input2: 15},
-            { id: 3, time_input: 2, conc_input:17, conc_input2: null},
-            { id: 4, time_input: 3, conc_input:4, conc_input2: 1},
-            { id: 5, time_input: null, conc_input:null, conc_input2: null},
-            { id: 6, time_input: null, conc_input:null, conc_input2: null},
+            { id: 1, time_input: 0, conc_input:1, conc_input2: null},
+            { id: 2, time_input: 1, conc_input:1, conc_input2: null},
+            { id: 3, time_input: 2, conc_input:3, conc_input2: null},
+            { id: 4, time_input: 3, conc_input:6, conc_input2: null},
+            { id: 5, time_input: 4, conc_input:8, conc_input2: null},
+            { id: 6, time_input: 5, conc_input:8, conc_input2: null},
             { id: 7, time_input: null, conc_input:null, conc_input2: null},
             { id: 8, time_input: null, conc_input:null, conc_input2: null},
             { id: 9, time_input: null, conc_input:null, conc_input2: null},
@@ -48,7 +49,7 @@
             { id: 31, time_input: null, conc_input:null, conc_input2: null},
             { id: 32, time_input: null, conc_input:null, conc_input2: null},
             { id: 33, time_input: null, conc_input:null, conc_input2: null},
-            {id: 34, time_input: 10, conc_input: null, conc_input2: 0}
+            {id: 34, time_input: null, conc_input: null, conc_input2: null}
         ];
         var updatedData = [];
 
@@ -63,14 +64,14 @@
                         {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
                         {id: "full_models", value: "Full", submenu:[
                             {id: "gompertz", value: "Gompertz", click: "initialModel('Gompertz')"},
-                            {id: "huang", value: "Huang", click: "initialModel('huang')"},
-                            {id: "baranyi", value: "Baranyi", click: "plotModel('baranyi')"},
-                            {id: "buchanan", value: "Buchanan", click: "plotModel('buchanan')"}
+                            {id: "huang", value: "Huang", click: "initialModel('Huang')"},
+                            {id: "baranyi", value: "Baranyi", click: "initialModel('Baranyi')"},
+                            {id: "buchanan", value: "Buchanan", click: "initialModel('Buchanan')"}
                         ]}
                    ]}
                ]},
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
-               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz'); /*initialModel('Huang');initialModel('Baranyi')*/"}
+               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz')"}
                ]},
                 {cols:[
                     {rows:[
@@ -90,16 +91,16 @@
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
-                            {view:"button", value:"Submit Data", width:100 , click:"computeData(); dataIsValid()"},
+                            {view:"button", value:"Submit Data", width:100 , click:" dataIsValid()"},
                             {view:"button", value:"Clear Data", width:100 , click:"clearData()"}
 
 
                         ]},
                         {rows:[
 						    {view:"form", id:"slider_input",elements:[
-                                { view:"slider", type:"alt", min:0, max:10, label:"Rate", value:"1", name:"s3",
+                                { view:"slider", type:"alt", min:0, max:10,step:.5, label:"Rate", value:"1", name:"s3",
                                     title:webix.template("#value#")},
-                                { view:"slider",type:"alt",  label:"Lag", value:"1", name:"s5",
+                                { view:"slider",type:"alt",  max: 10,label:"Lag", value:"1", name:"s5",
                                     title:webix.template("#value#")}
 						    ]},
 						    {view:"form", id:"insert_input", elements:[{
@@ -150,9 +151,9 @@
                     {rows:[
                         {view:"chart",
                         id: "data_chart",
-                        type:"spline",
-                        yValue:"#conc_input#",
-                        //xValue:"#time_input",
+                        type:"scatter",
+                        xValue:"#time_input#",
+
                         origin: 0,
                         yAxis:{
                             title:"CFU/g",
@@ -162,42 +163,38 @@
                         },
                         xAxis:{
                             title:"Time (h)",
-                            template: "#time_input#"
+
                         },
-                        //line:{
-                        //    color: "#1293f8"
-                        //},
-                        item:{
-                            radius:.01,
-                            color:"#1293f8",
-                            type:"c",
-                            shadow:false
-                        },
-                        series: [{
-                            line: {
-                                width: .01,
-                                color: "#FFFFFF"
-                            },
+
+                        series: [
+
+
+                            {
+                            value: "#conc_input2#",
+
                             item: {
-                                radius: 3
+                                radius: 1,
+                                color: "FireBrick",
+                                borderWidth: .01,
+                                borderColor: "Black"
+                            },
+                            tooltip: {
+                                template: "#conc_input2#"
+                            }
+
+
+                        },
+                            {item: {
+                                radius: 5,
+                                type: "d",
+                                color: "DarkGreen"
                             },
                             value: "#conc_input#",
                             tooltip: {
                                 template: "#conc_input#"
                             }
-                        },
-                        {
-                            value: "#conc_input2#",
-                             line: {
-                                width: 1
-                            },
-                            item: {
-                                radius: .01
-                            },
-                            tooltip: {
-                                template: "#conc_input2#"
-                            }
                         }
+
                         ],
 
                         data: updatedData,
@@ -219,6 +216,12 @@
             ]
         });
 
+
+        var changeStatus = $$('slider_input').attachEvent("onChange", function(){
+            plotData();
+            initialModel(model);
+
+        })
 
         //checks to see if you data points has valid input
         function dataIsValid(){
