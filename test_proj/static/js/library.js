@@ -66,7 +66,7 @@
             return input_data
         }
 
-        function submitModel(model_type){
+        function submitModel(){
 
             var table_data = getTableData();
 
@@ -76,7 +76,7 @@
                 dataType: "json",
                 data: {
                     csrfmiddlewaretoken: '{{ csrf_token }}',
-                    model: model_type,
+                    model: model,
                     time_array: JSON.stringify(table_data[0]),
                     conc_array: JSON.stringify(table_data[1]),
                     rate: $$('slider_input').getValues().s3,
