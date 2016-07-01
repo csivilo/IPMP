@@ -6,19 +6,17 @@
         <link rel="stylesheet" href='{%  static "js/webix/codebase/webix.css" %}' type="text/css">
         <script src="{%  static 'js/webix/codebase/webix.js' %}" type="text/javascript"></script>
         <script src="{%  static 'js/library.js' %}" type="text/javascript"></script>
-        <script src="{%  static 'js/jquery-3.0.0.js' %}" type="text/javascript">
-
-        </script>
+        <script src="{%  static 'js/jquery-3.0.0.js' %}" type="text/javascript"></script>
+        <script src="plotly-latest.min.js"></script>
     </head>
-    
     <body>
     <script type="text/javascript" charset="utf-8">
 
         var data_points = [
-            { id: 1, time_input: 0, conc_input:1, conc_input2: 5},
-            { id: 2, time_input: 1, conc_input:null, conc_input2: 15},
+            { id: 1, time_input: 0, conc_input:1, conc_input2: null},
+            { id: 2, time_input: 1, conc_input:5, conc_input2: null},
             { id: 3, time_input: 2, conc_input:17, conc_input2: null},
-            { id: 4, time_input: 3, conc_input:4, conc_input2: 1},
+            { id: 4, time_input: 3, conc_input:4, conc_input2: null},
             { id: 5, time_input: null, conc_input:null, conc_input2: null},
             { id: 6, time_input: null, conc_input:null, conc_input2: null},
             { id: 7, time_input: null, conc_input:null, conc_input2: null},
@@ -48,7 +46,7 @@
             { id: 31, time_input: null, conc_input:null, conc_input2: null},
             { id: 32, time_input: null, conc_input:null, conc_input2: null},
             { id: 33, time_input: null, conc_input:null, conc_input2: null},
-            {id: 34, time_input: 10, conc_input: null, conc_input2: 0}
+            {id: 34, time_input: 10, conc_input: 10, conc_input2: null}
         ];
         var updatedData = [];
 
@@ -82,7 +80,8 @@
                         editable: true,
                         width:250,
                         height:250,
-
+                        clipboard: "selection",
+                        multiselect: true,
                         data: data_points
 
                        // select: "cell",
@@ -238,7 +237,7 @@
                 data_points[i].conc_input = conValid; //make the inputed values(strings) to floats in data_points in conc_input
                 data_points[i].time_input = timeValid;//make the inputed values(strings) to floats in data_points in time_input
 
-                if(!isInt(timeValid)){ //if timeValid is not valid input
+                if(!isNum(timeValid)){ //if timeValid is not valid input
                     webix.alert({
                             type: "alert-warning",
                             text: "Warning! The data contains at least one non-numeric entry. Please verify!"
@@ -247,7 +246,7 @@
                     $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
                     break;
                 }
-                else if(!isInt(conValid)){ //if conc input isnt valid, have them verify
+                else if(!isNum(conValid)){ //if conc input isnt valid, have them verify
 
                     webix.alert({
                             type: "alert-warning",
@@ -295,7 +294,7 @@
         }
 
         //if it is an int or null or float value, return true, otherwise false
-        function isInt(n){
+        function isNum(n){
             //if it evaluates to NaN, it must have been a string
             if(isNaN(n) || n == null){
                 return false;

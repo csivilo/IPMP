@@ -59,7 +59,7 @@
             input_data.push((t_max - t_initial));//time
             input_data.push( parseInt($$('slider_input').getValues().s5)); //Lag
 
-            console.log(input_data);
+            //console.log(input_data);
             return input_data
         }
 
@@ -87,12 +87,12 @@
             updatedData = [];
             $$("data_chart").clearAll();
             $$('input_table').editStop();
-
+            
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     updatedData.push(data_points[i]);
-                    console.log(data_points[i]);
+                    //console.log(data_points[i]);
                 }
             }
            // console.log(updatedData);
@@ -146,7 +146,7 @@
         }
 
         function plotModel(type){
-            console.log(type)
+            //console.log(type)
 
             webix.ui({
                 view: "window",
@@ -170,39 +170,39 @@
             data_set = getData();
             mu_approx = ((data_set[1]-data_set[0])/data_set[2]);
             var time = 0;
-
+             var tempData = [];
             if(model_type.localeCompare('Gompertz') == 0){
                 for(time = 0; time <10; time++) {
                     model_data.push({
                         time_input: time,
-                        conc_input: gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], time)
+                        conc_input2: gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], time)
                     })
                 }
                 console.log(model_data);
-
                 }
-
-
-
-
             else if(model_type.localeCompare('Huang') == 0){
                 for(time = 0; time <10; time++){
-                    model_data.push({time_input: time, conc_input:
+                    model_data.push({time_input: time, conc_input2:
                         huangModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
                 }
-                console.log(model_data);
+                //console.log(model_data);
 
             }
             else if(model_type.localeCompare('Baranyi') == 0){
                 for(time = 0; time <10; time++){
-                    model_data.push({time_input: time, conc_input:
+                    model_data.push({time_input: time, conc_input2:
                         baranyiModel(data_set[0],data_set[1],mu_approx,data_set[4],time)})
                 }
-                console.log(model_data);
+                //.log(model_data);
             }
 
 
-        $$('data_chart').parse(model_data)
+        $$('data_chart').parse(model_data);
+        tempData = updatedData.concat(model_data);
+       // console.log(tempData);
+        updatedData = tempData;
+        updatedData.sort(time_input);
+        //console.log(updatedData);
 
         }
 
