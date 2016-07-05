@@ -52,7 +52,6 @@
             {id: 34, time_input: null, conc_input: null, conc_input2: null}
         ];
         var updatedData = [];
-
         webix.ui({
 
             rows:[
@@ -63,15 +62,35 @@
                     {id: "models", value: "Models", width:200, height: 60, submenu:[
                         {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
                         {id: "full_models", value: "Full", submenu:[
-                            {id: "gompertz", value: "Gompertz", click: "initialModel('Gompertz')"},
-                            {id: "huang", value: "Huang", click: "initialModel('Huang')"},
-                            {id: "baranyi", value: "Baranyi", click: "initialModel('Baranyi')"},
-                            {id: "buchanan", value: "Buchanan", click: "initialModel('Buchanan')"}
+                            {id: "gompertz", value: "Gompertz"},
+                            {id: "huang", value: "Huang"},
+                            {id: "baranyi", value: "Baranyi"},
+                            {id: "buchanan", value: "Buchanan"}
                         ]}
                    ]}
-               ]},
+               ],
+                on: { onMenuItemClick: function(id){
+                    if(id == "gompertz"){
+                        $$("data_chart").clearAll();
+                        initialModel('Gompertz');
+                    } else if(id == "huang"){
+                        $$("data_chart").clearAll();
+                        initialModel('Huang');
+                    } else if(id == "baranyi"){
+                        $$("data_chart").clearAll();
+                        initialModel('Baranyi');
+                    }else if(id == "buchanan"){
+                        $$("data_chart").clearAll();
+                        initialModel('Buchanan');
+                    }
+                }
+                }},
+               {view: "template", id:"header", type:"header", template: "Gompertz Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header2", type:"header", template: "Huang Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header3", type:"header", template: "Baranyi Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header4", type:"header", template: "Buchanan Model", align: "left", borderless:true, hidden: true},
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
-               {view: "button", width:150, align: "right", value: "Model Output", click: "initialModel('Gompertz')"}
+               {view: "button", width:150, align: "right", value: "Model Output", click: "$$('data_chart').clearAll(); initialModel('Gompertz')"}
                ]},
                 {cols:[
                     {rows:[
@@ -225,104 +244,7 @@
 
         })
 
-        //checks to see if you data points has valid input
-        function dataIsValid(){
-            var min = data_points[0].conc_input;
-            var popBox = true;
-            var max = data_points[data_points.length - 1].conc_input;
-            $$('input_table').editStop(); //makes editing stop so the last value is properly put in data_points
 
-            for(var i = 0; i < data_points.length; i++){
-                //if both inputs are null, we assume user doesnt want to add it to the list of data
-                if(data_points[i].conc_input == null && data_points[i].time_input == null){
-                    continue;
-                }
-                //converts the strings to floats, if not valid floats they evaluate to NaN
-                var timeValid = parseFloat(data_points[i].time_input); //x
-                var conValid = parseFloat(data_points[i].conc_input); //y
-                data_points[i].conc_input = conValid; //make the inputed values(strings) to floats in data_points in conc_input
-                data_points[i].time_input = timeValid;//make the inputed values(strings) to floats in data_points in time_input
-
-                if(!isInt(timeValid)){ //if timeValid is not valid input
-                    webix.alert({
-                            type: "alert-warning",
-                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
-                    });
-                    popBox = false;
-                    $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
-                    break;
-                }
-                else if(!isInt(conValid)){ //if conc input isnt valid, have them verify
-
-                    webix.alert({
-                            type: "alert-warning",
-                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
-                    });
-                    popBox = false;
-                    $$('input_table').addCellCss(data_points[i].id, "conc_input", "my_style");
-                    break;
-
-                } else{ //if there are no issues, clear the background error color
-                    $$('input_table').addCellCss(data_points[i].id, "time_input", "no_style");
-                    $$('input_table').addCellCss(data_points[i].id, "conc_input", "no_style");
-                }
-
-                //determines the min and max values to be used later to determine if y values are in log or ln
-                if(conValid < min){
-                    min = conValid;
-                }
-                if(conValid > max){
-                    max = conValid;
-                }
-            }
-            //we only want to alert one box at a time
-            //if true, we want to display the following warning and convert if necessary
-            if(popBox == true){
-                //check if the Y value is within the correct range and alert if it isn't
-                if(min < 6.0 && max < 10.0){
-                    webix.confirm({
-                        ok: "Yes",
-                        cancel: "No",
-                        type: "confirm-error",
-                        text: "Warning!- The colony counts appear to be in log CFU. They must be converted to ln " +
-                            "CFU for data analysis. Do you want to convert data to ln CFU?",
-                        callback: function(result){
-                            //if they clicked ok ("yes")
-                            if(result === true){
-                                convert(); //converts data to ln
-                                plotData();//plots the data
-                            }
-                        }
-                    });
-                }
-            }
-
-        }
-
-        //if it is an int or null or float value, return true, otherwise false
-        function isInt(n){
-            //if it evaluates to NaN, it must have been a string
-            if(isNaN(n) || n == null){
-                return false;
-            }
-           //was not a string, if it's correct input, return true
-            else if(typeof n == 'number' && Math.round(n) % 1 == 0 ) {
-                return true;
-            }
-            //default is false
-            return false;
-        }
-
-        //will convert from log to ln
-        function convert(){
-            for(var i = 0; i < data_points.length; i++){
-                if(data_points[i].conc_input == null && data_points[i].time_input == null){
-                    continue;
-                }
-                data_points[i].conc_input *= 2.303; //multiply by 2.303 puts the data into ln form
-            }
-            $$('input_table').refresh();
-        }
     </script>
     </body>
     <style type = "text/css">
