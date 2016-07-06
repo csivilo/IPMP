@@ -48,7 +48,7 @@
             var indexed = 0;
             while($$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).conc_input != null &&
                     $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
-                indexed++
+                indexed++;
             }
             var y_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input);
             var t_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input);
@@ -59,7 +59,7 @@
             input_data.push((t_max - t_initial));//time
             input_data.push( parseInt($$('slider_input').getValues().s5)); //Lag
 
-            return input_data
+            return input_data;
         }
 
         function submitModel(){
@@ -107,7 +107,7 @@
                     $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
                 time_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input));
                 conc_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
-                indexed++
+                indexed++;
             }
 
             return [time_array, conc_array];
@@ -120,6 +120,7 @@
 
         function clearData(){
             //$$('input_table').clearAll()
+           // console.log("goes here");
             webix.confirm({
                ok: "Yes",
                cancel: "No",
@@ -139,7 +140,7 @@
            });
         }
 
-        function plotModel(type){
+       function plotModel(type){
             //console.log(type)
 
             webix.ui({
@@ -148,7 +149,7 @@
                 body: [
                     {view:"form", id:"slider_input", height: 160,elements:[
                                 { view:"slider",  height: 20, type:"alt", min:0, max:5, label:"N0(0-5)", value:"0", name:"s1"},
-                                { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
+                                { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"}
                     ]}
                 ]
             })
@@ -161,31 +162,32 @@
             model_data = [];
             data_set = getData();
             mu_approx = ((data_set[1]-data_set[0])/data_set[2]);
-            var t_max = data_set[3]
+            var t_max = data_set[3];
             hide(); //hides all model names
             if(model_type.localeCompare('Gompertz') == 0){
-                model = "Gompertz"
-                model_data = gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "Gompertz";
+                model_data = gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
                 $$('header').show(); //will show only the correct header name, not all names
 
                 }
             else if(model_type.localeCompare('Huang') == 0){
-                model = "Huang"
+                model = "Huang";
                 model_data = huangModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
                 //clearModelData();
                 $$('header2').show(); //shows Huang model only
+                console.log(model_data);
             }
             else if(model_type.localeCompare('Baranyi') == 0){
-                model = "Baranyi"
-                model_data = baranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "Baranyi";
+                model_data = baranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
                 $$('header3').show(); //shows Baranyi model only
+                console.log(model_data);
             }
 
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     model_data.push(data_points[i]);
-
                 }
             }
         $$('data_chart').parse(model_data);
@@ -201,14 +203,14 @@
 
         function gompertzModel(y_initial, y_max,mu_max,lag,x){
             //used to run a simulation of the gompertz model, outputs a time/conc obj array
-            model = "Gompertz"
-            var array = []
+            model = "Gompertz";
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
-            return array
+            return array;
         }
 
         function huangModel(y_initial, y_max,mu_max,lag,x) {
@@ -221,9 +223,9 @@
                 b = x + (0.25 * (Math.log(1 + Math.exp(-4.0 * (x - lag))))) -
                     (0.25 * (Math.log(1 + Math.exp(4.0 * lag))));
                 array.push({time_input: time, conc_input2 : y_initial + y_max - (Math.log((Math.exp(y_initial)) +
-                        (Math.exp(y_max) - Math.exp(y_initial)) * Math.exp(-mu_max * b)))})
+                        (Math.exp(y_max) - Math.exp(y_initial)) * Math.exp(-mu_max * b)))});
             }
-            return array
+            return array;
         }
 
         function baranyiModel(y_initial, y_max,mu_max,lag,x) {
@@ -234,9 +236,9 @@
             for(time = 0; time <x; time+= (x/500.)) {
                 a = mu_max * x + Math.log(Math.exp(-mu_max * x) + Math.exp(-lag) - Math.exp((-mu_max * x) - lag));
                 array.push({time_input: time,
-                    conc_input2: y_initial + a - Math.log(1.0 + (Math.exp(a) - 1.0) / Math.exp(y_max - y_initial))})
+                    conc_input2: y_initial + a - Math.log(1.0 + (Math.exp(a) - 1.0) / Math.exp(y_max - y_initial))});
             }
-            return array
+            return array;
         }
 
          //checks to see if you data points has valid input
@@ -310,7 +312,6 @@
                     });
                 }
             }
-
         }
 
         //if it is an int or null or float value, return true, otherwise false
@@ -342,7 +343,6 @@
             for(var i = 0; i < data_points.length; i++){
                 data_points[i].conc_input2 = null;
                 data_points[i].time_input = null;
-
             }
             $$('data_chart').refresh();
         }

@@ -85,6 +85,7 @@
                     }
                 }
                 }},
+
                {view: "template", id:"header", type:"header", template: "Gompertz Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header2", type:"header", template: "Huang Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header3", type:"header", template: "Baranyi Model", align: "left", borderless:true, hidden: true},
@@ -100,9 +101,14 @@
                            {id: "time_input", editor: "text", header: "Time", width: 120},
                            {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
                         editable: true,
+                        editaction: "dblclick",
                         width:250,
                         height:250,
-
+                        clipboard: "block",
+                        //currently set to row, to group x and y values together-----to make it for each value set to "cell"
+                        select: "row",
+                        multiselect: true,
+                        blockselect: true,
                         data: data_points
 
                        // select: "cell",
