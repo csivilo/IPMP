@@ -53,7 +53,7 @@
             var y_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input);
             var t_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input);
 
-            
+
             input_data.push( y_initial); //Y0
             input_data.push( y_max); //Ymax
             input_data.push( parseFloat($$('slider_input').getValues().s3)); //Rate/mu
@@ -82,13 +82,13 @@
                 },
             });
         }
-	
+
 	//will refresh the scatter plot with the updated data passed in via the datatable
         function plotData(){
             updatedData = [];
             $$("data_chart").clearAll();
             $$('input_table').editStop();
-            
+
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
@@ -229,7 +229,7 @@
                 (0.25 * (Math.log(1.0 + Math.exp(4.0*lag)))))
                 array.push({time_input: time,
                     conc_input2: (y_initial + y_max - (Math.log( Math.exp(y_initial) +
-                        ((Math.exp(y_max) - Math.exp(y_initial)) * (Math.exp(-1.0*mu_max*b)))))) })
+                        ((Math.exp(y_max) - Math.exp(y_initial)) * (Math.exp(-1.0*mu_max*b))))  )) })
             }
             return array
         }
