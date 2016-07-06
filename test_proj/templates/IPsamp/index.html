@@ -117,9 +117,9 @@
                         ]},
                         {rows:[
 						    {view:"form", id:"slider_input",elements:[
-                                { view:"slider", type:"alt", min:0, max:10,step:1, label:"\u03BC max", value:"1", name:"s3",
+                                { view:"slider", type:"alt", min:0, max:10,step:.5, label:"\u03BC max", value:"1", name:"s3",
                                     title:webix.template("#value#")},
-                                { view:"slider",type:"alt",  max: 10,label:"\u03BB (Lag)", value:"1", name:"s5",
+                                { view:"slider",type:"alt",  step: .5 ,max: 10,label:"\u03BB (Lag)", value:"1", name:"s5",
                                     title:webix.template("#value#")}
 						    ]},
 						    {view:"form", id:"insert_input", elements:[{
@@ -132,27 +132,6 @@
                                             {view: "text", id: "m", label: "\u03BB (Lag)", value: "1", name: "s5"}
                                         ]
                                     }
-                                    },
-                                    {
-                                        cols: [
-                                            {
-                                                view: "button",
-                                                type: "form",
-                                                id: "slider_set",
-                                                label: "Set values",
-                                                click: "set();",
-                                                align: "right",
-                                                width: 90
-                                            },
-                                            {
-                                                view: "button",
-                                                id: "slider_get",
-                                                label: "Get values",
-                                                click: "get()",
-                                                align: "left",
-                                                width: 90
-                                            }
-                                        ]
                                     },
                                     {
                                         view: "button",
@@ -237,6 +216,17 @@
 
         // updates model if sliders are manipulated
         var changeStatus = $$('slider_input').attachEvent("onChange", function(){
+            get()
+            if(model != null) {
+                plotData();
+                initialModel(model);
+            }
+
+        })
+
+        // updates model if sliders are manipulated
+        var changeSlider = $$('insert_input').attachEvent("onChange", function(){
+            set()
             if(model != null) {
                 plotData();
                 initialModel(model);

@@ -53,11 +53,13 @@
             var y_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input);
             var t_max = parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input);
 
-            input_data.push( y_initial); //N0
-            input_data.push( y_max); //Nmax
-            input_data.push( parseInt($$('slider_input').getValues().s3)); //Rate
+            
+            input_data.push( y_initial); //Y0
+            input_data.push( y_max); //Ymax
+            input_data.push( parseFloat($$('slider_input').getValues().s3)); //Rate/mu
             input_data.push((t_max - t_initial));//time
-            input_data.push( parseInt($$('slider_input').getValues().s5)); //Lag
+            input_data.push( parseFloat($$('slider_input').getValues().s5)); //Lag/lambda
+
 
             return input_data
         }
@@ -105,8 +107,8 @@
 
             while($$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).conc_input != null &&
                     $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
-                time_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input));
-                conc_array.push(parseInt($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
+                time_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input));
+                conc_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
                 indexed++
             }
 
@@ -158,9 +160,9 @@
             //Runs a default simulation based off of known models sets up a user editable model
             //Inputs: model_type, the string of the type of model used
             //clearModelData();
-            model_data = [];
-            data_set = getData();
-            mu_approx = ((data_set[1]-data_set[0])/data_set[2]);
+            var model_data = [];
+            var data_set = getData();
+            var mu_approx = data_set[2]
             var t_max = data_set[3]
             hide(); //hides all model names
             if(model_type.localeCompare('Gompertz') == 0){
@@ -179,6 +181,11 @@
                 model = "Baranyi"
                 model_data = baranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
                 $$('header3').show(); //shows Baranyi model only
+            }
+            else if(model_type.localeCompare('Buchanan') == 0){
+                model = "Buchanan"
+                model_data = buchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header4').show(); //shows Baranyi model only
             }
 
             for(var i = 0; i < data_points.length; i++){
@@ -218,24 +225,44 @@
             var array = [];
             var b;
             for(time = 0; time <x; time+= (x/500.)) {
-                b = x + (0.25 * (Math.log(1 + Math.exp(-4.0 * (x - lag))))) -
-                    (0.25 * (Math.log(1 + Math.exp(4.0 * lag))));
-                array.push({time_input: time, conc_input2 : y_initial + y_max - (Math.log((Math.exp(y_initial)) +
-                        (Math.exp(y_max) - Math.exp(y_initial)) * Math.exp(-mu_max * b)))})
+                b = (time + (0.25 *(Math.log(1.0 + Math.exp(-4.0 * (time - lag))))) -
+                (0.25 * (Math.log(1.0 + Math.exp(4.0*lag)))))
+                array.push({time_input: time,
+                    conc_input2: (y_initial + y_max - (Math.log( Math.exp(y_initial) +
+                        ((Math.exp(y_max) - Math.exp(y_initial)) * (Math.exp(-1.0*mu_max*b)))))) })
             }
             return array
         }
 
         function baranyiModel(y_initial, y_max,mu_max,lag,x) {
             //used to run a simulation of the baranyi model, outputs a time/conc obj array
-            
+            model = "Baranyi"
             var array = [];
             var a;
             for(time = 0; time <x; time+= (x/500.)) {
-                a = mu_max * x + Math.log(Math.exp(-mu_max * x) + Math.exp(-lag) - Math.exp((-mu_max * x) - lag));
+                a = (mu_max*time) + Math.log(Math.exp(-1*mu_max*time)+(Math.exp(-1*lag)-Math.exp((-1*mu_max*time)-lag)))
                 array.push({time_input: time,
-                    conc_input2: y_initial + a - Math.log(1.0 + (Math.exp(a) - 1.0) / Math.exp(y_max - y_initial))})
+                    conc_input2: y_initial + a - Math.log(1.0 + ((Math.exp(a) - 1.0)/ Math.exp(y_max - y_initial)) )})
             }
+            return array
+        }
+
+        function buchananModel(y_initial, y_max,mu_max,lag,x) {
+            //used to run a simulation of the baranyi model, outputs a time/conc obj array
+            model = "Buchanan"
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+                if (time<lag){
+                    array.push({time_input: time, conc_input2: y_initial})
+                }
+                else if(time<(lag+(y_max-y_initial)/mu_max)){
+                    array.push({time_input: time, conc_input2: y_initial + mu_max*(time-lag)})
+                }
+                else{
+                    array.push({time_input: time, conc_input2: y_max})
+                }
+            }
+
             return array
         }
 

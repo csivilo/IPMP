@@ -67,7 +67,7 @@ class FitBaranyi:
         
     def BaranyiModelfunc(self, Ymax, Y0, mumax, h0, x):    # x is x data
         a = mumax*x + np.log(np.exp(-mumax*x) + np.exp(-h0) - np.exp(-mumax*x-h0))
-        return  Y0 + a - np.log(1.0 + (np.exp(a)-1.0)/np.exp(Ymax-Y0))
+        return Y0 + a - np.log(1.0 + (np.exp(a)-1.0)/np.exp(Ymax-Y0))
         
     def YDiff(self, p):
         Y_calculate = self.BaranyiModelfunc(p[0], p[1], p[2], p[3], self.x)

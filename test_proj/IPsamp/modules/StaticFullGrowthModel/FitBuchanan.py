@@ -10,7 +10,7 @@ from scipy.optimize import  leastsq
 #import jacobian as JP
 import JacobianDeltaP as JDP
 
-class FitGompertz:
+class FitBuchanan:
     def __init__(self, rawdata, p0):
         # raw data contain x, y data set
         # initP: initial values of parameters
@@ -39,7 +39,7 @@ class FitGompertz:
         #print self.YDiff(p)
         self.residual = self.infodict["fvec"]  #self.YDiff(p)
         #print "residual of curve-fitting = ", self.residual
-        self.YPredictedValue = self.GompertzModelfunc(p[0], p[1], p[2], p[3], self.x)
+        self.YPredictedValue = self.BuchananModelfunc(p[0], p[1], p[2], p[3], self.x)
         
         
         # The following calculated Jacobian delta
@@ -55,49 +55,37 @@ class FitGompertz:
         for i in range(self.dataLength):
             for j in range(self.pNumber):
                 
-                self.JacobianMatrix[i][j] = (self.GompertzModelfunc(self.JDP.jacobianDeltaP[j][0], self.JDP.jacobianDeltaP[j][1], \
+                self.JacobianMatrix[i][j] = (self.BuchananModelfunc(self.JDP.jacobianDeltaP[j][0],\
+                self.JDP.jacobianDeltaP[j][1], \
                 self.JDP.jacobianDeltaP[j][2], self.JDP.jacobianDeltaP[j][3], self.x[i]) - \
-                self.GompertzModelfunc(p[0], p[1], p[2], p[3], self.x[i]))/self.JDP.dp[j]
-        """
-        #print "M Jacobian matrix = ", M
-        self.errorMessage = "Successful"
-        try:
-            self.jacobian = JP.Jacobian(self.JacobianMatrix, self.dataLength)
-        except np.linalg.linalg.LinAlgError as e:
-            self.errorMessage = e
-        print "error message = ", self.errorMessage
-        """
-        """
-        If self.message = None, successful
-        if not, print "Not Successful"
-        """
+                self.BuchananModelfunc(p[0], p[1], p[2], p[3], self.x[i]))/self.JDP.dp[j]
+        
         
         
            
         
         
-    def GompertzModelfunc(self, Ymax, Y0, mumax, Lag, x):    # x is x data
-        
-        return(Y0 + (Ymax-Y0)*np.exp(-1*np.exp(-1*((x - Lag)*mumax*np.exp(1)/(Ymax-Y0) - 1.0))))
+    def BuchananModelfunc(self, Ymax, Y0, mumax, lag, x):    # x is x data      
+        a1 = np.piecewise(x, [x < lag, x >= lag], [0.0, 1.0])
+        tc = (Ymax-Y0)/mumax+lag
+        a2 = np.piecewise(x, [x < tc, x >= tc], [0.0, 1.0])
+        return Y0*(1.0-a1)+(Y0 + mumax*(x-lag))*a1*(1.0-a2) +  Ymax*a2
+
         
     def YDiff(self, p):
-        Y_calculate = self.GompertzModelfunc(p[0], p[1], p[2], p[3], self.x)
+        Y_calculate = self.BuchananModelfunc(p[0], p[1], p[2], p[3], self.x)
         return self.y- Y_calculate
     
 
 def main():
-    def generatefunc(Ymax, Y0, mumax, Lag, t):    # this generates a Gompertz function
-        
-        return  Y0 + (Ymax-Y0)*np.exp(-np.exp(-((x - Lag)*mumax*np.exp(1.)/(Ymax-Y0) - 1.)))
     # generate an x array or list   
-    x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
+    x = np.array([0., 1., 2., 3., 4., 5., 6.])
     # generate a x, y value
-    y = generatefunc(8.5, 2.0, 2.5, 5.0, x) + np.random.normal(0, 0.5, size=len(x)) #Refer [2]
-
+    y = 2.303*np.array([2., 2., 3., 4., 5., 6., 6.])
 
     rawdata = [x, y]
-    p0 = [2.0, 5.5]
-    calculation = FitGompertz(rawdata, p0)
+    p0 = [1.5, 1.5] #p0[0] is rate, p0[1] is lag
+    calculation = FitBuchanan(rawdata, p0)
 
 
 if __name__ == '__main__':

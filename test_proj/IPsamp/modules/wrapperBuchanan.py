@@ -4,8 +4,9 @@ Created on Sat Jun 25 18:58:23 2016
 
 @author: Lihan_Huang
 """
+
 import numpy as np
-import StaticFullGrowthModel.FitGompertz as GM
+import StaticFullGrowthModel.FitBuchanan as FBu
 import ErrorAnalysis.errorEstimate as EA
 import ErrorAnalysis.jacobian as JA
 import ErrorAnalysis.calculateConfidenceIntervals as CI
@@ -16,7 +17,8 @@ class dataAnalysis():
         self.dataLength = len(rawdata[0])
         
         np.seterr(all='ignore')
-        self.calculation = GM.FitGompertz(rawdata, p0)
+        self.calculation = FBu.FitBuchanan(rawdata, p0)
+        
         try:    
             self.errorEstimate = EA.errorEstimate(rawdata[0], self.calculation.pOut, \
                 self.calculation.cov, self.calculation.residual, \
@@ -29,6 +31,7 @@ class dataAnalysis():
         #except (ValueError,  OverflowError, ZeroDivisionError, FloatingPointError): 
         except:
             pass
+        
         """
         self.errorEstimate produces two important outputs
         1. modelAnalysis, self..modelAnalysisOutput
@@ -62,8 +65,7 @@ class dataAnalysis():
             if > 0, formate to 0.000 (3 decimal points)
             if < 0, format to 1.000E+xx (3 decimal points with engineering expression)
         """
-        ###Calculate Jacobian ###
-
+        
         self.errorMessage = "Successful"     
         try: 
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
@@ -73,7 +75,6 @@ class dataAnalysis():
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e
         print "error message = ", self.errorMessage
-        
                 
         
         """
@@ -97,9 +98,9 @@ class dataAnalysis():
         4.00	5.00	  5.10	4.66	      5.55	4.33	      5.88
         5.00	6.00	  5.76	5.39	      6.14	5.03      6.50
         6.00	6.00	  6.12	5.58	      6.67	5.29	      6.96
+        
         If error, error message = "Singular matrix"
         No statistics will be produced.  Regression failed
-        
         """
     
         """
@@ -109,23 +110,23 @@ class dataAnalysis():
 
     #print "P output = ", self.calculation.pOut
         
-        
-        
+
+
         
 def main():
-    def generatefunc(Y0, Ymax, mumax, Lag, t):    # this generates a Gompertz function
-        
-        return  Y0 + (Ymax-Y0)*np.exp(-np.exp(-1*((x - Lag)*mumax*np.exp(1.)/(Ymax-Y0) - 1.)))
+    def generatefunc(Ymax, Y0, mumax, Lag, t):    # this generates a Gompertz function
+        b = x + 0.25*np.log(1.0 + np.exp(-4.0*(x-Lag))) - 0.25*np.log(1+np.exp(4.0*Lag))
+        return  Y0 + Ymax -np.log(np.exp(Y0) + (np.exp(Ymax)-np.exp(Y0))*np.exp(-mumax*b))
     # generate an x array or list   
     #x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
     x = np.array([0, 1, 2, 3, 4, 5, 6])
-    y = np.array([2, 2, 3, 4, 5, 6, 6])
+    y = 2.303*np.array([2, 2, 3, 4, 5, 6, 6])
     # generate a x, y value
     #y = generatefunc(2.0, 8.5, 2.5, 5.0, x) + np.random.normal(0, 0.5, size=len(x)) #Refer [2]
 
 
     rawdata = [x, y]
-    p0 = [1.0, 5.5]
+    p0 = [2.5, 1.5]
     
     calculation = dataAnalysis(rawdata, p0)
 
