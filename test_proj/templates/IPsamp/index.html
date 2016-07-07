@@ -72,15 +72,19 @@
                 on: { onMenuItemClick: function(id){
                     if(id == "gompertz"){
                         $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
                         initialModel('Gompertz');
                     } else if(id == "huang"){
                         $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
                         initialModel('Huang');
                     } else if(id == "baranyi"){
                         $$("data_chart").clearAll();
+                        setSliders("\u03BC max","H0")
                         initialModel('Baranyi');
                     }else if(id == "buchanan"){
                         $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
                         initialModel('Buchanan');
                     }
                 }

@@ -44,7 +44,7 @@ class JacobianDeltaP():
                     P[j][k] = p[k]                
         
         self.jacobianDeltaP = P
-        print "Jacobian Delta P = ", P
+        #print "Jacobian Delta P = ", P
        
         
         

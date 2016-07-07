@@ -14,18 +14,22 @@ class dataAnalysis():
         self.rawdata = rawdata
         self.p = p0
         self.dataLength = len(rawdata[0])
-        
+        self.report = ''
         np.seterr(all='ignore')
         self.calculation = GM.FitGompertz(rawdata, p0)
+        text_report = self.calculation.JDP.jacobianDeltaP
+        self.report = {}
+        self.report["p out"] = str(self.calculation.pOut)
         try:    
             self.errorEstimate = EA.errorEstimate(rawdata[0], self.calculation.pOut, \
                 self.calculation.cov, self.calculation.residual, \
                 self.calculation.YPredictedValue)        
-            print "SSE = ", self.errorEstimate.SSE  
-            print "RMSE = ", self.errorEstimate.RMSE
-            print "Residual stdev = ", self.errorEstimate.residErr_std
-            print "AIC = ", self.errorEstimate.AIC
-            print "Crtitcal t = ", self.errorEstimate.t_critical
+            text_report += "SSE = ", self.errorEstimate.SSE
+            text_report += "RMSE = ", self.errorEstimate.RMSE
+            text_report += "Residual stdev = ", self.errorEstimate.residErr_std
+            text_report += "AIC = ", self.errorEstimate.AIC
+            text_report +=  "Crtitcal t = ", self.errorEstimate.t_critical
+            self.report["text"] = text_report
         #except (ValueError,  OverflowError, ZeroDivisionError, FloatingPointError): 
         except:
             pass
@@ -115,7 +119,7 @@ class dataAnalysis():
 def main():
     def generatefunc(Y0, Ymax, mumax, Lag, t):    # this generates a Gompertz function
         
-        return  Y0 + (Ymax-Y0)*np.exp(-np.exp(-1*((x - Lag)*mumax*np.exp(1.)/(Ymax-Y0) - 1.)))
+        return Y0 + (Ymax-Y0)*np.exp(-np.exp(-1*((x - Lag)*mumax*np.exp(1.)/(Ymax-Y0) - 1.)))
     # generate an x array or list   
     #x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
     x = np.array([0, 1, 2, 3, 4, 5, 6])

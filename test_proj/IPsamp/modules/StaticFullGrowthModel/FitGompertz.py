@@ -29,7 +29,7 @@ class FitGompertz:
         p,cov_x,infodict,mesg,ier = leastsq(self.YDiff,p,full_output=True)
         
         
-        print 'p out =', p
+        #print 'p out =', p
         self.pOut = p
         self.cov = cov_x
         self.infodict = infodict
@@ -44,6 +44,7 @@ class FitGompertz:
         
         # The following calculated Jacobian delta
         self.JDP = JDP.JacobianDeltaP(p, self.dataLength)
+  ##     #print self.JDP.jacobianDeltaP  # a list of lists of jacobian points
         
         # The following generates Jacobian matrix
         self.JacobianMatrix = []

@@ -266,6 +266,22 @@
             return array
         }
 
+        function setSliders(first_name,second_name){
+            $$("slider_input").define({
+                elements: [
+                    { view:"slider", type:"alt", min:0, max:10,step:.5, label:first_name, value:"1", name:"s3",
+                                    title:webix.template("#value#")},
+                    { view:"slider",type:"alt",  step: .5 ,max: 10,label:second_name, value:"1", name:"s5",
+                                    title:webix.template("#value#")}
+                ]
+
+                })
+            $$("rate").define("label",first_name)
+            $$("m").define("label",second_name)
+            $$("slider_input").refresh()
+                $$("insert_input").refresh()
+        }
+
          //checks to see if you data points has valid input
         function dataIsValid(){
             var min = data_points[0].conc_input;

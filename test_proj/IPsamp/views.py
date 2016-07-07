@@ -31,17 +31,17 @@ def data(request):
 
 
         if model == "Gompertz":
-            print("Gompertz")
+
             inst = WG.dataAnalysis([xarray,yarray],p0)
-            print inst.calculation.YPredictedValue
+
         elif model == "Huang":
-            print("Huang")
+
             inst = WH.dataAnalysis([xarray, yarray], p0)
         elif model == "Baranyi":
-            print("Baranyi")
+
             inst = WB.dataAnalysis([xarray, yarray], p0)
         elif model == "Buchanan":
-            print("Buchanan")
+
             inst = WBu.dataAnalysis([xarray, yarray], p0)
 
 
