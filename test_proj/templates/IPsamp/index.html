@@ -56,8 +56,9 @@
 
             rows:[
                 {view: "toolbar", height: 60, id:"main_toolbar", elements:[
-                {view:"button", value:"Open", width:80 /*, click:file_options*/},
-                {view:"button", value:"Paste", width:80 /* ,click:ipmp_disclaim*/},
+                 {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:80, click:"printValue()",
+                    link: "myList"},
+               {view: "button", value:"Add Rows", width: 75, click:"addRows()"},
                 {view:"menu", data:[
                     {id: "models", value: "Models", width:200, height: 60, submenu:[
                         {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
@@ -72,19 +73,19 @@
                 on: { onMenuItemClick: function(id){
                     if(id == "gompertz"){
                         $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
+                        setSliders("\u03BC max","\u03BB (Lag)");
                         initialModel('Gompertz');
                     } else if(id == "huang"){
                         $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
+                        setSliders("\u03BC max","\u03BB (Lag)");
                         initialModel('Huang');
                     } else if(id == "baranyi"){
                         $$("data_chart").clearAll();
-                        setSliders("\u03BC max","H0")
+                        setSliders("\u03BC max","H0");
                         initialModel('Baranyi');
                     }else if(id == "buchanan"){
                         $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
+                        setSliders("\u03BC max","\u03BB (Lag)");
                         initialModel('Buchanan');
                     }
                 }
@@ -170,7 +171,7 @@
                             step: 1
                         },
                         xAxis:{
-                            title:"Time (h)",
+                            title:"Time (h)"
 
                         },
 
@@ -226,23 +227,64 @@
 
         // updates model if sliders are manipulated
         var changeStatus = $$('slider_input').attachEvent("onChange", function(){
-            get()
+            get();
             if(model != null) {
                 plotData();
                 initialModel(model);
             }
 
-        })
+        });
 
         // updates model if sliders are manipulated
         var changeSlider = $$('insert_input').attachEvent("onChange", function(){
-            set()
+            set();
             if(model != null) {
                 plotData();
                 initialModel(model);
             }
 
-        })
+        });
+
+        //brings a pop-up window with a counter to add rows to the input_table
+        function addRows(){
+            webix.ui({
+				view:"window",
+				id:"add_rows",
+				height:250,
+			    width:184,
+			    position: "center",
+			    head:{
+					view:"toolbar", cols:[
+						{view:"button", label: 'Confirm', width: 87, align: 'center', click:"updateRows();"},
+                        {view: "button", label: "Cancel", width: 87, click: "$$('add_rows').close();"}
+						]
+				},
+				body:{
+				    view: "counter",
+                    label: "Add rows",
+                    id: "counter",
+                    align: "center",
+                    value: 1,
+                    min: 0
+
+                }
+			}).show();
+        }
+
+        //updates number of rows the user wants to update
+        function updateRows(){
+            var count = $$('counter').getValue(); //number of rows the user wants to add to the table
+
+            for(var i=0; i < count; i++){
+                var obj = {id: data_points.length + 1, time_input: null, conc_input: null, conc_input2: null};
+                data_points.push(obj); //add obj to data_points
+                $$('input_table').add(obj); //add obj (the blank row) to the input table
+            }
+            //refresh the data table and close the popup window
+            $$('input_table').refresh();
+            $$('add_rows').close();
+        }
+
 
 
     </script>
