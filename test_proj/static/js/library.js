@@ -284,6 +284,7 @@
 
          //checks to see if you data points has valid input
         function dataIsValid(){
+            console.log(data_points);
             var min = data_points[0].conc_input;
             var popBox = true;
             var max = data_points[data_points.length - 1].conc_input;
