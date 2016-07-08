@@ -28,7 +28,7 @@ class errorEstimate():
          
          #print "SES = ", self.SES
          self.SSE = np.sum(self.SES)     # sum of error square
-         print "SSE = ", self.SSE
+         # print "SSE = ", self.SSE
          self.MSE = self.SSE/self.df    # mean of SSE
          self.RMSE =np.sqrt(self.MSE)   # Root of MSE
          self.residErr_std = np.std(self.residual)
@@ -85,7 +85,7 @@ class errorEstimate():
          
          
          """
-         print "parameter output ", self.parameterOutput
+         # print "parameter output ", self.parameterOutput
 
 def main():
     x = [1.0, 2.0, 3.0, 5.0]

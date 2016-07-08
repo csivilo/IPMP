@@ -20,16 +20,17 @@ class dataAnalysis():
         text_report = self.calculation.JDP.jacobianDeltaP
         self.report = {}
         self.report["p out"] = str(self.calculation.pOut)
-        try:    
+        try:
             self.errorEstimate = EA.errorEstimate(rawdata[0], self.calculation.pOut, \
                 self.calculation.cov, self.calculation.residual, \
                 self.calculation.YPredictedValue)        
-            text_report += "SSE = ", self.errorEstimate.SSE
-            text_report += "RMSE = ", self.errorEstimate.RMSE
-            text_report += "Residual stdev = ", self.errorEstimate.residErr_std
-            text_report += "AIC = ", self.errorEstimate.AIC
-            text_report +=  "Crtitcal t = ", self.errorEstimate.t_critical
+            text_report = ("SSE = %f\n" % self.errorEstimate.SSE)
+            text_report += ("RMSE = %f\n" % self.errorEstimate.RMSE)
+            text_report += ("Residual stdev = %f\n" % self.errorEstimate.residErr_std)
+            text_report += ("AIC = %s\n" % self.errorEstimate.AIC)
+            text_report +=  ("Crtitcal t = %f" % self.errorEstimate.t_critical)
             self.report["text"] = text_report
+
         #except (ValueError,  OverflowError, ZeroDivisionError, FloatingPointError): 
         except:
             pass
@@ -71,13 +72,16 @@ class dataAnalysis():
         self.errorMessage = "Successful"     
         try: 
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
+            self.report["jacobian"] = self.jacobian.jacob
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
-            print self.confidenceIntervals.CIOutputs
+            self.report["ci_out"] = self.confidenceIntervals.CIOutputs
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e
-        print "error message = ", self.errorMessage
-        
+
+        self.report["error"] = self.errorMessage
+
+
                 
         
         """

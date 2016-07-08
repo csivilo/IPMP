@@ -31,7 +31,7 @@ class Jacobian():
             h =np.dot(jacb[i, :], JXINV)
             h = np.dot(h, jacb[i, :].T)
             self.jacob.append(h)
-        print "New Jacobian ", self.jacob
+        # print "New Jacobian ", self.jacob
         
 
 def main():

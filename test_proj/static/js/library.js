@@ -80,6 +80,13 @@
                     rate: $$('slider_input').getValues().s3,
                     lag: $$('slider_input').getValues().s5
                 },
+                success: function(json) {
+                    data = json;
+                    var text = data["text"];
+                    console.log(text)
+                    $$("output_table").parse(text)
+                    //plotData();
+                }
             });
         }
 
