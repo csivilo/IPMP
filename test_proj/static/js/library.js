@@ -80,6 +80,18 @@
                     rate: $$('slider_input').getValues().s3,
                     lag: $$('slider_input').getValues().s5
                 },
+                success: function(json) {
+                    data = json;
+                    if( data['error'].localeCompare("Successful") == 0) {
+                        var text = data["text"];
+                        console.log(text)
+                        $$("output_table").parse(text)
+                        //plotData();
+                    }
+                    else{
+                        console.log("Backend analysis failed, adjust parameters for better fit")
+                    }
+                }
             });
         }
 
@@ -284,7 +296,6 @@
 
          //checks to see if you data points has valid input
         function dataIsValid(){
-            console.log(data_points);
             var min = data_points[0].conc_input;
             var popBox = true;
             var max = data_points[data_points.length - 1].conc_input;
