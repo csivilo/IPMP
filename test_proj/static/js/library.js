@@ -82,10 +82,15 @@
                 },
                 success: function(json) {
                     data = json;
-                    var text = data["text"];
-                    console.log(text)
-                    $$("output_table").parse(text)
-                    //plotData();
+                    if( data['error'].localeCompare("Successful") == 0) {
+                        var text = data["text"];
+                        console.log(text)
+                        $$("output_table").parse(text)
+                        //plotData();
+                    }
+                    else{
+                        console.log("Backend analysis failed, adjust parameters for better fit")
+                    }
                 }
             });
         }

@@ -14,7 +14,7 @@ class dataAnalysis():
         self.rawdata = rawdata
         self.p = p0
         self.dataLength = len(rawdata[0])
-        self.report = ''
+
         np.seterr(all='ignore')
         self.calculation = GM.FitGompertz(rawdata, p0)
         text_report = self.calculation.JDP.jacobianDeltaP
@@ -76,10 +76,12 @@ class dataAnalysis():
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
             self.report["ci_out"] = self.confidenceIntervals.CIOutputs
+            self.success = True;
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e
+            self.success = False;
 
-        self.report["error"] = self.errorMessage
+        self.report["error"] = str(self.errorMessage)
 
 
                 

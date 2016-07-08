@@ -33,14 +33,16 @@ def data(request):
         if model == "Gompertz":
 
             inst = WG.dataAnalysis([xarray,yarray],p0)
-            dict = inst.report
+
 
         elif model == "Huang":
 
             inst = WH.dataAnalysis([xarray, yarray], p0)
+
         elif model == "Baranyi":
 
             inst = WB.dataAnalysis([xarray, yarray], p0)
+
         elif model == "Buchanan":
 
             inst = WBu.dataAnalysis([xarray, yarray], p0)
@@ -48,5 +50,5 @@ def data(request):
 
         #create context dictionary from simulation data
         #cont = {'plot': lst}
-
+        dict = inst.report
         return JsonResponse(dict)

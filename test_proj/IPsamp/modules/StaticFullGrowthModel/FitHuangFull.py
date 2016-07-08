@@ -29,7 +29,7 @@ class FitHuangFull:
         p,cov_x,infodict,mesg,ier = leastsq(self.YDiff,p,full_output=True)
         
         
-        print 'p out =', p
+        #print 'p out =', p
         self.pOut = p
         self.cov = cov_x
         self.infodict = infodict
@@ -38,8 +38,8 @@ class FitHuangFull:
         #print "ier = ", self.ier
         #print self.YDiff(p)
         self.residual = self.infodict["fvec"]  #self.YDiff(p)
-        print "Error message ", self.mesg
-        print "IER = ", self.ier
+       # print "Error message ", self.mesg
+        #print "IER = ", self.ier
         #print "residual of curve-fitting = ", self.residual
         self.YPredictedValue = self.HuangFullModelfunc(p[0], p[1], p[2], p[3], self.x)
         
