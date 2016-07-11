@@ -3,8 +3,9 @@ from django.template.context_processors import csrf
 from IPsamp.models import Gompertz
 from django.http import JsonResponse,HttpResponse
 import json
+
 from modules import wrapperGompertz as WG, wrapperHuangFull as WH, wrapperBaranyiFull as WB, \
-    wrapperBaranyiFixedH0 as WBF,wrapperBuchanan as WBu
+    wrapperBaranyiFixedH0 as WBF,wrapperBuchanan as WBu, report as RP
 import numpy as np
 
 def index(request):
@@ -34,7 +35,6 @@ def data(request):
 
             inst = WG.dataAnalysis([xarray,yarray],p0)
 
-
         elif model == "Huang":
 
             inst = WH.dataAnalysis([xarray, yarray], p0)
@@ -50,5 +50,11 @@ def data(request):
 
         #create context dictionary from simulation data
         #cont = {'plot': lst}
-        dict = inst.report
+        #dict = inst.report
+        dict = {"error": str(inst.errorMessage)}
+
+        if inst.errorMessage == "successful":
+            dict["text_output"] = RP.report(inst)
+
+
         return JsonResponse(dict)

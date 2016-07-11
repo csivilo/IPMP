@@ -56,18 +56,19 @@
 
             rows:[
                 {view: "toolbar", height: 60, id:"main_toolbar", elements:[
-                {view:"button", value:"Open", width:80 /*, click:file_options*/},
-                {view:"button", value:"Paste", width:80 /* ,click:ipmp_disclaim*/},
-                {view:"menu", data:[
-                    {id: "models", value: "Models", width:200, height: 60, submenu:[
-                        {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
-                        {id: "full_models", value: "Full", submenu:[
-                            {id: "gompertz", value: "Gompertz"},
-                            {id: "huang", value: "Huang"},
-                            {id: "baranyi", value: "Baranyi"},
-                            {id: "buchanan", value: "Buchanan"}
-                        ]}
-                   ]}
+                    {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:80, click:"printValue()",
+                     link: "myList"},
+                    {view: "button", value:"Add Rows", width: 75, click:"addRows()"},
+                    {view:"menu", data:[
+                        {id: "models", value: "Models", width:200, height: 60, submenu:[
+                            {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
+                            {id: "full_models", value: "Full", submenu:[
+                                {id: "gompertz", value: "Gompertz"},
+                                {id: "huang", value: "Huang"},
+                                {id: "baranyi", value: "Baranyi"},
+                                {id: "buchanan", value: "Buchanan"}
+                            ]}
+                       ]}
                ],
                 on: { onMenuItemClick: function(id){
                     if(id == "gompertz"){
@@ -215,7 +216,7 @@
                         {view: "datatable",
                             id:"output_table",
                             columns: [
-                               {id: "report_table", header: "Report" }
+                               {id: "text_output", header: "Report", height: 4000, width: 10000 }
                             ],
                             editable: false
                         }

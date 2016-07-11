@@ -12,25 +12,19 @@ import ErrorAnalysis.jacobian as JA
 import ErrorAnalysis.calculateConfidenceIntervals as CI
 class dataAnalysis():
     def __init__(self, rawdata, p0):
+        self.modelName = "Buchanan"
         self.rawdata = rawdata
         self.p = p0
         self.dataLength = len(rawdata[0])
         
         np.seterr(all='ignore')
         self.calculation = FBu.FitBuchanan(rawdata, p0)
-        self.report = {}
-        self.report["p out"] = str(self.calculation.pOut)
+
         try:    
             self.errorEstimate = EA.errorEstimate(rawdata[0], self.calculation.pOut, \
                 self.calculation.cov, self.calculation.residual, \
                 self.calculation.YPredictedValue)
-            text_report = ("SSE = %f\n" % self.errorEstimate.SSE)
-            text_report += ("RMSE = %f\n" % self.errorEstimate.RMSE)
-            text_report += ("Residual stdev = %f\n" % self.errorEstimate.residErr_std)
-            text_report += ("AIC = %s\n" % self.errorEstimate.AIC)
-            text_report += ("Crtitcal t = %f" % self.errorEstimate.t_critical)
 
-            self.report["text"] = text_report
         #except (ValueError,  OverflowError, ZeroDivisionError, FloatingPointError): 
         except:
             pass
@@ -69,22 +63,21 @@ class dataAnalysis():
             if < 0, format to 1.000E+xx (3 decimal points with engineering expression)
         """
         
-        self.errorMessage = "Successful"     
+        self.errorMessage = "successful"
         try: 
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
 
-            self.report["jacobian"] = self.jacobian.jacob
-            self.report["ci_out"] = self.confidenceIntervals.CIOutputs
-            self.success = True;
+
+
 
 
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e
-            self.success = False;
 
-        self.report["error"] = str(self.errorMessage)
+
+
 
                 
         

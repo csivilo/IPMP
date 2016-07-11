@@ -65,7 +65,10 @@
         }
 
         function submitModel(){
-
+            if(!(model)){
+                console.log("No model selected!")
+                return null
+            }
             var table_data = getTableData();
 
             $.ajax({
@@ -81,11 +84,11 @@
                     lag: $$('slider_input').getValues().s5
                 },
                 success: function(json) {
-                    data = json;
-                    if( data['error'].localeCompare("Successful") == 0) {
-                        var text = data["text"];
+                    var data = json;
+                    if( data['error'].localeCompare("successful") == 0) {
+                        var text = data['text_output'];
                         console.log(text)
-                        $$("output_table").parse(text)
+                        $$("output_table").parse({text_output: text})
                         //plotData();
                     }
                     else{
@@ -117,8 +120,8 @@
             var conc_array = [];
             var indexed = 0;
 
-            while($$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).conc_input != null &&
-                    $$("input_table").getItem($$("input_table").getIdByIndex(indexed+1)).time_input != null){
+            while($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input != null &&
+                    $$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input != null){
                 time_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input));
                 conc_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
                 indexed++
@@ -152,6 +155,57 @@
                }
            });
         }
+
+        function printValue() {
+             var datas =  $$('open_file').files.data.pull;
+             console.log(datas);
+             var file_id = $$("open_file").files.getFirstId(); //getting the ID
+             var fileobj = $$("open_file").files.getItem(file_id).file; //getting file object
+
+             filename = fileobj.name.getValues;
+             console.log(filename);
+         }
+
+        //brings a pop-up window with a counter to add rows to the input_table
+         function addRows(){
+             webix.ui({
+ 				view:"window",
+ 				id:"add_rows",
+ 				height:250,
+ 			    width:184,
+ 			    position: "center",
+ 			    head:{
+ 					view:"toolbar", cols:[
+ 						{view:"button", label: 'Confirm', width: 87, align: 'center', click:"updateRows();"},
+                         {view: "button", label: "Cancel", width: 87, click: "$$('add_rows').close();"}
+ 						]
+ 				},
+ 				body:{
+ 				    view: "counter",
+                     label: "Add rows",
+                     id: "counter",
+                     align: "center",
+                     value: 1,
+                     min: 0
+
+                 }
+ 			}).show();
+         }
+
+         //updates number of rows the user wants to update
+         function updateRows(){
+             var count = $$('counter').getValue(); //number of rows the user wants to add to the table
+
+             for(var i=0; i < count; i++){
+                 var obj = {id: data_points.length + 1, time_input: null, conc_input: null, conc_input2: null};
+                 data_points.push(obj); //add obj to data_points
+                 $$('input_table').add(obj); //add obj (the blank row) to the input table
+             }
+             //refresh the data table and close the popup window
+             $$('input_table').refresh();
+             $$('add_rows').close();
+         }
+
 
         function plotModel(type){
             //console.log(type)
