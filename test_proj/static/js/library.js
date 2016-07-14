@@ -8,31 +8,6 @@
             $$('insert_input').setValues(data);
         }
 
-        function computeData(){
-            var data_set = getData();
-
-            $.ajax({
-                type: "GET",
-                url: 'data/',
-                dataType: "json",
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    nO: data_set[0],
-                    nmax: data_set[1],
-                    rate: data_set[2],
-                    time: data_set[3],
-                    m: data_set[4]
-                },
-
-                success: function(json,data_points) {
-                    data = json;
-                    var new_points = data["plot"];
-                    $$("data_chart").clearAll();
-                    $$("data_chart").parse(new_points);
-                    //plotData();
-                }
-            });
-        }
 
         function getData() {
             //creates new array and pushes each value in the slider to the array
@@ -87,12 +62,17 @@
                     var data = json;
                     if( data['error'].localeCompare("successful") == 0) {
                         var text = data['text_output'];
+
+                        for(var i = 0; i < text.length; i ++){
+                            console.log(text.slice(i,i+1))
+                        }
                         console.log(text)
-                        $$("output_table").parse({text_output: text})
+                        $$("output_table").parse(data)
                         //plotData();
                     }
                     else{
                         console.log("Backend analysis failed, adjust parameters for better fit")
+                        $$("output_table").parse({text_output: "Backend analysis failed, adjust parameters for better fit"})
                     }
                 }
             });
@@ -167,8 +147,8 @@
          }
 
         //brings a pop-up window with a counter to add rows to the input_table
-         function addRows(){
-             webix.ui({
+        function addRows(){
+            webix.ui({
  				view:"window",
  				id:"add_rows",
  				height:250,
@@ -192,19 +172,19 @@
  			}).show();
          }
 
-         //updates number of rows the user wants to update
-         function updateRows(){
-             var count = $$('counter').getValue(); //number of rows the user wants to add to the table
+        //updates number of rows the user wants to update
+        function updateRows(){
+            var count = $$('counter').getValue(); //number of rows the user wants to add to the table
 
-             for(var i=0; i < count; i++){
-                 var obj = {id: data_points.length + 1, time_input: null, conc_input: null, conc_input2: null};
-                 data_points.push(obj); //add obj to data_points
-                 $$('input_table').add(obj); //add obj (the blank row) to the input table
-             }
-             //refresh the data table and close the popup window
-             $$('input_table').refresh();
-             $$('add_rows').close();
-         }
+            for(var i=0; i < count; i++){
+             var obj = {id: data_points.length + 1, time_input: null, conc_input: null, conc_input2: null};
+             data_points.push(obj); //add obj to data_points
+             $$('input_table').add(obj); //add obj (the blank row) to the input table
+            }
+            //refresh the data table and close the popup window
+            $$('input_table').refresh();
+            $$('add_rows').close();
+            }
 
 
         function plotModel(type){
@@ -253,6 +233,28 @@
                 model_data = buchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
                 $$('header4').show(); //shows Baranyi model only
             }
+            if(model_type.localeCompare('No_lag') == 0){
+                model = "No_lag"
+                model_data = noLagModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header5').show(); //will show only the correct header name, not all names
+
+                }
+            else if(model_type.localeCompare('R_huang') == 0){
+                model = "R_huang"
+                model_data = redHuangModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
+                //clearModelData();
+                $$('header6').show(); //shows Huang model only
+            }
+            else if(model_type.localeCompare('R_baranyi') == 0){
+                model = "R_baranyi"
+                model_data = redBaranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header7').show(); //shows Baranyi model only
+            }
+            else if(model_type.localeCompare('2_buchanan') == 0){
+                model = "2_buchanan"
+                model_data = twoBuchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header8').show(); //shows Baranyi model only
+            }
 
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
@@ -270,6 +272,10 @@
             $$('header2').hide();
             $$('header3').hide();
             $$('header4').hide();
+            $$('header5').hide();
+            $$('header6').hide();
+            $$('header7').hide();
+            $$('header8').hide();
         }
 
         function gompertzModel(y_initial, y_max,mu_max,lag,x){
@@ -287,7 +293,6 @@
         function huangModel(y_initial, y_max,mu_max,lag,x) {
             //used to run a simulation of the huang model, outputs a conc obj array
 
-            model = "Huang";
             var array = [];
             var b;
             for(time = 0; time <x; time+= (x/500.)) {
@@ -300,13 +305,13 @@
             return array
         }
 
-        function baranyiModel(y_initial, y_max,mu_max,lag,x) {
+        function baranyiModel(y_initial, y_max,mu_max,h0,x) {
             //used to run a simulation of the baranyi model, outputs a time/conc obj array
-            model = "Baranyi"
+
             var array = [];
             var a;
             for(time = 0; time <x; time+= (x/500.)) {
-                a = (mu_max*time) + Math.log(Math.exp(-1*mu_max*time)+(Math.exp(-1*lag)-Math.exp((-1*mu_max*time)-lag)))
+                a = (mu_max*time) + Math.log(Math.exp(-1*mu_max*time)+(Math.exp(-1*h0)-Math.exp((-1*mu_max*time)-h0)))
                 array.push({time_input: time,
                     conc_input2: y_initial + a - Math.log(1.0 + ((Math.exp(a) - 1.0)/ Math.exp(y_max - y_initial)) )})
             }
@@ -314,8 +319,8 @@
         }
 
         function buchananModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the baranyi model, outputs a time/conc obj array
-            model = "Buchanan"
+            //used to run a simulation of the buchanan model, outputs a time/conc obj array
+
             var array = []
             for(time = 0; time <x; time+= (x/500.)) {
                 if (time<lag){
@@ -327,6 +332,63 @@
                 else{
                     array.push({time_input: time, conc_input2: y_max})
                 }
+            }
+
+            return array
+        }
+
+        function noLagModel(y_initial, y_max,mu_max,lag,x){
+            //used to run a simulation of the gompertz model, outputs a time/conc obj array
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time, conc_input2: y_max + mu_max*time -
+                                            Math.log(Math.exp(mu_max*time) + Math.exp(y_max-y_initial) -1)})
+            }
+            return array
+        }
+
+        function redHuangModel(y_initial, y_max,mu_max,lag,x) {
+            //used to run a simulation of the reduced huang model, outputs a time/conc obj array
+
+
+            var array = [];
+
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time,
+                    conc_input2: y_initial+ mu_max*(time + 0.25*
+                                            Math.log((1.0 + Math.exp(-4.0*(time-lag)))/(1.0 + Math.exp(4.0*lag))))
+                })
+            }
+            return array
+        }
+
+        function redBaranyiModel(y_initial, y_max,mu_max,h0,x) {
+            //used to run a simulation of the reduced baranyi model, outputs a time/conc obj array
+
+            var array = [];
+            var a;
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time,
+                    conc_input2: y_initial + (mu_max*time) + Math.log(Math.exp(-1*mu_max*time) +
+                                                                    Math.exp(-h0) - Math.exp(-1*mu_max*time*h0))})
+            }
+            return array
+        }
+
+        function twoBuchananModel(y_initial, y_max,mu_max,lag,x) {
+            //used to run a simulation of the two phase Buchanan model, outputs a time/conc obj array
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+                    if(time< lag){
+                        array.push({ time_input: time, conc_input2:y_initial
+
+                        })
+                    }
+                    else if ( time >= lag) {
+                        array.push({time_input: time, conc_input2: y_initial + mu_max * (time - lag)})
+                    }
             }
 
             return array

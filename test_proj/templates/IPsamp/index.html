@@ -56,12 +56,17 @@
 
             rows:[
                 {view: "toolbar", height: 60, id:"main_toolbar", elements:[
-                    {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:80, click:"printValue()",
+                    {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:120, click:"printValue()",
                      link: "myList"},
-                    {view: "button", value:"Add Rows", width: 75, click:"addRows()"},
-                    {view:"menu", data:[
-                        {id: "models", value: "Models", width:200, height: 60, submenu:[
-                            {id: "inc_models", value: "Incomplete", submenu:["Sub models"]},
+                    {view: "button", value:"Add Rows", width: 120, click:"addRows()"},
+                    {view:"menu",  data:[
+                        {id: "models", value: "Models", width:200, submenu:[
+                            {id: "inc_models", value: "Incomplete", submenu:[
+                                {id: "no_lag", value: "No Lag Phase"},
+                                {id: "r_huang", value: "Reduced Huang"},
+                                {id: "r_baranyi", value: "Reduced Baranyi"},
+                                {id: "2_buchanan", value: "Two Phase Buchanan"}
+                            ]},
                             {id: "full_models", value: "Full", submenu:[
                                 {id: "gompertz", value: "Gompertz"},
                                 {id: "huang", value: "Huang"},
@@ -88,6 +93,26 @@
                         setSliders("\u03BC max","\u03BB (Lag)")
                         initialModel('Buchanan');
                     }
+                    else if(id == "no_lag"){
+                        $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
+                        initialModel('No_lag');
+                    }
+                    else if(id == "r_huang"){
+                        $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
+                        initialModel('R_huang');
+                    }
+                    else if(id == "r_baranyi"){
+                        $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
+                        initialModel('R_baranyi');
+                    }
+                    else if(id == "2_buchanan"){
+                        $$("data_chart").clearAll();
+                        setSliders("\u03BC max","\u03BB (Lag)")
+                        initialModel('2_buchanan');
+                    }
                 }
                 }},
 
@@ -95,6 +120,10 @@
                {view: "template", id:"header2", type:"header", template: "Huang Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header3", type:"header", template: "Baranyi Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header4", type:"header", template: "Buchanan Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header5", type:"header", template: "No Lag Logarithmic Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header6", type:"header", template: "Reduced Huang Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header7", type:"header", template: "Reduced Baranyi Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header8", type:"header", template: "Two Phase Buchanan Model", align: "left", borderless:true, hidden: true},
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
                {view: "button", width:150, align: "right", value: "Model Output", click: "$$('data_chart').clearAll(); initialModel('Gompertz')"}
                ]},
@@ -121,8 +150,8 @@
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
-                            {view:"button", value:"Submit Data", width:100 , click:" dataIsValid()"},
-                            {view:"button", value:"Clear Data", width:100 , click:"clearData()"}
+                            {view:"button", value:"Submit Data", width:120 , click:" dataIsValid()"},
+                            {view:"button", value:"Clear Data", width:120 , click:"clearData()"}
 
 
                         ]},
@@ -154,11 +183,11 @@
                                 ]
                             }]
                             }
-
                         ]}
                     ]},
                     {rows:[
                         {view:"chart",
+                        height: 297,
                         id: "data_chart",
                         type:"scatter",
                         xValue:"#time_input#",
@@ -172,15 +201,10 @@
                         },
                         xAxis:{
                             title:"Time (h)",
-
                         },
-
                         series: [
-
-
                             {
                             value: "#conc_input2#",
-
                             item: {
                                 radius: 1,
                                 color: "FireBrick",
@@ -190,8 +214,6 @@
                             tooltip: {
                                 template: "#conc_input2#"
                             }
-
-
                         },
                             {item: {
                                 radius: 5,
@@ -202,22 +224,26 @@
                             tooltip: {
                                 template: "#conc_input#"
                             }
-                        }
-
+                            }
                         ],
 
                         data: updatedData,
                         isVisible:false
                         },
                         {view: "toolbar", elements:[
-                            {view: "button", width: 100, align: "right",  label: "Save Report" },
-                            {view: "button", width: 100, align: "right",   label: "Print Report" }
+                                {view: "button", width: 100, align: "right",   label: "Clear Reports", click: function(){
+                                    $$("output_table").clearAll();
+                                } },
+                            {view: "button", width: 100, align: "right",  label: "Save Reports", click:function(){
+					            webix.toPDF($$("output_table"))}},
                         ]},
                         {view: "datatable",
-                            id:"output_table",
-                            columns: [
-                               {id: "text_output", header: "Report", height: 4000, width: 10000 }
+                            id: "output_table",
+                            datatype: "html",
+                            columns:[
+                                {id: "text_output", header: "Reports", width: 2000}
                             ],
+
                             editable: false
                         }
                     ]}
@@ -232,7 +258,6 @@
                 plotData();
                 initialModel(model);
             }
-
         })
 
         // updates model if sliders are manipulated
@@ -242,7 +267,6 @@
                 plotData();
                 initialModel(model);
             }
-
         })
 
 

@@ -13,6 +13,7 @@ import ErrorAnalysis.calculateConfidenceIntervals as CI
 class dataAnalysis():
     def __init__(self, rawdata, p0):
         self.modelName = "Baranyi"
+        self.parametersList = ['Ymax', 'Y0', 'H0', "Lag"]
         self.rawdata = rawdata
         self.p = p0
         self.dataLength = len(rawdata[0])

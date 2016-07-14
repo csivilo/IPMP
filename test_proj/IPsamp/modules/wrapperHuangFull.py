@@ -13,6 +13,7 @@ import ErrorAnalysis.calculateConfidenceIntervals as CI
 class dataAnalysis():
     def __init__(self, rawdata, p0):
         self.modelName = "Huang"
+        self.parametersList = ['Ymax', 'Y0', 'mumax', "Lag"]
         self.rawdata = rawdata
         self.p = p0
         self.dataLength = len(rawdata[0])
@@ -69,8 +70,6 @@ class dataAnalysis():
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
-            self.report["jacobian"] = self.jacobian.jacob
-            self.report["ci_out"] = self.confidenceIntervals.CIOutputs
 
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e

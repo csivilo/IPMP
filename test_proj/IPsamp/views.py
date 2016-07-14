@@ -5,14 +5,14 @@ from django.http import JsonResponse,HttpResponse
 import json
 
 from modules import wrapperGompertz as WG, wrapperHuangFull as WH, wrapperBaranyiFull as WB, \
-    wrapperBaranyiFixedH0 as WBF,wrapperBuchanan as WBu, report as RP
+    wrapperBaranyiFixedH0 as WBF,wrapperBuchanan as WBu, report as RP, wrapperTwoPhaseBuchanan as WTB,\
+    wrapperNoLagPhase as WNL, wrapperReducedBaranyi as WRB, wrapperReducedHuang as WRH
 import numpy as np
 
 def index(request):
 
 
     return render(request,"IPsamp/index.html/")
-
 
 def data(request):
     if request.method == "GET":
@@ -47,6 +47,22 @@ def data(request):
 
             inst = WBu.dataAnalysis([xarray, yarray], p0)
 
+
+        elif model == "No_lag":
+
+            inst = WNL.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "R_baranyi":
+
+            inst = WRB.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "R_huang":
+
+            inst = WRH.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "2_buchanan":
+
+            inst = WTB.dataAnalysis([xarray, yarray], p0)
 
         #create context dictionary from simulation data
         #cont = {'plot': lst}
