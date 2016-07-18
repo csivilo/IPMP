@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cb4a938-ad7d-499b-adb8-6d996c5f44eb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/IPsamp/plotly.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/report.py" afterPath="$PROJECT_DIR$/IPsamp/modules/report.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperBaranyiFull.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperBaranyiFull.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperBuchanan.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperBuchanan.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperGompertz.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperGompertz.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperHuangFull.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperHuangFull.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/views.py" afterPath="$PROJECT_DIR$/IPsamp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/library.js" afterPath="$PROJECT_DIR$/static/js/library.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/webix/codebase/webix.css" afterPath="$PROJECT_DIR$/static/js/webix/codebase/webix.css" />
@@ -29,7 +23,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/test_proj$report.coverage" NAME="report Coverage Results" MODIFIED="1468509598274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/IPsamp/modules" />
+    <SUITE FILE_PATH="coverage/test_proj$report.coverage" NAME="report Coverage Results" MODIFIED="1468591365894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/IPsamp/modules" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -41,12 +35,82 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file leaf-file-name="library.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/static/js/library.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="561">
-                    <caret line="390" column="21" selection-start-line="390" selection-start-column="21" selection-end-line="390" selection-end-column="21" />
+                  <state relative-caret-position="597">
+                    <caret line="278" column="32" selection-start-line="278" selection-start-column="32" selection-end-line="278" selection-end-column="32" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="webix.css" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/static/js/webix/codebase/webix.css">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="4964">
+                    <caret line="292" column="44" selection-start-line="292" selection-start-column="44" selection-end-line="292" selection-end-column="44" />
+                    <folding>
+                      <element signature="e#8840#9007#1" expanded="true" />
+                      <element signature="e#9141#9304#1" expanded="true" />
+                      <element signature="e#9374#9541#1" expanded="true" />
+                      <element signature="e#9616#9779#1" expanded="true" />
+                      <element signature="e#17562#19121#2" expanded="true" />
+                      <element signature="e#19198#20745#2" expanded="true" />
+                      <element signature="e#21391#22938#2" expanded="true" />
+                      <element signature="e#23190#24705#2" expanded="true" />
+                      <element signature="e#25085#25668#2" expanded="true" />
+                      <element signature="e#25746#26329#2" expanded="true" />
+                      <element signature="e#26429#26988#2" expanded="true" />
+                      <element signature="e#27088#27755#2" expanded="true" />
+                      <element signature="e#32182#33457#2" expanded="true" />
+                      <element signature="e#37017#37400#2" expanded="true" />
+                      <element signature="e#38265#38472#2" expanded="true" />
+                      <element signature="e#54180#54511#2" expanded="true" />
+                      <element signature="e#54832#55007#2" expanded="true" />
+                      <element signature="e#55686#56001#2" expanded="true" />
+                      <element signature="e#57005#58640#2" expanded="true" />
+                      <element signature="e#58676#60303#2" expanded="true" />
+                      <element signature="e#60339#60474#2" expanded="true" />
+                      <element signature="e#60512#60639#2" expanded="true" />
+                      <element signature="e#60682#60813#2" expanded="true" />
+                      <element signature="e#60916#61103#2" expanded="true" />
+                      <element signature="e#61168#61363#2" expanded="true" />
+                      <element signature="e#61400#61583#2" expanded="true" />
+                      <element signature="e#61621#61804#2" expanded="true" />
+                      <element signature="e#61870#62061#2" expanded="true" />
+                      <element signature="e#62099#62278#2" expanded="true" />
+                      <element signature="e#62315#62462#2" expanded="true" />
+                      <element signature="e#62499#62638#2" expanded="true" />
+                      <element signature="e#62703#62858#2" expanded="true" />
+                      <element signature="e#62895#63026#2" expanded="true" />
+                      <element signature="e#63063#63150#2" expanded="true" />
+                      <element signature="e#63576#63779#2" expanded="true" />
+                      <element signature="e#63860#64055#2" expanded="true" />
+                      <element signature="e#105026#106761#2" expanded="true" />
+                      <element signature="e#106899#107238#2" expanded="true" />
+                      <element signature="e#109468#110743#2" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="17_submenu_autowidth.html" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/../../17_submenu_autowidth.html">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="646">
+                    <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="40" selection-end-column="17" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="welcome.html" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/templates/welcome/welcome.html">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="255">
+                    <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
                     <folding />
                   </state>
                 </provider>
@@ -63,72 +127,83 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="report.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/IPsamp/modules/report.py">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPsamp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webix.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/js/webix/codebase/webix.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="42" column="91" selection-start-line="42" selection-start-column="91" selection-end-line="42" selection-end-column="91" />
+            <state relative-caret-position="0">
+              <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
               <folding>
-                <element signature="e#1675#1870#2" expanded="true" />
-                <element signature="e#8847#9014#1" expanded="true" />
-                <element signature="e#9148#9311#1" expanded="true" />
-                <element signature="e#9381#9548#1" expanded="true" />
-                <element signature="e#9623#9786#1" expanded="true" />
-                <element signature="e#17576#19135#2" expanded="true" />
-                <element signature="e#19212#20759#2" expanded="true" />
-                <element signature="e#21405#22952#2" expanded="true" />
-                <element signature="e#23204#24719#2" expanded="true" />
-                <element signature="e#25099#25682#2" expanded="true" />
-                <element signature="e#25760#26343#2" expanded="true" />
-                <element signature="e#26443#27002#2" expanded="true" />
-                <element signature="e#27102#27769#2" expanded="true" />
-                <element signature="e#32217#33492#2" expanded="true" />
-                <element signature="e#37052#37435#2" expanded="true" />
-                <element signature="e#38300#38507#2" expanded="true" />
-                <element signature="e#54257#54588#2" expanded="true" />
-                <element signature="e#54909#55084#2" expanded="true" />
-                <element signature="e#55770#56085#2" expanded="true" />
-                <element signature="e#57089#58724#2" expanded="true" />
-                <element signature="e#58760#60387#2" expanded="true" />
-                <element signature="e#60423#60558#2" expanded="true" />
-                <element signature="e#60596#60723#2" expanded="true" />
-                <element signature="e#60766#60897#2" expanded="true" />
-                <element signature="e#61000#61187#2" expanded="true" />
-                <element signature="e#61252#61447#2" expanded="true" />
-                <element signature="e#61484#61667#2" expanded="true" />
-                <element signature="e#61705#61888#2" expanded="true" />
-                <element signature="e#61954#62145#2" expanded="true" />
-                <element signature="e#62183#62362#2" expanded="true" />
-                <element signature="e#62399#62546#2" expanded="true" />
-                <element signature="e#62583#62722#2" expanded="true" />
-                <element signature="e#62787#62942#2" expanded="true" />
-                <element signature="e#62979#63110#2" expanded="true" />
-                <element signature="e#63147#63234#2" expanded="true" />
-                <element signature="e#63660#63863#2" expanded="true" />
-                <element signature="e#63944#64139#2" expanded="true" />
-                <element signature="e#105187#106922#2" expanded="true" />
-                <element signature="e#107060#107399#2" expanded="true" />
-                <element signature="e#109629#110904#2" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="07_menu_toolbar.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../07_menu_toolbar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="101">
+              <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitGompertzSurvivalModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitGompertzSurvivalModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-323">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitBuchananThreePhaseLinearSurvivalModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitBuchananThreePhaseLinearSurvivalModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitBuchananTwoPhaseShoulderLinearSurvivalModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitBuchananTwoPhaseShoulderLinearSurvivalModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-340">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitWeibullMafartSurvivalModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitWeibullMafartSurvivalModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitWeibullSurvivalModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitWeibullSurvivalModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/IPsamp/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="164" column="45" selection-start-line="164" selection-start-column="45" selection-end-line="164" selection-end-column="45" />
+            <state relative-caret-position="164">
+              <caret line="248" column="19" selection-start-line="248" selection-start-column="16" selection-end-line="248" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -147,12 +222,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/IPsamp/02.html" />
-        <option value="$PROJECT_DIR$/templates/IPsamp/01.html" />
-        <option value="$PROJECT_DIR$/test_proj/settings.py" />
-        <option value="$PROJECT_DIR$/modules/StaticPrimaryGrowth.py" />
-        <option value="$PROJECT_DIR$/IPsamp/models.py" />
-        <option value="$PROJECT_DIR$/../../03_scale.html" />
         <option value="$PROJECT_DIR$/modules/wrapperGompertz.py" />
         <option value="$PROJECT_DIR$/modules/StaticFullGrowthModel/FitGompertz.py" />
         <option value="$PROJECT_DIR$/modules/wrapper.py" />
@@ -177,7 +246,6 @@
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/ReducedBaranyiFunc.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/ReducedHuangFunc.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperTwoPhaseBuchanan.py" />
-        <option value="$PROJECT_DIR$/IPsamp/views.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperBaranyiFull.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperHuangFull.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperBuchanan.py" />
@@ -186,10 +254,25 @@
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitNoLagPhaseModel.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperNoLagPhase.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperReducedBaranyi.py" />
-        <option value="$PROJECT_DIR$/static/js/library.js" />
         <option value="$PROJECT_DIR$/IPsamp/modules/report.py" />
-        <option value="$PROJECT_DIR$/templates/IPsamp/index.html" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperGompertzSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullMafartSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperLinearWithTailSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperBuchananThreePhaseLinearSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperBuchananShoulderLinearSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitGompertzSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitBuchananThreePhaseLinearSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitWeibullMafartSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitBuchananTwoPhaseShoulderLinearSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitWeibullSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitLinearWithTailSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitLinearSurvivalModel.py" />
+        <option value="$PROJECT_DIR$/IPsamp/modules/wrapperLinearSurvival.py" />
+        <option value="$PROJECT_DIR$/IPsamp/views.py" />
         <option value="$PROJECT_DIR$/static/js/webix/codebase/webix.css" />
+        <option value="$PROJECT_DIR$/templates/IPsamp/index.html" />
+        <option value="$PROJECT_DIR$/static/js/library.js" />
       </list>
     </option>
   </component>
@@ -200,10 +283,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1432" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1040" />
+    <option name="width" value="1456" />
+    <option name="height" value="916" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -243,7 +326,7 @@
       <recent name="C:\Users\carlo.sivilotti\Desktop\IPMP\test_proj\modules" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.report">
+  <component name="RunManager" selected="Django server.test_proj">
     <configuration default="false" name="report" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -559,7 +642,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1432" y="-8" width="1296" height="1040" extended-state="6" />
+    <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43828124" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -568,7 +651,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2857143" sideWeight="0.85" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2850062" sideWeight="0.85" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -600,111 +683,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/webix/codebase/webix.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-622">
-          <caret line="1036" column="193" selection-start-line="1036" selection-start-column="192" selection-end-line="1036" selection-end-column="193" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../12_diff_charts (1).html" />
-    <entry file="file://$PROJECT_DIR$/../../04_series.html" />
-    <entry file="file://$PROJECT_DIR$/../../05_series (1).html" />
-    <entry file="file://$PROJECT_DIR$/../../01_basic.html" />
-    <entry file="file://$PROJECT_DIR$/../../02_style.html" />
-    <entry file="file://$PROJECT_DIR$/test_proj/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/webix/samples/common/chartdata.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBaranyi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="72" column="75" selection-start-line="72" selection-start-column="75" selection-end-line="72" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBaranyiFixedH0.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/JacobianDeltaP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/ErrorAnalysis/calculateConfidenceIntervals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/django/core/handlers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="143" column="32" selection-start-line="143" selection-start-column="32" selection-end-line="143" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitGompertz.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/HuangFullFunc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/ErrorAnalysis/errorEstimate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/modules/ErrorAnalysis/jacobian.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="59" selection-start-line="17" selection-start-column="59" selection-end-line="17" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Custom Behaviour on Resizing.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -772,7 +755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="26" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -780,7 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -788,7 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -796,7 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-119">
           <caret line="21" column="57" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -804,17 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/IPsamp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="64" column="57" selection-start-line="64" selection-start-column="57" selection-end-line="64" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -822,7 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -830,7 +797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -838,7 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -846,7 +811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -854,7 +818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -862,9 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
           <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="e#102#120#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -872,7 +832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -880,7 +839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -888,7 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
           <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -896,7 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -904,7 +860,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,7 +867,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -920,7 +874,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -928,80 +881,226 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/IPsamp/modules/report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
+        <state relative-caret-position="668">
           <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperGompertzSurvival.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-165">
+          <caret line="88" column="76" selection-start-line="88" selection-start-column="76" selection-end-line="88" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperWeibullMafartSurvival.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/JacobianDeltaP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-165">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitLinearWithTailSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-573">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitLinearSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperLinearWithTailSurvival.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/library.js">
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperBuchananShoulderLinearSurvival.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="390" column="21" selection-start-line="390" selection-start-column="21" selection-end-line="390" selection-end-column="21" />
+        <state relative-caret-position="1088">
+          <caret line="68" column="85" selection-start-line="68" selection-start-column="85" selection-end-line="68" selection-end-column="85" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/IPsamp/index.html">
+    <entry file="file://$PROJECT_DIR$/IPsamp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="164" column="45" selection-start-line="164" selection-start-column="45" selection-end-line="164" selection-end-column="45" />
+        <state relative-caret-position="0">
+          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../17_submenu_autowidth.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="40" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/webix/codebase/webix.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="42" column="91" selection-start-line="42" selection-start-column="91" selection-end-line="42" selection-end-column="91" />
+        <state relative-caret-position="4964">
+          <caret line="292" column="44" selection-start-line="292" selection-start-column="44" selection-end-line="292" selection-end-column="44" />
           <folding>
-            <element signature="e#1675#1870#2" expanded="true" />
-            <element signature="e#8847#9014#1" expanded="true" />
-            <element signature="e#9148#9311#1" expanded="true" />
-            <element signature="e#9381#9548#1" expanded="true" />
-            <element signature="e#9623#9786#1" expanded="true" />
-            <element signature="e#17576#19135#2" expanded="true" />
-            <element signature="e#19212#20759#2" expanded="true" />
-            <element signature="e#21405#22952#2" expanded="true" />
-            <element signature="e#23204#24719#2" expanded="true" />
-            <element signature="e#25099#25682#2" expanded="true" />
-            <element signature="e#25760#26343#2" expanded="true" />
-            <element signature="e#26443#27002#2" expanded="true" />
-            <element signature="e#27102#27769#2" expanded="true" />
-            <element signature="e#32217#33492#2" expanded="true" />
-            <element signature="e#37052#37435#2" expanded="true" />
-            <element signature="e#38300#38507#2" expanded="true" />
-            <element signature="e#54257#54588#2" expanded="true" />
-            <element signature="e#54909#55084#2" expanded="true" />
-            <element signature="e#55770#56085#2" expanded="true" />
-            <element signature="e#57089#58724#2" expanded="true" />
-            <element signature="e#58760#60387#2" expanded="true" />
-            <element signature="e#60423#60558#2" expanded="true" />
-            <element signature="e#60596#60723#2" expanded="true" />
-            <element signature="e#60766#60897#2" expanded="true" />
-            <element signature="e#61000#61187#2" expanded="true" />
-            <element signature="e#61252#61447#2" expanded="true" />
-            <element signature="e#61484#61667#2" expanded="true" />
-            <element signature="e#61705#61888#2" expanded="true" />
-            <element signature="e#61954#62145#2" expanded="true" />
-            <element signature="e#62183#62362#2" expanded="true" />
-            <element signature="e#62399#62546#2" expanded="true" />
-            <element signature="e#62583#62722#2" expanded="true" />
-            <element signature="e#62787#62942#2" expanded="true" />
-            <element signature="e#62979#63110#2" expanded="true" />
-            <element signature="e#63147#63234#2" expanded="true" />
-            <element signature="e#63660#63863#2" expanded="true" />
-            <element signature="e#63944#64139#2" expanded="true" />
-            <element signature="e#105187#106922#2" expanded="true" />
-            <element signature="e#107060#107399#2" expanded="true" />
-            <element signature="e#109629#110904#2" expanded="true" />
+            <element signature="e#8840#9007#1" expanded="true" />
+            <element signature="e#9141#9304#1" expanded="true" />
+            <element signature="e#9374#9541#1" expanded="true" />
+            <element signature="e#9616#9779#1" expanded="true" />
+            <element signature="e#17562#19121#2" expanded="true" />
+            <element signature="e#19198#20745#2" expanded="true" />
+            <element signature="e#21391#22938#2" expanded="true" />
+            <element signature="e#23190#24705#2" expanded="true" />
+            <element signature="e#25085#25668#2" expanded="true" />
+            <element signature="e#25746#26329#2" expanded="true" />
+            <element signature="e#26429#26988#2" expanded="true" />
+            <element signature="e#27088#27755#2" expanded="true" />
+            <element signature="e#32182#33457#2" expanded="true" />
+            <element signature="e#37017#37400#2" expanded="true" />
+            <element signature="e#38265#38472#2" expanded="true" />
+            <element signature="e#54180#54511#2" expanded="true" />
+            <element signature="e#54832#55007#2" expanded="true" />
+            <element signature="e#55686#56001#2" expanded="true" />
+            <element signature="e#57005#58640#2" expanded="true" />
+            <element signature="e#58676#60303#2" expanded="true" />
+            <element signature="e#60339#60474#2" expanded="true" />
+            <element signature="e#60512#60639#2" expanded="true" />
+            <element signature="e#60682#60813#2" expanded="true" />
+            <element signature="e#60916#61103#2" expanded="true" />
+            <element signature="e#61168#61363#2" expanded="true" />
+            <element signature="e#61400#61583#2" expanded="true" />
+            <element signature="e#61621#61804#2" expanded="true" />
+            <element signature="e#61870#62061#2" expanded="true" />
+            <element signature="e#62099#62278#2" expanded="true" />
+            <element signature="e#62315#62462#2" expanded="true" />
+            <element signature="e#62499#62638#2" expanded="true" />
+            <element signature="e#62703#62858#2" expanded="true" />
+            <element signature="e#62895#63026#2" expanded="true" />
+            <element signature="e#63063#63150#2" expanded="true" />
+            <element signature="e#63576#63779#2" expanded="true" />
+            <element signature="e#63860#64055#2" expanded="true" />
+            <element signature="e#105026#106761#2" expanded="true" />
+            <element signature="e#106899#107238#2" expanded="true" />
+            <element signature="e#109468#110743#2" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperLinearSurvival.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-306">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../07_menu_toolbar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperBuchananThreePhaseLinearSurvival.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperWeibullSurvival.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1496">
+          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitGompertzSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitWeibullSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="73" column="23" selection-start-line="73" selection-start-column="23" selection-end-line="73" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitWeibullMafartSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitBuchananTwoPhaseShoulderLinearSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-340">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPsamp/modules/SurvivalModels/FitBuchananThreePhaseLinearSurvivalModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/IPsamp/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="248" column="19" selection-start-line="248" selection-start-column="16" selection-end-line="248" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/welcome/welcome.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="597">
+          <caret line="278" column="32" selection-start-line="278" selection-start-column="32" selection-end-line="278" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

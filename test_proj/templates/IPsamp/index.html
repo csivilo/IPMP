@@ -59,59 +59,41 @@
                     {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:120, click:"printValue()",
                      link: "myList"},
                     {view: "button", value:"Add Rows", width: 120, click:"addRows()"},
-                    {view:"menu",  data:[
-                        {id: "models", value: "Models", width:200, submenu:[
+                    {view:"menu", autowidth: true, data:[
+                        {id: "models", value: "Models",  submenu:[
                             {id: "inc_models", value: "Incomplete", submenu:[
-                                {id: "no_lag", value: "No Lag Phase"},
-                                {id: "r_huang", value: "Reduced Huang"},
-                                {id: "r_baranyi", value: "Reduced Baranyi"},
+                                {id: "No_lag", value: "No Lag Phase"},
+                                {id: "R_huang", value: "Reduced Huang"},
+                                {id: "R_baranyi", value: "Reduced Baranyi"},
                                 {id: "2_buchanan", value: "Two Phase Buchanan"}
                             ]},
                             {id: "full_models", value: "Full", submenu:[
-                                {id: "gompertz", value: "Gompertz"},
-                                {id: "huang", value: "Huang"},
-                                {id: "baranyi", value: "Baranyi"},
-                                {id: "buchanan", value: "Buchanan"}
+                                {id: "Gompertz", value: "Gompertz"},
+                                {id: "Huang", value: "Huang"},
+                                {id: "Baranyi", value: "Baranyi"},
+                                {id: "Buchanan", value: "Buchanan"}
+                            ]},
+                            {id: "sur_models",value: "Survival", submenu:[
+                                {id: "S_linear", value: "Linear"},
+                                {id: "S_linshoulder", value: "Linear with Shoulder"},
+                                {id: "S_gompertz", value: "Gompertz"},
+                                {id: "S_weibull", value: "Weibull"},
+                                {id: "S_mafart", value: "Weibull-Mafart"},
+                                {id: "S2_buchanan", value: "Buchanan Two-Phase"},
+                                {id: "S3_buchanan", value: "Buchanan Three-Phase"}
                             ]}
                        ]}
                ],
                 on: { onMenuItemClick: function(id){
-                    if(id == "gompertz"){
+                    //if either of the linear survival models, no input is needed, straight to server-side
+                    if(id == "S_linear" || id == "S_linshoulder") {
+                        model = id;
                         $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('Gompertz');
-                    } else if(id == "huang"){
-                        $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('Huang');
-                    } else if(id == "baranyi"){
-                        $$("data_chart").clearAll();
-                        setSliders("\u03BC max","H0")
-                        initialModel('Baranyi');
-                    }else if(id == "buchanan"){
-                        $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('Buchanan');
+                        submitModel(id);
                     }
-                    else if(id == "no_lag"){
+                    else{
                         $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('No_lag');
-                    }
-                    else if(id == "r_huang"){
-                        $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('R_huang');
-                    }
-                    else if(id == "r_baranyi"){
-                        $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('R_baranyi');
-                    }
-                    else if(id == "2_buchanan"){
-                        $$("data_chart").clearAll();
-                        setSliders("\u03BC max","\u03BB (Lag)")
-                        initialModel('2_buchanan');
+                        initialModel(id);
                     }
                 }
                 }},
@@ -123,7 +105,15 @@
                {view: "template", id:"header5", type:"header", template: "No Lag Logarithmic Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header6", type:"header", template: "Reduced Huang Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header7", type:"header", template: "Reduced Baranyi Model", align: "left", borderless:true, hidden: true},
-               {view: "template", id:"header8", type:"header", template: "Two Phase Buchanan Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header8", type:"header", template: "Two-Phase Buchanan Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header9", type:"header", template: "Survival Linear Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header10", type:"header", template: "Survival Linear with Shoulder Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header11", type:"header", template: "Survival Gompertz Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header12", type:"header", template: "Survival Weibull Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header13", type:"header", template: "Survival Weibull-Mafart Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header14", type:"header", template: "Survival Two-Phase Buchanan Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header15", type:"header", template: "Survival Three-Phase Buchanan Model", align: "left", borderless:true, hidden: true},
+
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
                {view: "button", width:150, align: "right", value: "Model Output", click: "$$('data_chart').clearAll(); initialModel('Gompertz')"}
                ]},
@@ -247,7 +237,8 @@
                             editable: false
                         }
                     ]}
-                ]}
+                ]},
+
             ]
         });
 
@@ -271,6 +262,8 @@
 
 
     </script>
+    <img src= "{% static "img/USDA_logo.png" %}" style="width: 108px;height: 75px;margin-left: 30px;margin-top: 20px"/>
+    <img src= "{% static "img/ARS_logo.png" %}" style="width: 108px;height: 70px;margin-top: 30px; margin-left: 15px"/>
     </body>
     <style type = "text/css">
         .my_style{

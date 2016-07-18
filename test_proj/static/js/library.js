@@ -40,6 +40,7 @@
         }
 
         function submitModel(){
+        // submits model parameters and data to the backend, recieves json object through ajax, displays in browser
             if(!(model)){
                 console.log("No model selected!")
                 return null
@@ -68,7 +69,6 @@
                         }
                         console.log(text)
                         $$("output_table").parse(data)
-                        //plotData();
                     }
                     else{
                         console.log("Backend analysis failed, adjust parameters for better fit")
@@ -86,7 +86,8 @@
 
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
-                if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
+                if((data_points[i].conc_input !=  null ||
+                                    data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     updatedData.push(data_points[i]);
                 }
             }
@@ -95,7 +96,7 @@
         }
 
         function getTableData(){
-             //creates two new arrays filled with x and y data from the input table, then pushes them to a master array
+             //creates two new arrays filled with x and y data from the input table, then returns them in a master array
             var time_array = [];
             var conc_array = [];
             var indexed = 0;
@@ -141,7 +142,6 @@
              console.log(datas);
              var file_id = $$("open_file").files.getFirstId(); //getting the ID
              var fileobj = $$("open_file").files.getItem(file_id).file; //getting file object
-
              filename = fileobj.name.getValues;
              console.log(filename);
          }
@@ -172,6 +172,8 @@
  			}).show();
          }
 
+
+
         //updates number of rows the user wants to update
         function updateRows(){
             var count = $$('counter').getValue(); //number of rows the user wants to add to the table
@@ -186,26 +188,10 @@
             $$('add_rows').close();
             }
 
-
-        function plotModel(type){
-            //console.log(type)
-
-            webix.ui({
-                view: "window",
-                id: "model_param",
-                body: [
-                    {view:"form", id:"slider_input", height: 160,elements:[
-                                { view:"slider",  height: 20, type:"alt", min:0, max:5, label:"N0(0-5)", value:"0", name:"s1"},
-                                { view:"slider", height: 20, type:"alt", min:0, max:9, label:"NMax(0-9)", value:"0", name:"s2"},
-                    ]}
-                ]
-            })
-        }
-
         function initialModel(model_type){
             //Runs a default simulation based off of known models sets up a user editable model
             //Inputs: model_type, the string of the type of model used
-            //clearModelData();
+            //Returns: none, but loads the default model curve into the data_chart
             var model_data = [];
             var data_set = getData();
             var mu_approx = data_set[2]
@@ -214,59 +200,81 @@
             if(model_type.localeCompare('Gompertz') == 0){
                 model = "Gompertz"
                 model_data = gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
-                $$('header').show(); //will show only the correct header name, not all names
-
+                $$('header').show();
                 }
             else if(model_type.localeCompare('Huang') == 0){
                 model = "Huang"
                 model_data = huangModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
-                //clearModelData();
-                $$('header2').show(); //shows Huang model only
+                $$('header2').show();
             }
             else if(model_type.localeCompare('Baranyi') == 0){
                 model = "Baranyi"
                 model_data = baranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
-                $$('header3').show(); //shows Baranyi model only
+                $$('header3').show();
             }
             else if(model_type.localeCompare('Buchanan') == 0){
                 model = "Buchanan"
                 model_data = buchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
-                $$('header4').show(); //shows Baranyi model only
+                $$('header4').show();
             }
             if(model_type.localeCompare('No_lag') == 0){
                 model = "No_lag"
-                model_data = noLagModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
-                $$('header5').show(); //will show only the correct header name, not all names
-
+                model_data = noLagModel(data_set[0], data_set[1], mu_approx, t_max)
+                $$('header5').show();
                 }
             else if(model_type.localeCompare('R_huang') == 0){
                 model = "R_huang"
-                model_data = redHuangModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
-                //clearModelData();
-                $$('header6').show(); //shows Huang model only
+                model_data = redHuangModel(data_set[0], mu_approx, data_set[4], t_max);
+                $$('header6').show();
             }
             else if(model_type.localeCompare('R_baranyi') == 0){
                 model = "R_baranyi"
-                model_data = redBaranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
-                $$('header7').show(); //shows Baranyi model only
+                model_data = redBaranyiModel(data_set[0], mu_approx, data_set[4], t_max)
+                $$('header7').show();
             }
             else if(model_type.localeCompare('2_buchanan') == 0){
                 model = "2_buchanan"
-                model_data = twoBuchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
-                $$('header8').show(); //shows Baranyi model only
+                model_data = twoBuchananModel(data_set[0], mu_approx, data_set[4], t_max)
+                $$('header8').show();
+            }
+            else if(model_type.localeCompare('S_gompertz') == 0){
+                model = "S_gompertz"
+                model_data = sGompertzModel(data_set[0], mu_approx, data_set[4], t_max)
+                $$('header11').show();
+            }
+            if(model_type.localeCompare('S_weibull') == 0){
+                model = "Sweibull"
+                model_data = sWeibullModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header12').show();
+
+                }
+            else if(model_type.localeCompare('S_mafart') == 0){
+                model = "S_mafart"
+                model_data = sMafartModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
+                $$('header13').show();
+            }
+            else if(model_type.localeCompare('S2_buchanan') == 0){
+                model = "S2_buchanan"
+                model_data = sTwoBuchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header14').show();
+            }
+            else if(model_type.localeCompare('S3_buchanan') == 0){
+                model = "S3_buchanan"
+                model_data = sThreeBuchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                $$('header15').show();
             }
 
+            //loading data points from user's data
             for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     model_data.push(data_points[i]);
-
                 }
             }
         $$('data_chart').parse(model_data);
         }
 
-        //will hide all models, so we don't have more than one model displayed at a time
+        //Hides all model headers
         function hide() {
             $$('header').hide();
             $$('header2').hide();
@@ -276,11 +284,25 @@
             $$('header6').hide();
             $$('header7').hide();
             $$('header8').hide();
+            $$('header9').hide();
+            $$('header10').hide();
+            $$('header11').hide();
+            $$('header12').hide();
+            $$('header13').hide();
+            $$('header14').hide();
+            $$('header15').hide();
         }
 
         function gompertzModel(y_initial, y_max,mu_max,lag,x){
-            //used to run a simulation of the gompertz model, outputs a time/conc obj array
-            model = "Gompertz"
+            /* used to run a simulation of the gompertz model
+             Inputs: y_initial (float)- the y value of the first data point
+                     y_max (float)- the y value of the last data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
             var array = []
             for(time = 0; time <x; time+= (x/500.)) {
 
@@ -291,7 +313,14 @@
         }
 
         function huangModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the huang model, outputs a conc obj array
+            /*used to run a simulation of the hu ang model
+             Inputs: y_initial (float)- the y value of the first data point
+                     y_max (float)- the y value of the last data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
             var array = [];
             var b;
@@ -306,7 +335,14 @@
         }
 
         function baranyiModel(y_initial, y_max,mu_max,h0,x) {
-            //used to run a simulation of the baranyi model, outputs a time/conc obj array
+            /*used to run a simulation of the baranyi model
+             Inputs: y_initial (float)- the y value of the first data point
+                     y_max (float)- the y value of the last data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
             var array = [];
             var a;
@@ -319,7 +355,14 @@
         }
 
         function buchananModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the buchanan model, outputs a time/conc obj array
+            /*used to run a simulation of the buchanan model
+            Inputs: y_initial (float)- the y value of the first data point
+                     y_max (float)- the y value of the last data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
             var array = []
             for(time = 0; time <x; time+= (x/500.)) {
@@ -337,8 +380,14 @@
             return array
         }
 
-        function noLagModel(y_initial, y_max,mu_max,lag,x){
-            //used to run a simulation of the gompertz model, outputs a time/conc obj array
+        function noLagModel(y_initial, y_max,mu_max,x){
+            /*used to run a simulation of the gompertz model
+            Inputs: y_initial (float)- the y value of the first data point
+                     y_max (float)- the y value of the last data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
             var array = []
             for(time = 0; time <x; time+= (x/500.)) {
@@ -348,8 +397,13 @@
             return array
         }
 
-        function redHuangModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the reduced huang model, outputs a time/conc obj array
+        function redHuangModel(y_initial, mu_max,lag,x) {
+            /*used to run a simulation of the reduced huang model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
 
             var array = [];
@@ -363,8 +417,13 @@
             return array
         }
 
-        function redBaranyiModel(y_initial, y_max,mu_max,h0,x) {
-            //used to run a simulation of the reduced baranyi model, outputs a time/conc obj array
+        function redBaranyiModel(y_initial,mu_max,h0,x) {
+            /*used to run a simulation of the reduced baranyi model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
             var array = [];
             var a;
@@ -376,8 +435,13 @@
             return array
         }
 
-        function twoBuchananModel(y_initial, y_max,mu_max,lag,x) {
-            //used to run a simulation of the two phase Buchanan model, outputs a time/conc obj array
+        function twoBuchananModel(y_initial,mu_max,lag,x) {
+            /*used to run a simulation of the two phase Buchanan model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
 
             var array = []
             for(time = 0; time <x; time+= (x/500.)) {
@@ -394,7 +458,100 @@
             return array
         }
 
+        function sGompertzModel(y_initial, mu_max,lag,x){
+            /*used to run a simulation of the survival gompertz model
+            Inputs: y_initial (float)- the y value of the first data points
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({
+                    time_input: time,conc_input2: y_initial *
+                                        (1.0 - Math.exp(-Math.exp(-(mu_max*Math.exp(1.0)*(time-lag)/y_initial - 1.0 ))))
+                })
+            }
+            return array
+        }
+
+         function sWeibullModel(y_initial, k,alpha,x){
+            /*used to run a simulation of the gompertz model
+             Inputs: y_initial (float)- the y value of the first data points
+                     k -
+                     alpha -
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+            }
+            return array
+        }
+         function sMafartModel(y_initial, d, alpha,x){
+            /*used to run a simulation of the gompertz model
+             Inputs: y_initial (float)- the y value of the first data points
+                     d -
+                     alpha -
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+            }
+            return array
+        }
+         function sTwoBuchananModel(y_initial,k,lag,x){
+            /*used to run a simulation of the gompertz model
+             Inputs: y_initial (float)- the y value of the first data points
+                     k -
+                     lag (float) - time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+            }
+            return array
+        }
+         function sThreeBuchananModel(y_initial, y_tail,k,lag,x){
+            /*used to run a simulation of the gompertz model
+             Inputs: y_initial (float)- the y value of the first data points
+                     y_tail -
+                     k -
+                     lag (float) - time value before growth begins
+                     x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = []
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+            }
+            return array
+        }
+
+
+        //TODO
         function setSliders(first_name,second_name){
+            //Resets the labels on the slider boxes to match the current model parameters
             $$("slider_input").define({
                 elements: [
                     { view:"slider", type:"alt", min:0, max:10,step:.5, label:first_name, value:"1", name:"s3",

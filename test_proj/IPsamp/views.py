@@ -6,7 +6,10 @@ import json
 
 from modules import wrapperGompertz as WG, wrapperHuangFull as WH, wrapperBaranyiFull as WB, \
     wrapperBaranyiFixedH0 as WBF,wrapperBuchanan as WBu, report as RP, wrapperTwoPhaseBuchanan as WTB,\
-    wrapperNoLagPhase as WNL, wrapperReducedBaranyi as WRB, wrapperReducedHuang as WRH
+    wrapperNoLagPhase as WNL, wrapperReducedBaranyi as WRB, wrapperReducedHuang as WRH, wrapperLinearSurvival as WSL,\
+    wrapperLinearWithTailSurvival as WSLS, wrapperGompertzSurvival as WSG, wrapperWeibullSurvival as WSW,\
+    wrapperWeibullMafartSurvival as WSM, wrapperBuchananShoulderLinearSurvival as WSBSL, \
+    wrapperBuchananThreePhaseLinearSurvival as WSBTL
 import numpy as np
 
 def index(request):
@@ -63,6 +66,34 @@ def data(request):
         elif model == "2_buchanan":
 
             inst = WTB.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "S_linear":
+
+            inst = WSL.dataAnalysis([xarray,yarray])
+
+        elif model == "S_linshoulder":
+
+            inst = WSLS.dataAnalysis([xarray, yarray])
+
+        elif model == "S_gompertz":
+
+            inst = WSG.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "S_weibull":
+
+            inst = WSW.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "S_mafar":
+
+            inst = WSM.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "S2_buchanan":
+
+            inst = WSBSL.dataAnalysis([xarray, yarray], p0)
+        elif model == "S3_buchanan":
+
+            inst = WSBTL.dataAnalysis([xarray, yarray], p0)
+
 
         #create context dictionary from simulation data
         #cont = {'plot': lst}
