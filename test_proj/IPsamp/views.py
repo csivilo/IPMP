@@ -102,6 +102,7 @@ def data(request):
 
         if inst.errorMessage == "successful":
             dict["text_output"] = RP.report(inst)
+            dict["ci_vals"] = RP.conintervals(inst)
 
 
         return JsonResponse(dict)

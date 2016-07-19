@@ -63,12 +63,10 @@
                     var data = json;
                     if( data['error'].localeCompare("successful") == 0) {
                         var text = data['text_output'];
-
-                        for(var i = 0; i < text.length; i ++){
-                            console.log(text.slice(i,i+1))
-                        }
                         console.log(text)
+                        graphCon(data['ci_vals'])
                         $$("output_table").parse(data)
+
                     }
                     else{
                         console.log("Backend analysis failed, adjust parameters for better fit")
@@ -114,6 +112,95 @@
 
         function printData(){
             $$('output_table').add(data_points);
+        }
+
+        /*
+
+         */
+
+        function graphCon(dub_array){
+            data_set = getData();
+            time = data_set[3]
+            model_data = []
+            var i = 0
+            if(model.localeCompare('Gompertz') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(gompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    console.log(model_data)
+                }
+            }
+            else if(model.localeCompare('Huang') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(huangModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                }
+            }
+            else if(model.localeCompare('Baranyi') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(baranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                }
+            }
+            else if(model.localeCompare('Buchanan') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(buchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                }
+            }
+            else if(model.localeCompare('No_lag') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(noLagModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                }
+            }
+            else if(model.localeCompare('R_huang') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(redHuangModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+
+            }
+            }
+            else if(model.localeCompare('R_baranyi') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(redBaranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                }
+            }
+            else if(model.localeCompare('2_buchanan') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(twoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                }
+            }
+            else if(model.localeCompare('S_gompertz') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(sGompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                }
+            }
+            else if(model.localeCompare('S_weibull') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(sWeibullModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+
+                }
+            }
+            else if(model.localeCompare('S_mafart') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(sMafartModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                }
+            }
+            else if(model.localeCompare('S2_buchanan') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(sTwoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                }
+            }
+
+            else if(model.localeCompare('S3_buchanan') == 0){
+                for(i = 0; i < 2; i++){
+                    model_data = model_data.concat(sThreeBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                }
+            }
+
+        for(var i = 0; i < data_points.length; i++){
+                //if either conc_inputs have a value and time_input is not null, we want to add it to the array
+                if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
+                    model_data.push(data_points[i]);
+                }
+            }
+
+        $$('data_chart').parse(model_data);
         }
 
         function clearData(){
@@ -188,79 +275,79 @@
             $$('add_rows').close();
             }
 
+
         function initialModel(model_type){
             //Runs a default simulation based off of known models sets up a user editable model
             //Inputs: model_type, the string of the type of model used
             //Returns: none, but loads the default model curve into the data_chart
             var model_data = [];
             var data_set = getData();
-            var mu_approx = data_set[2]
-            var t_max = data_set[3]
+            var mu_max = data_set[2];
+            var t_max = data_set[3];
             hide(); //hides all model names
             if(model_type.localeCompare('Gompertz') == 0){
-                model = "Gompertz"
-                model_data = gompertzModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "Gompertz";
+                model_data = gompertzModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header').show();
                 }
             else if(model_type.localeCompare('Huang') == 0){
-                model = "Huang"
-                model_data = huangModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
+                model = "Huang";
+                model_data = huangModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header2').show();
             }
             else if(model_type.localeCompare('Baranyi') == 0){
-                model = "Baranyi"
-                model_data = baranyiModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "Baranyi";
+                model_data = baranyiModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header3').show();
             }
             else if(model_type.localeCompare('Buchanan') == 0){
-                model = "Buchanan"
-                model_data = buchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "Buchanan";
+                model_data = buchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header4').show();
             }
             if(model_type.localeCompare('No_lag') == 0){
-                model = "No_lag"
-                model_data = noLagModel(data_set[0], data_set[1], mu_approx, t_max)
+                model = "No_lag";
+                model_data = noLagModel(data_set[0], data_set[1], mu_max, t_max);
                 $$('header5').show();
                 }
             else if(model_type.localeCompare('R_huang') == 0){
-                model = "R_huang"
-                model_data = redHuangModel(data_set[0], mu_approx, data_set[4], t_max);
+                model = "R_huang";
+                model_data = redHuangModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header6').show();
             }
             else if(model_type.localeCompare('R_baranyi') == 0){
-                model = "R_baranyi"
-                model_data = redBaranyiModel(data_set[0], mu_approx, data_set[4], t_max)
+                model = "R_baranyi";
+                model_data = redBaranyiModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header7').show();
             }
             else if(model_type.localeCompare('2_buchanan') == 0){
-                model = "2_buchanan"
-                model_data = twoBuchananModel(data_set[0], mu_approx, data_set[4], t_max)
+                model = "2_buchanan";
+                model_data = twoBuchananModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header8').show();
             }
             else if(model_type.localeCompare('S_gompertz') == 0){
-                model = "S_gompertz"
-                model_data = sGompertzModel(data_set[0], mu_approx, data_set[4], t_max)
+                model = "S_gompertz";
+                model_data = sGompertzModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header11').show();
             }
             if(model_type.localeCompare('S_weibull') == 0){
-                model = "Sweibull"
-                model_data = sWeibullModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "Sweibull";
+                model_data = sWeibullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header12').show();
-
-                }
+            }
             else if(model_type.localeCompare('S_mafart') == 0){
-                model = "S_mafart"
-                model_data = sMafartModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max);
+                model = "S_mafart";
+                model_data = sMafartModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header13').show();
             }
             else if(model_type.localeCompare('S2_buchanan') == 0){
-                model = "S2_buchanan"
-                model_data = sTwoBuchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "S2_buchanan";
+                model_data = sTwoBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header14').show();
             }
             else if(model_type.localeCompare('S3_buchanan') == 0){
-                model = "S3_buchanan"
-                model_data = sThreeBuchananModel(data_set[0], data_set[1], mu_approx, data_set[4], t_max)
+                model = "S3_buchanan";
+                model_data = sThreeBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header15').show();
             }
 
@@ -271,6 +358,7 @@
                     model_data.push(data_points[i]);
                 }
             }
+
         $$('data_chart').parse(model_data);
         }
 

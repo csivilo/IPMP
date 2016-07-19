@@ -103,7 +103,7 @@ class dataAnalysis():
         This section contains information of predicted values of Y
         self.confidenceIntervals.CIOutputs = [self.L95MCI, self.U95MCI, self.L95PCI, self.U95PCI] 
         self.L95MCI: lower 95% confidence interval
-        self.U95MCI: lower 95% confidence interval
+        self.U95MCI: upper 95% confidence interval
         self.L95PCI: lower 95% prediction interval
         self.U95PCI: upper 95% prediction interval
         

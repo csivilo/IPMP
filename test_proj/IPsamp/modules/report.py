@@ -38,11 +38,39 @@ def report(analysisObj):
     text += 'Critical t value         {0:.3f}\n\n'.format(analysisObj.errorEstimate.modelAnalysisOutput[7])
     text += "Parameter  Value  Std-Error  t-value  p-value  L95CI  U95CI\n"
     for i in range(len(analysisObj.parametersList)):
-        text += "%-5s%10.2f %7.3f %10.3f %8.3f %8.3f %8.3f\n" % (analysisObj.parametersList[i], \
+        text += "%-5s%10.2f %7.3f %10.3f %8.3f %8.3f %7.3f\n" % (analysisObj.parametersList[i], \
                                                                  analysisObj.errorEstimate.parameterOutput[0][i], \
             analysisObj.errorEstimate.parameterOutput[1][i],analysisObj.errorEstimate.parameterOutput[2][i], \
             analysisObj.errorEstimate.parameterOutput[3][i],analysisObj.errorEstimate.parameterOutput[4][i], \
                                                       analysisObj.errorEstimate.parameterOutput[5][i],)
+
+    text += "\n\nData Output Report:\n"
+    text += "\nx       y       Pred.    L95MCI  U95MCI  L95PCI  U95PCI\n"
+    for i in range(len(analysisObj.rawdata[0])):
+        text +="%-7.2f %-7.2f %-8.2f %-7.2f %-7.2f %-7.2f %.2f\n"%(analysisObj.rawdata[0][i],analysisObj.rawdata[1][i],\
+            analysisObj.calculation.YPredictedValue[i], analysisObj.confidenceIntervals.CIOutputs[0][i], \
+        analysisObj.confidenceIntervals.CIOutputs[1][i], analysisObj.confidenceIntervals.CIOutputs[2][i], \
+      analysisObj.confidenceIntervals.CIOutputs[3][i])
+
+
     print text
 
     return text
+
+
+"""
+function conintervals takes the upper and lower confidence intervals for each parameter and returns them in a master
+list
+"""
+def conintervals(analysisObject):
+    lower = []
+    upper = []
+
+    for i in range(len(analysisObject.parametersList)):
+        lower.append(analysisObject.errorEstimate.parameterOutput[4][i])
+        upper.append(analysisObject.errorEstimate.parameterOutput[5][i])
+
+    lower[0],lower[1] = lower[1],lower[0]
+    upper[0], upper[1] = upper[1], upper[0]
+
+    return [lower,upper]
