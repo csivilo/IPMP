@@ -10,7 +10,7 @@
 
         </script>
     </head>
-    
+    <a href = "/">Welcome</a>
     <body>
     <script type="text/javascript" charset="utf-8">
         var model = null;
@@ -56,9 +56,11 @@
 
             rows:[
                 {view: "toolbar", height: 60, id:"main_toolbar", elements:[
-                    {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:120, click:"printValue()",
+                    {view: "button", value: "Home", width: 65, click: "http->welcome/index.html"},
+                    {view: "button", value: "Help", width: 50, click: ""},
+                    {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:75, click:"printValue()",
                      link: "myList"},
-                    {view: "button", value:"Add Rows", width: 120, click:"addRows()"},
+                    {view: "button", value:"Add Rows", width: 90, click:"addRows()"},
                     {view:"menu", autowidth: true, data:[
                         {id: "models", value: "Models",  submenu:[
                             {id: "inc_models", value: "Incomplete", submenu:[
@@ -190,7 +192,7 @@
                             step: 1
                         },
                         xAxis:{
-                            title:"Time (h)",
+                            title:"Time (h)"
                         },
                         series: [
                             {
@@ -221,39 +223,65 @@
                         isVisible:false
                         },
                         {view: "toolbar", elements:[
-                                {view: "button", width: 100, align: "right",   label: "Clear Reports", click: function(){
-                                    $$("output_table").clearAll();
-                                } },
+                            {view: "button", width: 100, align: "right",   label: "Clear Reports", click: function(){
+                                webix.confirm({
+                                    ok: "Yes",
+                                    cancel: "No",
+                                    type: "alert-warning",
+                                    text: "Are you sure you want to clear the report?",
+                                    callback: function(result){
+                                    //if they clicked ok ("yes")
+                                        if(result === true){
+                                            $$("output_table").clearAll();
+                                            $$("export_table").setValue("No report");
+                                        }
+                                    }
+                                });
+                            }},
                             {view: "button", width: 100, align: "right",  label: "Save Reports", click:function(){
-					            webix.toPDF($$("output_table"))}},
+					            webix.toPDF($$("output_table"));}}
                         ]},
+                        //hidden datatable to allow exporting to PDF appropriately
                         {view: "datatable",
                             id: "output_table",
+                            hidden: true,
+                            resizeRow: true,
+                            resizeColumn: true,
                             datatype: "html",
                             columns:[
-                                {id: "text_output", header: "Reports", width: 2000}
+                                {id: "text_output", header: "Reports", width: 450, height: 2000}
                             ],
 
                             editable: false
-                        }
+                        },//displays desired reports
+                            {view: "textarea",
+                            id: "export_table",
+                            readonly: true,
+                            placeholder: "No report",
+                            datatype: "html",
+                            columns:[
+                                {id: "text_export", header: "Reports", width: 450, height: 2000}
+                            ],
+
+                            editable: false}
                     ]}
-                ]},
+                ]}
 
             ]
         });
 
         // updates model if sliders are manipulated
         var changeStatus = $$('slider_input').attachEvent("onChange", function(){
-            get()
+            get();
             if(model != null) {
                 plotData();
                 initialModel(model);
             }
-        })
+        });
 
         // updates model if sliders are manipulated
         var changeSlider = $$('insert_input').attachEvent("onChange", function(){
-            set()
+            set();
             if(model != null) {
                 plotData();
                 initialModel(model);
@@ -261,9 +289,10 @@
         })
 
 
+
     </script>
-    <img src= "{% static "img/USDA_logo.png" %}" style="width: 108px;height: 75px;margin-left: 30px;margin-top: 20px"/>
-    <img src= "{% static "img/ARS_logo.png" %}" style="width: 108px;height: 70px;margin-top: 30px; margin-left: 15px"/>
+    <img src= "{% static 'img/USDA_logo.png' %}" style="width: 108px;height: 75px;margin-left: 30px;margin-top: 20px"/>
+    <img src= "{% static 'img/ARS_logo.png' %}" style="width: 108px;height: 70px;margin-top: 30px; margin-left: 15px"/>
     </body>
     <style type = "text/css">
         .my_style{

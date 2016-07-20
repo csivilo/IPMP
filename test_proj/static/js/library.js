@@ -42,8 +42,8 @@
         function submitModel(){
         // submits model parameters and data to the backend, recieves json object through ajax, displays in browser
             if(!(model)){
-                console.log("No model selected!")
-                return null
+                console.log("No model selected!");
+                return null;
             }
             var table_data = getTableData();
 
@@ -63,14 +63,20 @@
                     var data = json;
                     if( data['error'].localeCompare("successful") == 0) {
                         var text = data['text_output'];
-                        console.log(text)
-                        graphCon(data['ci_vals'])
-                        $$("output_table").parse(data)
+                        console.log(text);
+                        graphCon(data['ci_vals']);
+                        $$("output_table").parse(data);
+                        $$("export_table").setValue(text); //outputs info received to the user
 
+                        //118 length until first add
+                        //var end = "" + text.slice(116);
+                        //text += end;
+                        //console.log(text);
                     }
                     else{
-                        console.log("Backend analysis failed, adjust parameters for better fit")
-                        $$("output_table").parse({text_output: "Backend analysis failed, adjust parameters for better fit"})
+                        console.log("Backend analysis failed, adjust parameters for better fit");
+                        $$("output_table").parse({text_output: "Backend analysis failed, adjust parameters for better fit"});
+                        $$("export_table").setValue("Backend analysis failed, adjust parameters for better fit.");
                     }
                 }
             });
@@ -103,7 +109,7 @@
                     $$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input != null){
                 time_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).time_input));
                 conc_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
-                indexed++
+                indexed++;
             }
 
             return [time_array, conc_array];
@@ -114,19 +120,17 @@
             $$('output_table').add(data_points);
         }
 
-        /*
 
-         */
 
         function graphCon(dub_array){
             data_set = getData();
-            time = data_set[3]
-            model_data = []
-            var i = 0
+            time = data_set[3];
+            model_data = [];
+            var i = 0;
             if(model.localeCompare('Gompertz') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(gompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
-                    console.log(model_data)
+                    model_data = model_data.concat(gompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                    //console.log(model_data)
                 }
             }
             else if(model.localeCompare('Huang') == 0){
@@ -136,60 +140,60 @@
             }
             else if(model.localeCompare('Baranyi') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(baranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    model_data = model_data.concat(baranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
                 }
             }
             else if(model.localeCompare('Buchanan') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(buchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    model_data = model_data.concat(buchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
                 }
             }
             else if(model.localeCompare('No_lag') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(noLagModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                    model_data = model_data.concat(noLagModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
                 }
             }
             else if(model.localeCompare('R_huang') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(redHuangModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                    model_data = model_data.concat(redHuangModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
 
             }
             }
             else if(model.localeCompare('R_baranyi') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(redBaranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                    model_data = model_data.concat(redBaranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
                 }
             }
             else if(model.localeCompare('2_buchanan') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(twoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                    model_data = model_data.concat(twoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
                 }
             }
             else if(model.localeCompare('S_gompertz') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sGompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time))
+                    model_data = model_data.concat(sGompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
                 }
             }
             else if(model.localeCompare('S_weibull') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sWeibullModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    model_data = model_data.concat(sWeibullModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
 
                 }
             }
             else if(model.localeCompare('S_mafart') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sMafartModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    model_data = model_data.concat(sMafartModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
                 }
             }
             else if(model.localeCompare('S2_buchanan') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sTwoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    model_data = model_data.concat(sTwoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
                 }
             }
 
             else if(model.localeCompare('S3_buchanan') == 0){
                 for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sThreeBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time))
+                    model_data = model_data.concat(sThreeBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
                 }
             }
 
@@ -226,11 +230,11 @@
 
         function printValue() {
              var datas =  $$('open_file').files.data.pull;
-             console.log(datas);
+             //console.log(datas);
              var file_id = $$("open_file").files.getFirstId(); //getting the ID
              var fileobj = $$("open_file").files.getItem(file_id).file; //getting file object
              filename = fileobj.name.getValues;
-             console.log(filename);
+            // console.log(filename);
          }
 
         //brings a pop-up window with a counter to add rows to the input_table
@@ -391,13 +395,13 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
-            return array
+            return array;
         }
 
         function huangModel(y_initial, y_max,mu_max,lag,x) {
@@ -414,12 +418,12 @@
             var b;
             for(time = 0; time <x; time+= (x/500.)) {
                 b = (time + (0.25 *(Math.log(1.0 + Math.exp(-4.0 * (time - lag))))) -
-                (0.25 * (Math.log(1.0 + Math.exp(4.0*lag)))))
+                (0.25 * (Math.log(1.0 + Math.exp(4.0*lag)))));
                 array.push({time_input: time,
                     conc_input2: (y_initial + y_max - (Math.log( Math.exp(y_initial) +
-                        ((Math.exp(y_max) - Math.exp(y_initial)) * (Math.exp(-1.0*mu_max*b))))  )) })
+                        ((Math.exp(y_max) - Math.exp(y_initial)) * (Math.exp(-1.0*mu_max*b))))  )) });
             }
-            return array
+            return array;
         }
 
         function baranyiModel(y_initial, y_max,mu_max,h0,x) {
@@ -435,11 +439,11 @@
             var array = [];
             var a;
             for(time = 0; time <x; time+= (x/500.)) {
-                a = (mu_max*time) + Math.log(Math.exp(-1*mu_max*time)+(Math.exp(-1*h0)-Math.exp((-1*mu_max*time)-h0)))
+                a = (mu_max*time) + Math.log(Math.exp(-1*mu_max*time)+(Math.exp(-1*h0)-Math.exp((-1*mu_max*time)-h0)));
                 array.push({time_input: time,
-                    conc_input2: y_initial + a - Math.log(1.0 + ((Math.exp(a) - 1.0)/ Math.exp(y_max - y_initial)) )})
+                    conc_input2: y_initial + a - Math.log(1.0 + ((Math.exp(a) - 1.0)/ Math.exp(y_max - y_initial)) )});
             }
-            return array
+            return array;
         }
 
         function buchananModel(y_initial, y_max,mu_max,lag,x) {
@@ -452,20 +456,20 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
                 if (time<lag){
-                    array.push({time_input: time, conc_input2: y_initial})
+                    array.push({time_input: time, conc_input2: y_initial});
                 }
                 else if(time<(lag+(y_max-y_initial)/mu_max)){
-                    array.push({time_input: time, conc_input2: y_initial + mu_max*(time-lag)})
+                    array.push({time_input: time, conc_input2: y_initial + mu_max*(time-lag)});
                 }
                 else{
-                    array.push({time_input: time, conc_input2: y_max})
+                    array.push({time_input: time, conc_input2: y_max});
                 }
             }
 
-            return array
+            return array;
         }
 
         function noLagModel(y_initial, y_max,mu_max,x){
@@ -477,12 +481,12 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
                 array.push({time_input: time, conc_input2: y_max + mu_max*time -
-                                            Math.log(Math.exp(mu_max*time) + Math.exp(y_max-y_initial) -1)})
+                                            Math.log(Math.exp(mu_max*time) + Math.exp(y_max-y_initial) -1)});
             }
-            return array
+            return array;
         }
 
         function redHuangModel(y_initial, mu_max,lag,x) {
@@ -500,9 +504,9 @@
                 array.push({time_input: time,
                     conc_input2: y_initial+ mu_max*(time + 0.25*
                                             Math.log((1.0 + Math.exp(-4.0*(time-lag)))/(1.0 + Math.exp(4.0*lag))))
-                })
+                });
             }
-            return array
+            return array;
         }
 
         function redBaranyiModel(y_initial,mu_max,h0,x) {
@@ -518,9 +522,9 @@
             for(time = 0; time <x; time+= (x/500.)) {
                 array.push({time_input: time,
                     conc_input2: y_initial + (mu_max*time) + Math.log(Math.exp(-1*mu_max*time) +
-                                                                    Math.exp(-h0) - Math.exp(-1*mu_max*time*h0))})
+                                                                    Math.exp(-h0) - Math.exp(-1*mu_max*time*h0))});
             }
-            return array
+            return array;
         }
 
         function twoBuchananModel(y_initial,mu_max,lag,x) {
@@ -531,19 +535,19 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
                     if(time< lag){
                         array.push({ time_input: time, conc_input2:y_initial
 
-                        })
+                        });
                     }
                     else if ( time >= lag) {
-                        array.push({time_input: time, conc_input2: y_initial + mu_max * (time - lag)})
+                        array.push({time_input: time, conc_input2: y_initial + mu_max * (time - lag)});
                     }
             }
 
-            return array
+            return array;
         }
 
         function sGompertzModel(y_initial, mu_max,lag,x){
@@ -555,15 +559,15 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({
                     time_input: time,conc_input2: y_initial *
                                         (1.0 - Math.exp(-Math.exp(-(mu_max*Math.exp(1.0)*(time-lag)/y_initial - 1.0 ))))
-                })
+                });
             }
-            return array
+            return array;
         }
 
          function sWeibullModel(y_initial, k,alpha,x){
@@ -575,13 +579,13 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
-            return array
+            return array;
         }
          function sMafartModel(y_initial, d, alpha,x){
             /*used to run a simulation of the gompertz model
@@ -592,13 +596,13 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
-            return array
+            return array;
         }
          function sTwoBuchananModel(y_initial,k,lag,x){
             /*used to run a simulation of the gompertz model
@@ -609,13 +613,13 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
-            return array
+            return array;
         }
          function sThreeBuchananModel(y_initial, y_tail,k,lag,x){
             /*used to run a simulation of the gompertz model
@@ -627,13 +631,13 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-            var array = []
+            var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))})
+                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
-            return array
+            return array;
         }
 
 
@@ -649,10 +653,10 @@
                 ]
 
                 })
-            $$("rate").define("label",first_name)
-            $$("m").define("label",second_name)
-            $$("slider_input").refresh()
-                $$("insert_input").refresh()
+            $$("rate").define("label",first_name);
+            $$("m").define("label",second_name);
+            $$("slider_input").refresh();
+                $$("insert_input").refresh();
         }
 
          //checks to see if you data points has valid input
