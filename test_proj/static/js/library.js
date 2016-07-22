@@ -203,8 +203,9 @@
                     model_data.push(data_points[i]);
                 }
             }
-
+        //console.log(model_data);
         $$('data_chart').parse(model_data);
+
         }
 
         function clearData(){
@@ -587,6 +588,7 @@
             }
             return array;
         }
+        
          function sMafartModel(y_initial, d, alpha,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
@@ -604,6 +606,7 @@
             }
             return array;
         }
+        
          function sTwoBuchananModel(y_initial,k,lag,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
@@ -621,6 +624,7 @@
             }
             return array;
         }
+        
          function sThreeBuchananModel(y_initial, y_tail,k,lag,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
@@ -765,4 +769,107 @@
 
             }
             $$('data_chart').refresh();
+        }
+
+        //Starts the tutorial
+        function tutorial(){
+            webix.alert({
+                        ok: "Continue",
+                        id: "win0",
+                        cancel: "Close",
+                        //type: "alert-warning",
+                        text: "We will begin a quick tutorial of the IPMP page. To exit at any point, hit close.",
+                        callback: function(result){
+                            //if they clicked ok ("Continue")
+                            if(result === true){
+                                window1();
+                            }
+                        }
+                    });
+        }
+
+        //Explains how to input data and check to make sure the inputed data is valid
+        function window1(){
+            webix.modalbox({
+                title:"Datatable",
+                buttons:["Continue", "Close"],
+                text: "You can input data in the datatable to the left by copying and pasting from an excel spreadsheet, " +
+                "entering them individually or by opening a file. " +
+                "After entering the data, hit 'Submit Data' to verify that the data is valid.",
+                width:425,
+                top: 90,
+                left: 205,
+                callback: function(result){
+                    switch(result){
+                        case "0":
+                            window2();
+                            break;
+                        case "1":
+                            break;
+                    }
+                }
+            });
+        }
+
+        //Shows how to plot the inputed points and select which model they would like to use
+        function window2() {
+            webix.modalbox({
+                title:"Plot and Model Selection",
+                buttons:["Continue", "Close"],
+                text:'You can then plot your points using the "Plot" button above. Then select which model you would like '+
+                        'to use from the "Models" menu above.',
+                width:350,
+                top: 50,
+                left: 405,
+                callback: function(result){
+                    switch(result){
+                        case "0":
+                            window3();
+                            break;
+                        case "1":
+                            break;
+                    }
+                }
+            });
+        }
+
+        //Explains how to use the sliders and what the "Model Submit" button does
+        function window3(){
+            webix.modalbox({
+                title: "Submitting Your Model",
+                buttons: ["Continue", "Close"],
+                text: 'Use the sliders below to adjust the model curve you previously selected to make a better fit for your inputed data.' +
+                ' Then click "Model Submit" to submit your model.',
+                width: 120,
+                top: 165,
+                left: 3,
+                callback: function(result){
+                    switch(result){
+                        case "0":
+                            window4();
+                            break;
+                        case "1":
+                            break;
+                    }
+                }
+            });
+        }
+
+        //Shows the reports and what you can do with them
+        function window4(){
+            webix.modalbox({
+                title: "Managing Reports",
+                buttons: ["Close"],
+                text: 'After your reports are generated, they will be shown below. ' +
+                'You can then choose to export them as a PDF and save them or you can clear them.',
+                width: 120,
+                top: 163,
+                left: 255,
+                callback: function(result){
+                    switch(result){
+                        case "0":
+                            break;
+                    }
+                }
+            });
         }
