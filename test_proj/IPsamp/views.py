@@ -9,7 +9,10 @@ from modules import wrapperGompertz as WG, wrapperHuangFull as WH, wrapperBarany
     wrapperNoLagPhase as WNL, wrapperReducedBaranyi as WRB, wrapperReducedHuang as WRH, wrapperLinearSurvival as WSL,\
     wrapperLinearWithTailSurvival as WSLS, wrapperGompertzSurvival as WSG, wrapperWeibullSurvival as WSW,\
     wrapperWeibullMafartSurvival as WSM, wrapperBuchananShoulderLinearSurvival as WSBSL, \
-    wrapperBuchananThreePhaseLinearSurvival as WSBTL
+    wrapperBuchananThreePhaseLinearSurvival as WSBTL, wrapperArrheniusFullTemp as WAF,\
+    wrapperArrheniusSuboptimalTemp as WAS, wrapperCardinalFullTemp as WC, \
+    wrapperHuangFullTemp as WHFT, wrapperHuangSubTemp as WHST, \
+    wrapperRatkowskyFullTemp as WRF, wrapperRatkowskySubTemp as WRS
 import numpy as np
 
 def index(request):
@@ -94,6 +97,34 @@ def data(request):
 
             inst = WSBTL.dataAnalysis([xarray, yarray], p0)
 
+        elif model == "Arrhenius_full":
+
+            inst = WAF.dataAnalysis([xarray,yarray], p0)
+
+        elif model == "Arrhenius_sub":
+
+            inst = WAS.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "Cardinal_full":
+             
+            inst = WC.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "Huang_full_temp":
+
+            inst = WHFT.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "Huang_sub_temp":
+
+            inst = WHST.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "Ratkowsky_full":
+
+            inst = WRF.dataAnalysis([xarray, yarray], p0)
+
+        elif model == "Ratkowsky_sub":
+
+            inst = WRS.dataAnalysis([xarray, yarray], p0)
+
 
         #create context dictionary from simulation data
         #cont = {'plot': lst}
@@ -102,7 +133,8 @@ def data(request):
 
         if inst.errorMessage == "successful":
             dict["text_output"] = RP.report(inst)
-            dict["ci_vals"] = RP.conintervals(inst)
+            #dict["ci_vals"] = RP.conintervals(inst)
+            dict['params'] = RP.params(inst)
 
 
         return JsonResponse(dict)

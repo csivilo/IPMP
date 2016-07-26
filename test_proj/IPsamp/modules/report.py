@@ -52,9 +52,6 @@ def report(analysisObj):
         analysisObj.confidenceIntervals.CIOutputs[1][i], analysisObj.confidenceIntervals.CIOutputs[2][i], \
       analysisObj.confidenceIntervals.CIOutputs[3][i])
 
-
-    print text
-
     return text
 
 
@@ -74,3 +71,11 @@ def conintervals(analysisObject):
     upper[0], upper[1] = upper[1], upper[0]
 
     return [lower,upper]
+
+def params(analysisObject):
+    lst = []
+    for i in analysisObject.errorEstimate.parameterOutput[0]:
+        lst.append(float(i))
+
+    lst[0], lst[1] = lst[1], lst[0]
+    return lst

@@ -83,6 +83,15 @@
                                 {id: "S_mafart", value: "Weibull-Mafart"},
                                 {id: "S2_buchanan", value: "Buchanan Two-Phase"},
                                 {id: "S3_buchanan", value: "Buchanan Three-Phase"}
+                            ]},
+                            {id: "sec_models", value: "Secondary", submenu:[
+                                {id: "Arrhenius_full", value: "Arrhenius Full Range"},
+                                {id: "Arrhenius_sub", value: "Arrhenius Sub Range"},
+                                {id: "Cardinal_full", value: "Cardinal Full Range"},
+                                {id: "Huang_full_temp", value: "Huang Full Range"},
+                                {id: "Huang_sub_temp", value: "Huang Sub Range"},
+                                {id: "Ratkowsky_full", value: "Ratowsky Full Range"},
+                                {id: "Ratkosky_sub", value: "Ratowsky Sub Range"}
                             ]}
                        ]}
                ],
@@ -115,6 +124,15 @@
                {view: "template", id:"header13", type:"header", template: "Survival Weibull-Mafart Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header14", type:"header", template: "Survival Two-Phase Buchanan Model", align: "left", borderless:true, hidden: true},
                {view: "template", id:"header15", type:"header", template: "Survival Three-Phase Buchanan Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header16", type:"header", template: "Arrhenius Square-root Model (Full)", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header17", type:"header", template: "Arrhenius Square-root Model (Sub)", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header18", type:"header", template: "Cardinal Square-root Model", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header19", type:"header", template: "Huang Square-root Model (Full)", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header20", type:"header", template: "Huang Square-root Model (Sub)", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header21", type:"header", template: "Ratowsky Square-root Model (Full)", align: "left", borderless:true, hidden: true},
+               {view: "template", id:"header22", type:"header", template: "Ratowsky Square-root Model (Sub)", align: "left", borderless:true, hidden: true},
+
+
 
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
                {view: "button", width:150, align: "right", value: "Model Output", click: "$$('data_chart').clearAll(); initialModel('Gompertz')"}

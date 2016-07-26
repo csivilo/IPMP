@@ -29,7 +29,7 @@ class FitHuangFull:
         p,cov_x,infodict,mesg,ier = leastsq(self.YDiff,p,full_output=True)
         
         
-        #print 'p out =', p
+        #
         self.pOut = p
         self.cov = cov_x
         self.infodict = infodict
@@ -69,7 +69,7 @@ class FitHuangFull:
             self.jacobian = JP.Jacobian(M, self.dataLength)
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e
-        print "error message = ", self.errorMessage
+        #print "error message = ", self.errorMessage
         """
         """
         If self.message = None, successful

@@ -29,7 +29,7 @@ class FitGompertz:
         p,cov_x,infodict,mesg,ier = leastsq(self.YDiff,p,full_output=True)
         
         
-        #print 'p out =', p
+        #
         self.pOut = p
         self.cov = cov_x
         self.infodict = infodict
@@ -66,7 +66,7 @@ class FitGompertz:
             self.jacobian = JP.Jacobian(self.JacobianMatrix, self.dataLength)
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e
-        print "error message = ", self.errorMessage
+        #print "error message = ", self.errorMessage
         """
         """
         If self.message = None, successful

@@ -68,7 +68,7 @@ class dataAnalysis():
             if < 0, format to 1.000E+xx (3 decimal points with engineering expression)
         """
         
-        self.errorMessage = "Successful"     
+        self.errorMessage = "successful"
         try: 
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\

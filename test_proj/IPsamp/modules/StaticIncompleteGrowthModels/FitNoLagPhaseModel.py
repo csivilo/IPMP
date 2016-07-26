@@ -25,12 +25,11 @@ class FitNoLagPhase:
         #print 'Report of Data Analysis'
         #print [self.x, self.y]
         p =[self.Ymax, self.initalY, self.p0[1]]
-        print p
         self.pNumber = len(p)
         p,cov_x,infodict,mesg,ier = leastsq(self.YDiff,p,full_output=True)
         
         
-        #print 'p out =', p
+        #
         self.pOut = p
         self.cov = cov_x
         self.infodict = infodict

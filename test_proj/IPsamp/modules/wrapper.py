@@ -19,11 +19,7 @@ class dataAnalysis():
         if model == "Gompertz":
             self.calculation = GM.FitGompertz(rawdata, p0)
             self.errorEstimate = EA.errorEstimate(rawdata[0], self.calculation.pOut, self.calculation.cov, self.calculation.residual, self.calculation.YPredictedValue)
-            print "SSE = ", self.errorEstimate.SSE  
-            print "RMSE = ", self.errorEstimate.RMSE
-            print "Residual stdev = ", self.errorEstimate.residErr_std
-            print "AIC = ", self.errorEstimate.AIC
-            print "Crtitcal t = ", self.errorEstimate.t_critical
+
             """
             self.errorEstimate produces two important outputs
             1. modelAnalysis, self..modelAnalysisOutput
@@ -59,7 +55,7 @@ class dataAnalysis():
             """
             self.jacob = JA.Jacobian(self.calculation.pOut, rawdata[0])
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE, self.jacob.jacob, self.calculation.YPredictedValue, self.errorEstimate.t_critical)
-            print self.confidenceIntervals.CIOutputs
+
             
             """
             This section contains information of predicted values of Y

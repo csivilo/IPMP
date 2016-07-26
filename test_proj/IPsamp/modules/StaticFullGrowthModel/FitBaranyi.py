@@ -29,7 +29,7 @@ class FitBaranyi:
         p,cov_x,infodict,mesg,ier = leastsq(self.YDiff,p,full_output=True)
         
         
-        print 'p out =', p
+
         self.pOut = p
         self.cov = cov_x
         self.infodict = infodict

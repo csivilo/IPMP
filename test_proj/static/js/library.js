@@ -63,8 +63,7 @@
                     var data = json;
                     if( data['error'].localeCompare("successful") == 0) {
                         var text = data['text_output'];
-                        console.log(text);
-                        graphCon(data['ci_vals']);
+                        graphCon(data['params']);
                         $$("output_table").parse(data);
                         $$("export_table").setValue(text); //outputs info received to the user
 
@@ -78,7 +77,8 @@
                         $$("output_table").parse({text_output: "Backend analysis failed, adjust parameters for better fit"});
                         $$("export_table").setValue("Backend analysis failed, adjust parameters for better fit.");
                     }
-                }
+                },
+
             });
         }
 
@@ -123,77 +123,79 @@
 
 
         function graphCon(dub_array){
+            $$('data_chart').clearAll()
+
             data_set = getData();
             time = data_set[3];
             model_data = [];
             var i = 0;
             if(model.localeCompare('Gompertz') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(gompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
-                    //console.log(model_data)
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(gompertzModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+
                 }
             }
             else if(model.localeCompare('Huang') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(huangModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(huangModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
             else if(model.localeCompare('Baranyi') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(baranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(baranyiModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
             else if(model.localeCompare('Buchanan') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(buchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(buchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
             else if(model.localeCompare('No_lag') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(noLagModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(noLagModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('R_huang') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(redHuangModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(redHuangModel(dub_array[0], dub_array[1], dub_array[2], time));
 
             }
             }
             else if(model.localeCompare('R_baranyi') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(redBaranyiModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(redBaranyiModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('2_buchanan') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(twoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(twoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('S_gompertz') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sGompertzModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sGompertzModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('S_weibull') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sWeibullModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sWeibullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
 
                 }
             }
             else if(model.localeCompare('S_mafart') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sMafartModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sMafartModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
             else if(model.localeCompare('S2_buchanan') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sTwoBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
 
             else if(model.localeCompare('S3_buchanan') == 0){
-                for(i = 0; i < 2; i++){
-                    model_data = model_data.concat(sThreeBuchananModel(dub_array[i][0], dub_array[i][1], dub_array[i][2], dub_array[i][3], time));
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sThreeBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
 
@@ -335,7 +337,7 @@
                 model_data = sGompertzModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header11').show();
             }
-            if(model_type.localeCompare('S_weibull') == 0){
+            else if(model_type.localeCompare('S_weibull') == 0){
                 model = "Sweibull";
                 model_data = sWeibullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header12').show();
@@ -354,6 +356,41 @@
                 model = "S3_buchanan";
                 model_data = sThreeBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header15').show();
+            }
+              else if(model_type.localeCompare('Arrhenius_full') == 0){
+                model = "Arrhenius_full";
+                model_data = arrheniusSubModel(data_set[0], mu_max, data_set[4], t_max);
+                $$('header16').show();
+            }
+            else if(model_type.localeCompare('Arrhenius_sub') == 0){
+                model = "Arrhenius_sub";
+                model_data = arrheniusFullModel(data_set[0], mu_max, data_set[4], t_max);
+                $$('header17').show();
+            }
+            else if(model_type.localeCompare('Cardinal_full') == 0){
+                model = "Cardinal_full";
+                model_data = cardinalFullModel(data_set[0], mu_max, data_set[4], t_max);
+                $$('header18').show();
+            }
+            else if(model_type.localeCompare('Huang_full_temp') == 0){
+                model = "Huang_full_temp";
+                model_data = huangFullTempModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                $$('header19').show();
+            }
+            else if(model_type.localeCompare('Huang_sub_temp') == 0){
+                model = "Huang_sub_temp";
+                model_data = huangSubTempModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                $$('header20').show();
+            }
+            else if(model_type.localeCompare('Ratkowsky_full') == 0){
+                model = "Ratkowsky_full";
+                model_data = ratkowskyFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                $$('header21').show();
+            }
+            else if(model_type.localeCompare('Ratkosky_sub') == 0){
+                model = "Ratkowsky_sub";
+                model_data = ratkowskySubModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                $$('header22').show();
             }
 
             //loading data points from user's data
@@ -384,6 +421,13 @@
             $$('header13').hide();
             $$('header14').hide();
             $$('header15').hide();
+            $$('header16').hide();
+            $$('header17').hide();
+            $$('header18').hide();
+            $$('header19').hide();
+            $$('header20').hide();
+            $$('header21').hide();
+            $$('header22').hide();
         }
 
         function gompertzModel(y_initial, y_max,mu_max,lag,x){
@@ -640,6 +684,121 @@
 
                 array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
                         (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
+            }
+            return array;
+        }
+
+         function arrheniusFullModel(Ea, alpha, A, b, x) {
+            /*used to run a simulation of the Arrhenius Full Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            var m,c;
+            for(time = 0; time <x; time+= (x/500.)) {
+                m = Math.pow((Ea/(x+273.15)/8.314),alpha)
+                c = 1.0 - Math.exp(b*(time-x))
+                array.push({time_input: time,
+                    conc_input2: (A*(time + 273.15)*Math.exp(-m)*c)});
+            }
+            return array;
+        }
+        function arrheniusSubModel(Ea, alpha, A, x) {
+            /*used to run a simulation of the Arrhenius Sub Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            var m,c;
+            for(time = 0; time <x; time+= (x/500.)) {
+                m = Math.pow((Ea/(x+273.15)/8.314),alpha)
+                array.push({time_input: time,
+                    conc_input2: (A*(time + 273.15)*Math.exp(-m))});
+            }
+            return array;
+        }
+        function cardinalFullModel(t_min,t_opt, x, mu_max) {
+            /*used to run a simulation of the Cardinal Full Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            var c;
+            for(time = 0; time <x; time+= (x/500.)) {
+                c = (((t_opt - t_min)*(time-t_opt) - (t_opt - x) *
+                        (t_opt + t_min-2.0*time)) * (t_opt-t_min))
+                array.push({time_input: time, conc_input2: mu_max*(time-x)*Math.pow((time-t_min),2.0/c)})
+            }
+            return array;
+        }
+
+        function huangSubModel(T0,a,x) {
+            /*used to run a simulation of the Huang Sub Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time,
+                    conc_input2: Math.pow((a*(time-T0)), .75)});
+            }
+            return array;
+        }
+        function huangFullModel(T0,x,a,b) {
+            /*used to run a simulation of the Huang Full Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time,
+                    conc_input2: Math.pow(a*(x-T0),(0.75*(1.0 - Math.exp(b*(time-x)))))});
+            }
+            return array;
+        }
+        function ratkowskyFullModel(T0,x,a,b) {
+            /*used to run a simulation of the Ratkowsky Full Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time,
+                    conc_input2: (a*(time-T0)*(1.0 - Math.exp(b*(time-x))))});
+            }
+            return array;
+        }
+
+        function ratkowskySubModel(T0,a,x) {
+            /*used to run a simulation of the Ratkowsky Sub Range Secondary model
+            Inputs: y_initial (float)- the y value of the first data point
+                     mu_max (float)- growth coefficient, determines rate of bacteria growth
+                     lag (float)- time value before growth begins
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            */
+
+            var array = [];
+            for(time = 0; time <x; time+= (x/500.)) {
+                array.push({time_input: time,
+                    conc_input2: (a*(time-T0))});
             }
             return array;
         }
