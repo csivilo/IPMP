@@ -106,7 +106,7 @@ def data(request):
             inst = WAS.dataAnalysis([xarray, yarray], p0)
 
         elif model == "Cardinal_full":
-             
+
             inst = WC.dataAnalysis([xarray, yarray], p0)
 
         elif model == "Huang_full_temp":

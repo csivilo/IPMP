@@ -199,6 +199,47 @@
                 }
             }
 
+            else if(model.localeCompare('Arrhenius_full') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+
+            else if(model.localeCompare('Arrhenius_sub') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+
+            else if(model.localeCompare('Cardinal_full') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+
+            else if(model.localeCompare('Huang_full_temp') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+            else if(model.localeCompare('Huang_sub_temp') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(huangSubModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+
+            else if(model.localeCompare('Ratkowsky_full') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+
+            else if(model.localeCompare('Ratkowsky_sub') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(ratkowskysubModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                }
+            }
+
         for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
@@ -523,6 +564,7 @@
                      y_max (float)- the y value of the last data point
                      mu_max (float)- growth coefficient, determines rate of bacteria growth
                      lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -539,6 +581,7 @@
             Inputs: y_initial (float)- the y value of the first data point
                      mu_max (float)- growth coefficient, determines rate of bacteria growth
                      lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -559,6 +602,7 @@
             Inputs: y_initial (float)- the y value of the first data point
                      mu_max (float)- growth coefficient, determines rate of bacteria growth
                      lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -577,6 +621,7 @@
             Inputs: y_initial (float)- the y value of the first data point
                      mu_max (float)- growth coefficient, determines rate of bacteria growth
                      lag (float)- time value before growth begins
+                     x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -690,9 +735,11 @@
 
          function arrheniusFullModel(Ea, alpha, A, b, x) {
             /*used to run a simulation of the Arrhenius Full Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
+            Inputs: Ea (float)-
+                    alpha -
+                    A
+                    b
+                    x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -708,9 +755,10 @@
         }
         function arrheniusSubModel(Ea, alpha, A, x) {
             /*used to run a simulation of the Arrhenius Sub Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
+            Inputs: Ea -
+                    alpha -
+                    A -
+                    x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -725,9 +773,10 @@
         }
         function cardinalFullModel(t_min,t_opt, x, mu_max) {
             /*used to run a simulation of the Cardinal Full Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
+            Inputs: t_min -
+                    t_opt -
+                    x (float) - dt of the entire dataset
+                    mu_max (float)- growth coefficient, determines rate of bacteria growth
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
@@ -743,10 +792,10 @@
 
         function huangSubModel(T0,a,x) {
             /*used to run a simulation of the Huang Sub Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Inputs: T0 -
+                    a -
+                    x (float)- growth coefficient, determines rate of bacteria growth
+            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
@@ -758,10 +807,11 @@
         }
         function huangFullModel(T0,x,a,b) {
             /*used to run a simulation of the Huang Full Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Inputs: T0 -
+                    x (float)- growth coefficient, determines rate of bacteria growth
+                    a -
+                    b -
+            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
@@ -773,10 +823,11 @@
         }
         function ratkowskyFullModel(T0,x,a,b) {
             /*used to run a simulation of the Ratkowsky Full Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Inputs: T0 -
+                    x (float)- growth coefficient, determines rate of bacteria growth
+                    a -
+                    b -
+            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
@@ -789,10 +840,10 @@
 
         function ratkowskySubModel(T0,a,x) {
             /*used to run a simulation of the Ratkowsky Sub Range Secondary model
-            Inputs: y_initial (float)- the y value of the first data point
-                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-                     lag (float)- time value before growth begins
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Inputs: T0 -
+                    a -
+                    x (float)- growth coefficient, determines rate of bacteria growth
+            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];

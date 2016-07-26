@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cb4a938-ad7d-499b-adb8-6d996c5f44eb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBaranyi.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBaranyi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBaranyiFixedH0.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBaranyiFixedH0.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBuchanan.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitBuchanan.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitGompertz.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitGompertz.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitHuangFull.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitHuangFull.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitNoLagPhaseModel.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitNoLagPhaseModel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitReducedBaranyi.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitReducedBaranyi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitReducedHuang.py" afterPath="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitReducedHuang.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/report.py" afterPath="$PROJECT_DIR$/IPsamp/modules/report.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapper.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapper.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperBaranyiFixedH0.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperBaranyiFixedH0.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/views.py" afterPath="$PROJECT_DIR$/IPsamp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/library.js" afterPath="$PROJECT_DIR$/static/js/library.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/IPsamp/index.html" afterPath="$PROJECT_DIR$/templates/IPsamp/index.html" />
     </list>
     <ignored path="test_proj.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,8 +36,8 @@
             <file leaf-file-name="library.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/static/js/library.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="691">
-                    <caret line="388" column="13" selection-start-line="388" selection-start-column="13" selection-end-line="388" selection-end-column="13" />
+                  <state relative-caret-position="17">
+                    <caret line="236" column="63" selection-start-line="236" selection-start-column="63" selection-end-line="236" selection-end-column="63" />
                     <folding />
                   </state>
                 </provider>
@@ -78,7 +65,7 @@
               <entry file="file://$PROJECT_DIR$/IPsamp/views.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="103">
-                    <caret line="108" column="13" selection-start-line="108" selection-start-column="13" selection-end-line="108" selection-end-column="13" />
+                    <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
                     <folding>
                       <element signature="e#0#35#0" expanded="true" />
                     </folding>
@@ -231,8 +218,8 @@
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitNoLagPhaseModel.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitReducedBaranyi.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticIncompleteGrowthModels/FitReducedHuang.py" />
-        <option value="$PROJECT_DIR$/static/js/library.js" />
         <option value="$PROJECT_DIR$/IPsamp/views.py" />
+        <option value="$PROJECT_DIR$/static/js/library.js" />
       </list>
     </option>
   </component>
@@ -916,14 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="388" column="13" selection-start-line="388" selection-start-column="13" selection-end-line="388" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IPsamp/modules/SecondaryModels/FitHuangFullTempModel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1033,10 +1012,18 @@
     <entry file="file://$PROJECT_DIR$/IPsamp/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
-          <caret line="108" column="13" selection-start-line="108" selection-start-column="13" selection-end-line="108" selection-end-column="13" />
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="236" column="63" selection-start-line="236" selection-start-column="63" selection-end-line="236" selection-end-column="63" />
+          <folding />
         </state>
       </provider>
     </entry>
