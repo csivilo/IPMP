@@ -143,7 +143,7 @@
                         id: "input_table",
                         columns: [
                            {id: "time_input", editor: "text", header: "Time", width: 120},
-                           {id: "conc_input", editor: "text", header: "Conc.", width: 100}],
+                           {id: "conc_input",editor: "text", header: "Conc.", width: 100}],
                         editable: true,
                         editaction: "dblclick",
                         width:250,
@@ -166,20 +166,30 @@
 
                         ]},
                         {rows:[
-						    {view:"form", id:"slider_input",elements:[
-                                { view:"slider", type:"alt", min:0, max:10,step:.5, label:"\u03BC max", value:"1", name:"s3",
-                                    title:webix.template("#value#")},
-                                { view:"slider",type:"alt",  step: .5 ,max: 10,label:"\u03BB (Lag)", value:"1", name:"s5",
-                                    title:webix.template("#value#")}
-						    ]},
-						    {view:"form", id:"insert_input", elements:[{
+						    {view:"form", id:"slider_input",padding:7,elements:[
+                                { view:"slider", id: "s1",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
+                                    value:"1", name:"s1", title:webix.template("#value#"), height:30, hidden: true},
+                                { view:"slider",id: "s2", type:"alt",  step: .5 ,max: 10,label:"\u03BB (Lag)",
+                                    value:"1", name:"s2", title:webix.template("#value#"), height:30, hidden: true},
+                                { view:"slider", id: "s3",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
+                                    value:"1", name:"s3", title:webix.template("#value#"), hidden: true, height:30},
+                                { view:"slider", id: "s4",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
+                                    value:"1", name:"s4", title:webix.template("#value#"), hidden: true, height:30},
+                                { view:"slider", id: "s5",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
+                                    value:"1", name:"s5", title:webix.template("#value#"), hidden: true, height:30},
+                                ],
+                            },
+						    {view:"form", id:"insert_input",padding:7, elements:[{
                                 type: "clean",
                                 rows: [
                                     {
-                                        view: "fieldset", label: "Data", body: {
+                                        view: "fieldset", label: "Parameters", body: {
                                         rows: [
-                                            {view: "text", id: "rate", label: "\u03BC max", value: "1", name: "s3"},
-                                            {view: "text", id: "m", label: "\u03BB (Lag)", value: "1", name: "s5"}
+                                            {view: "text", id: "f1", label: "\u03BC max", value: "1", name: "f1", hidden: true},
+                                            {view: "text", id: "f2", label: "\u03BB (Lag)", value: "1", name: "f2", hidden: true},
+                                            {view: "text", id: "f3", label: "\u03BB (Lag)", value: "1", name: "f3", hidden: true},
+                                            {view: "text", id: "f4", label: "\u03BB (Lag)", value: "1", name: "f4", hidden: true},
+                                            {view: "text", id: "f5", label: "\u03BB (Lag)", value: "1", name: "f5", hidden: true}
                                         ]
                                     }
                                     },
@@ -287,8 +297,19 @@
             ]
         });
 
-        // updates model if sliders are manipulated
-        var changeStatus = $$('slider_input').attachEvent("onChange", function(){
+
+
+
+
+        var changes3 = $$('s1').attachEvent("onSliderDrag", function(){
+            get();
+            if(model != null) {
+                plotData();
+                initialModel(model);
+            }
+        });
+
+        var changes5 = $$('s2').attachEvent("onSliderDrag", function(){
             get();
             if(model != null) {
                 plotData();

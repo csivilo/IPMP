@@ -31,10 +31,12 @@
 
             input_data.push( y_initial); //Y0
             input_data.push( y_max); //Ymax
-            input_data.push( parseFloat($$('slider_input').getValues().s3)); //Rate/mu
+            input_data.push( parseFloat($$('slider_input').getValues().s1)); //Rate/mu
             input_data.push((t_max - t_initial));//time
-            input_data.push( parseFloat($$('slider_input').getValues().s5)); //Lag/lambda
-
+            input_data.push( parseFloat($$('slider_input').getValues().s2)); //Lag/lambda
+            input_data.push( parseFloat($$('slider_input').getValues().s3));
+            input_data.push( parseFloat($$('slider_input').getValues().s4));
+            input_data.push( parseFloat($$('slider_input').getValues().s5));
 
             return input_data
         }
@@ -56,8 +58,8 @@
                     model: model,
                     time_array: JSON.stringify(table_data[0]),
                     conc_array: JSON.stringify(table_data[1]),
-                    rate: $$('slider_input').getValues().s3,
-                    lag: $$('slider_input').getValues().s5
+                    rate: $$('slider_input').getValues().s1,
+                    lag: $$('slider_input').getValues().s2
                 },
                 success: function(json) {
                     var data = json;
@@ -335,101 +337,121 @@
             hide(); //hides all model names
             if(model_type.localeCompare('Gompertz') == 0){
                 model = "Gompertz";
+                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
                 model_data = gompertzModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header').show();
                 }
             else if(model_type.localeCompare('Huang') == 0){
                 model = "Huang";
+                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
                 model_data = huangModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header2').show();
             }
             else if(model_type.localeCompare('Baranyi') == 0){
                 model = "Baranyi";
+                changeSliders(2,["\u03BC max","H0"]);
                 model_data = baranyiModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header3').show();
             }
             else if(model_type.localeCompare('Buchanan') == 0){
                 model = "Buchanan";
+                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
                 model_data = buchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header4').show();
             }
             if(model_type.localeCompare('No_lag') == 0){
                 model = "No_lag";
+                changeSliders(1,["\u03BC max"]);
                 model_data = noLagModel(data_set[0], data_set[1], mu_max, t_max);
                 $$('header5').show();
                 }
             else if(model_type.localeCompare('R_huang') == 0){
                 model = "R_huang";
+                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
                 model_data = redHuangModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header6').show();
             }
             else if(model_type.localeCompare('R_baranyi') == 0){
                 model = "R_baranyi";
+                changeSliders(2,["\u03BC max","H0"])
                 model_data = redBaranyiModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header7').show();
             }
             else if(model_type.localeCompare('2_buchanan') == 0){
                 model = "2_buchanan";
+                changeSliders(2,["\u03BC max","\u03BB (Lag)"])
                 model_data = twoBuchananModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header8').show();
             }
             else if(model_type.localeCompare('S_gompertz') == 0){
                 model = "S_gompertz";
+                changeSliders(2,["\u03BC max","\u03BB (Lag)"])
                 model_data = sGompertzModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header11').show();
             }
             else if(model_type.localeCompare('S_weibull') == 0){
                 model = "Sweibull";
+                changeSliders(3,["Y0","K","alpha"])
                 model_data = sWeibullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header12').show();
             }
             else if(model_type.localeCompare('S_mafart') == 0){
                 model = "S_mafart";
+                changeSliders(3,["Y0","D","alpha"])
                 model_data = sMafartModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header13').show();
             }
             else if(model_type.localeCompare('S2_buchanan') == 0){
                 model = "S2_buchanan";
+                changeSliders(3,['Y0','k',"\u03BB (Lag)"])
                 model_data = sTwoBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header14').show();
             }
             else if(model_type.localeCompare('S3_buchanan') == 0){
                 model = "S3_buchanan";
+                changeSliders(4,['Y0',"YTail",'k',"\u03BB (Lag)"])
                 model_data = sThreeBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header15').show();
             }
               else if(model_type.localeCompare('Arrhenius_full') == 0){
                 model = "Arrhenius_full";
+                changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
                 model_data = arrheniusSubModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header16').show();
             }
             else if(model_type.localeCompare('Arrhenius_sub') == 0){
                 model = "Arrhenius_sub";
+                changeSliders(3,["Ea", "alpha", 'A' ])
                 model_data = arrheniusFullModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header17').show();
             }
             else if(model_type.localeCompare('Cardinal_full') == 0){
                 model = "Cardinal_full";
+                changeSliders(4,["Tmin", "Topt", 'Tmax', "\u03BC max"])
                 model_data = cardinalFullModel(data_set[0], mu_max, data_set[4], t_max);
                 $$('header18').show();
             }
             else if(model_type.localeCompare('Huang_full_temp') == 0){
                 model = "Huang_full_temp";
-                model_data = huangFullTempModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                changeSliders(4,["T0", "Tmax", 'a', "b"])
+                model_data = huangFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header19').show();
             }
             else if(model_type.localeCompare('Huang_sub_temp') == 0){
                 model = "Huang_sub_temp";
-                model_data = huangSubTempModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                changeSliders(2,["T0","a"])
+                model_data = huangFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header20').show();
             }
             else if(model_type.localeCompare('Ratkowsky_full') == 0){
                 model = "Ratkowsky_full";
+                changeSliders(4,["T0", "Tmax", 'a', "b"])
                 model_data = ratkowskyFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header21').show();
             }
             else if(model_type.localeCompare('Ratkosky_sub') == 0){
                 model = "Ratkowsky_sub";
+                changeSliders(2,["T0","a"])
                 model_data = ratkowskySubModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
                 $$('header22').show();
             }
@@ -854,24 +876,137 @@
             return array;
         }
 
+        function changeSliders(num,name_array){
+            if( num  == 1){
+                $$('s1').show()
+                $$('s2').hide()
+                $$('s3').hide()
+                $$('s4').hide()
+                $$('s5').hide()
+                $$('s1').define('label',name_array[0])
+                $$('s1').render()
 
-        //TODO
-        function setSliders(first_name,second_name){
-            //Resets the labels on the slider boxes to match the current model parameters
-            $$("slider_input").define({
-                elements: [
-                    { view:"slider", type:"alt", min:0, max:10,step:.5, label:first_name, value:"1", name:"s3",
-                                    title:webix.template("#value#")},
-                    { view:"slider",type:"alt",  step: .5 ,max: 10,label:second_name, value:"1", name:"s5",
-                                    title:webix.template("#value#")}
-                ]
 
-                })
-            $$("rate").define("label",first_name);
-            $$("m").define("label",second_name);
-            $$("slider_input").refresh();
-                $$("insert_input").refresh();
+                $$('f1').show()
+                $$('f2').hide()
+                $$('f3').hide()
+                $$('f4').hide()
+                $$('f5').hide()
+                $$('f1').define('label',name_array[0])
+                $$('f1').render()
+
+            }
+            else if( num  == 2){
+                $$('s1').show()
+                $$('s2').show()
+                $$('s3').hide()
+                $$('s4').hide()
+                $$('s5').hide()
+                $$('s1').define('label',name_array[0])
+                $$('s2').define('label',name_array[1])
+                $$('s1').render()
+                $$('s2').render()
+                
+                $$('f1').show()
+                $$('f2').show()
+                $$('f3').hide()
+                $$('f4').hide()
+                $$('f5').hide()
+                $$('f1').define('label',name_array[0])
+                $$('f2').define('label',name_array[1])
+                $$('f1').render()
+                $$('f2').render()
+            }
+            else if(num == 3){
+                $$('s1').show()
+                $$('s2').show()
+                $$('s3').show()
+                $$('s4').hide()
+                $$('s5').hide()
+                $$('s1').define('label',name_array[0])
+                $$('s2').define('label',name_array[1])
+                $$('s3').define('label',name_array[2])
+                $$('s1').render()
+                $$('s2').render()
+                $$('s3').render()
+                
+                $$('f1').show()
+                $$('f2').show()
+                $$('f3').show()
+                $$('f4').hide()
+                $$('f5').hide()
+                $$('f1').define('label',name_array[0])
+                $$('f2').define('label',name_array[1])
+                $$('f3').define('label',name_array[2])
+                $$('f1').render()
+                $$('f2').render()
+                $$('f3').render()
+            }
+            else if(num == 4){
+                $$('s1').show()
+                $$('s2').show()
+                $$('s3').show()
+                $$('s4').show()
+                $$('s5').hide()
+                $$('s1').define('label',name_array[0])
+                $$('s2').define('label',name_array[1])
+                $$('s3').define('label',name_array[2])
+                $$('s4').define('label',name_array[3])
+                $$('s1').render()
+                $$('s2').render()
+                $$('s3').render()
+                $$('s4').render()
+                
+                $$('f1').show()
+                $$('f2').show()
+                $$('f3').show()
+                $$('f4').show()
+                $$('f5').hide()
+                $$('f1').define('label',name_array[0])
+                $$('f2').define('label',name_array[1])
+                $$('f3').define('label',name_array[2])
+                $$('f4').define('label',name_array[3])
+                $$('f1').render()
+                $$('f2').render()
+                $$('f3').render()
+                $$('f4').render()
+            }
+            else if(num == 5){
+                $$('s1').show()
+                $$('s2').show()
+                $$('s3').show()
+                $$('s4').show()
+                $$('s5').show()
+                $$('s1').define('label',name_array[0])
+                $$('s2').define('label',name_array[1])
+                $$('s3').define('label',name_array[2])
+                $$('s4').define('label',name_array[3])
+                $$('s5').define('label',name_array[4])
+                $$('s1').render()
+                $$('s2').render()
+                $$('s3').render()
+                $$('s4').render()
+                $$('s5').render()
+
+                $$('f1').show()
+                $$('f2').show()
+                $$('f3').show()
+                $$('f4').show()
+                $$('f5').show()
+                $$('f1').define('label',name_array[0])
+                $$('f2').define('label',name_array[1])
+                $$('f3').define('label',name_array[2])
+                $$('f4').define('label',name_array[3])
+                $$('f5').define('label',name_array[4])
+                $$('f1').render()
+                $$('f2').render()
+                $$('f3').render()
+                $$('f4').render()
+                $$('f5').render()
+            }
         }
+
+
 
          //checks to see if you data points has valid input
         function dataIsValid(){
