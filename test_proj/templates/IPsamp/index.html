@@ -58,8 +58,11 @@
                 {view: "toolbar", height: 60, id:"main_toolbar", elements:[
                     {view: "button", value: "Home", width: 65,  click:"location.href = '/' "},
                     {view: "button", value: "Tutorial", width: 65, click: "tutorial();"},
-                    {view:"uploader", id: "open_file", value:"Open", upload: "php/upload.php", width:75, click:"printValue()",
-                     link: "myList"},
+                    {view:"uploader", id: "open_file", value:"Open", width: 65, accept: "text/plain, text/csv" , on: {
+                        onAfterFileAdd: function(file_struct){
+                          importData(file_struct);
+                        }
+                    }},
                     {view: "button", value:"Add Rows", width: 90, click:"addRows()"},
                     {view:"menu", autowidth: true, data:[
                         {id: "models", value: "Models",  submenu:[
@@ -325,6 +328,9 @@
                 initialModel(model);
             }
         });
+
+
+
 
 
 
