@@ -31,8 +31,8 @@
 
             input_data.push( y_initial); //Y0
             input_data.push( y_max); //Ymax
-            input_data.push( parseFloat($$('slider_input').getValues().s1)); //Rate/mu
             input_data.push((t_max - t_initial));//time
+            input_data.push( parseFloat($$('slider_input').getValues().s1)); //Rate/mu
             input_data.push( parseFloat($$('slider_input').getValues().s2)); //Lag/lambda
             input_data.push( parseFloat($$('slider_input').getValues().s3));
             input_data.push( parseFloat($$('slider_input').getValues().s4));
@@ -332,127 +332,130 @@
             //Returns: none, but loads the default model curve into the data_chart
             var model_data = [];
             var data_set = getData();
-            var mu_max = data_set[2];
-            var t_max = data_set[3];
+            var t_max = data_set[2];
             hide(); //hides all model names
             if(model_type.localeCompare('Gompertz') == 0){
                 model = "Gompertz";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
-                model_data = gompertzModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = gompertzModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header').show();
                 }
             else if(model_type.localeCompare('Huang') == 0){
                 model = "Huang";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
-                model_data = huangModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = huangModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header2').show();
             }
             else if(model_type.localeCompare('Baranyi') == 0){
                 model = "Baranyi";
                 changeSliders(2,["\u03BC max","H0"]);
-                model_data = baranyiModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = baranyiModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header3').show();
             }
             else if(model_type.localeCompare('Buchanan') == 0){
                 model = "Buchanan";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
-                model_data = buchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
             }
             if(model_type.localeCompare('No_lag') == 0){
                 model = "No_lag";
                 changeSliders(1,["\u03BC max"]);
-                model_data = noLagModel(data_set[0], data_set[1], mu_max, t_max);
+                model_data = noLagModel(data_set[0], data_set[1], data_set[3], t_max);
                 $$('header5').show();
                 }
             else if(model_type.localeCompare('R_huang') == 0){
                 model = "R_huang";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
-                model_data = redHuangModel(data_set[0], mu_max, data_set[4], t_max);
+                model_data = redHuangModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header6').show();
             }
             else if(model_type.localeCompare('R_baranyi') == 0){
                 model = "R_baranyi";
                 changeSliders(2,["\u03BC max","H0"])
-                model_data = redBaranyiModel(data_set[0], mu_max, data_set[4], t_max);
+                model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header7').show();
             }
             else if(model_type.localeCompare('2_buchanan') == 0){
                 model = "2_buchanan";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"])
-                model_data = twoBuchananModel(data_set[0], mu_max, data_set[4], t_max);
+                model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header8').show();
             }
             else if(model_type.localeCompare('S_gompertz') == 0){
                 model = "S_gompertz";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"])
-                model_data = sGompertzModel(data_set[0], mu_max, data_set[4], t_max);
+                model_data = sGompertzModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header11').show();
             }
             else if(model_type.localeCompare('S_weibull') == 0){
-                model = "Sweibull";
+                model = "S_weibull";
                 changeSliders(3,["Y0","K","alpha"])
-                model_data = sWeibullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = sWeibullModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header12').show();
             }
             else if(model_type.localeCompare('S_mafart') == 0){
                 model = "S_mafart";
                 changeSliders(3,["Y0","D","alpha"])
-                model_data = sMafartModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = sMafartModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header13').show();
             }
             else if(model_type.localeCompare('S2_buchanan') == 0){
                 model = "S2_buchanan";
                 changeSliders(3,['Y0','k',"\u03BB (Lag)"])
-                model_data = sTwoBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = sTwoBuchananModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header14').show();
             }
             else if(model_type.localeCompare('S3_buchanan') == 0){
                 model = "S3_buchanan";
                 changeSliders(4,['Y0',"YTail",'k',"\u03BB (Lag)"])
-                model_data = sThreeBuchananModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = sThreeBuchananModel(data_set[3], data_set[4], data_set[5], data_set[6], t_max);
                 $$('header15').show();
             }
-              else if(model_type.localeCompare('Arrhenius_full') == 0){
-                model = "Arrhenius_full";
-                changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
-                model_data = arrheniusSubModel(data_set[0], mu_max, data_set[4], t_max);
+            else if(model_type.localeCompare('Arrhenius_full') == 0){
+                if(!(model.localeCompare('Arrhenius_full')) == 0){
+                    model = "Arrhenius_full";
+                    changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
+                    setSlider('s1', ['2540', '2535', '2545', '2'])
+                }
+
+                model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
                 $$('header16').show();
             }
             else if(model_type.localeCompare('Arrhenius_sub') == 0){
                 model = "Arrhenius_sub";
                 changeSliders(3,["Ea", "alpha", 'A' ])
-                model_data = arrheniusFullModel(data_set[0], mu_max, data_set[4], t_max);
+                model_data = arrheniusSubModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header17').show();
             }
             else if(model_type.localeCompare('Cardinal_full') == 0){
                 model = "Cardinal_full";
                 changeSliders(4,["Tmin", "Topt", 'Tmax', "\u03BC max"])
-                model_data = cardinalFullModel(data_set[0], mu_max, data_set[4], t_max);
+                model_data = cardinalFullModel(data_set[3], data_set[4], data_set[5],  data_set[6], t_max);
                 $$('header18').show();
             }
             else if(model_type.localeCompare('Huang_full_temp') == 0){
                 model = "Huang_full_temp";
                 changeSliders(4,["T0", "Tmax", 'a', "b"])
-                model_data = huangFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = huangFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header19').show();
             }
             else if(model_type.localeCompare('Huang_sub_temp') == 0){
                 model = "Huang_sub_temp";
                 changeSliders(2,["T0","a"])
-                model_data = huangFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = huangFullModel(data_set[3], data_set[4], t_max);
                 $$('header20').show();
             }
             else if(model_type.localeCompare('Ratkowsky_full') == 0){
                 model = "Ratkowsky_full";
                 changeSliders(4,["T0", "Tmax", 'a', "b"])
-                model_data = ratkowskyFullModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = ratkowskyFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header21').show();
             }
-            else if(model_type.localeCompare('Ratkosky_sub') == 0){
+            else if(model_type.localeCompare('Ratkowsky_sub') == 0){
                 model = "Ratkowsky_sub";
                 changeSliders(2,["T0","a"])
-                model_data = ratkowskySubModel(data_set[0], data_set[1], mu_max, data_set[4], t_max);
+                model_data = ratkowskySubModel(data_set[3], data_set[4], t_max);
                 $$('header22').show();
             }
 
@@ -694,13 +697,13 @@
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
-                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
+                array.push({time_input: time, conc_input2: y_initial - ( k * (Math.pow(time, alpha)))})
+
             }
             return array;
         }
         
-         function sMafartModel(y_initial, d, alpha,x){
+         function sMafartModel(y_initial, D, alpha,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
                      d -
@@ -712,8 +715,7 @@
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
-                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
+                array.push({time_input: time, conc_input2: y_initial - (Math.pow((time/D),alpha))});
             }
             return array;
         }
@@ -729,9 +731,14 @@
 
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
+                    if(time< lag){
+                        array.push({ time_input: time, conc_input2:y_initial
 
-                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
+                        });
+                    }
+                    else if ( time >= lag) {
+                        array.push({time_input: time, conc_input2: y_initial  - ((time-lag)/k)});
+                    }
             }
             return array;
         }
@@ -747,31 +754,40 @@
             */
 
             var array = [];
+            var tc = ((y_initial-y_tail)*k) + lag
             for(time = 0; time <x; time+= (x/500.)) {
+                if (time < lag) {
+                    array.push({
+                        time_input: time, conc_input2: y_initial});
+                }
+                else if (time >= tc){
+                    array.push({time_input: time, conc_input2: y_tail})
+                }
+                else if (time >= lag) {
+                    array.push({time_input: time, conc_input2: y_initial  - ((time-lag)/k)});
+                }
 
-                array.push({time_input: time, conc_input2: y_initial + (y_max - y_initial) * Math.exp(-1 *
-                        (Math.exp(-1 * (((time - lag) * mu_max * Math.exp(1)) / (y_max - y_initial) - 1.0))))});
             }
             return array;
         }
 
-         function arrheniusFullModel(Ea, alpha, A, b, x) {
+         function arrheniusFullModel(Ea, alpha, A, b, Tmax, x) {
             /*used to run a simulation of the Arrhenius Full Range Secondary model
             Inputs: Ea (float)-
                     alpha -
                     A
                     b
                     x (float) - dt of the entire dataset
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
             var m,c;
-            for(time = 0; time <x; time+= (x/500.)) {
-                m = Math.pow((Ea/(x+273.15)/8.314),alpha)
-                c = 1.0 - Math.exp(b*(time-x))
-                array.push({time_input: time,
-                    conc_input2: (A*(time + 273.15)*Math.exp(-m)*c)});
+            for(temp = 0; temp <x; temp+= (x/500.)) {
+                m = Math.pow(((Ea/(temp+273.15))/8.314),alpha)
+                c = 1.0 - Math.exp(b*(temp-Tmax))
+                array.push({time_input: temp,
+                    conc_input2: (A*(temp + 273.15)*Math.exp(-m)*c)});
             }
             return array;
         }
@@ -781,34 +797,34 @@
                     alpha -
                     A -
                     x (float) - dt of the entire dataset
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
-            var m,c;
-            for(time = 0; time <x; time+= (x/500.)) {
-                m = Math.pow((Ea/(x+273.15)/8.314),alpha)
-                array.push({time_input: time,
-                    conc_input2: (A*(time + 273.15)*Math.exp(-m))});
+            var m;
+            for(var temp = 0; temp <x; temp+= (x/500.)) {
+                m = Math.pow(((Ea/(temp+273.15))/8.314),alpha)
+                array.push({time_input: temp,
+                    conc_input2: (A*(temp + 273.15)*Math.exp(-m))});
             }
             return array;
         }
-        function cardinalFullModel(t_min,t_opt, x, mu_max) {
+        function cardinalFullModel(t_min,t_opt, t_max, mu_max,x) {
             /*used to run a simulation of the Cardinal Full Range Secondary model
             Inputs: t_min -
                     t_opt -
                     x (float) - dt of the entire dataset
                     mu_max (float)- growth coefficient, determines rate of bacteria growth
-             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
             var c;
-            for(time = 0; time <x; time+= (x/500.)) {
-                c = (((t_opt - t_min)*(time-t_opt) - (t_opt - x) *
-                        (t_opt + t_min-2.0*time)) * (t_opt-t_min))
-                array.push({time_input: time, conc_input2: mu_max*(time-x)*Math.pow((time-t_min),2.0/c)})
+            for(var temp = 0; temp <x; temp+= (x/500.)) {
+                c = ((t_opt - t_min)*(temp - t_opt) - (t_opt-t_max)*(t_opt + t_min - (2.0*temp))) * (t_opt - t_min)
+                array.push({time_input: temp, conc_input2: mu_max * (temp - t_max) * (Math.pow((temp - t_min),(2.0/c)))})
             }
+            console.log(array)
             return array;
         }
 
@@ -817,45 +833,45 @@
             Inputs: T0 -
                     a -
                     x (float)- growth coefficient, determines rate of bacteria growth
-            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
-            for(time = 0; time <x; time+= (x/500.)) {
-                array.push({time_input: time,
-                    conc_input2: Math.pow((a*(time-T0)), .75)});
+            for(temp = 0; temp <x; temp+= (x/500.)) {
+                array.push({time_input: temp,
+                    conc_input2: Math.pow((a*(temp-T0)), .75)});
             }
             return array;
         }
-        function huangFullModel(T0,x,a,b) {
+        function huangFullModel(T0,t_max,a,b,x) {
             /*used to run a simulation of the Huang Full Range Secondary model
             Inputs: T0 -
                     x (float)- growth coefficient, determines rate of bacteria growth
                     a -
                     b -
-            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
-            for(time = 0; time <x; time+= (x/500.)) {
-                array.push({time_input: time,
-                    conc_input2: Math.pow(a*(x-T0),(0.75*(1.0 - Math.exp(b*(time-x)))))});
+            for(temp = 0; temp <x; temp+= (x/500.)) {
+                array.push({time_input: temp,
+                    conc_input2: Math.pow(a*(temp-T0),(0.75*(1.0 - Math.exp(b*(temp-t_max)))))});
             }
             return array;
         }
-        function ratkowskyFullModel(T0,x,a,b) {
+        function ratkowskyFullModel(T0,Tmax,a,b,x) {
             /*used to run a simulation of the Ratkowsky Full Range Secondary model
             Inputs: T0 -
                     x (float)- growth coefficient, determines rate of bacteria growth
                     a -
                     b -
-            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
-            for(time = 0; time <x; time+= (x/500.)) {
-                array.push({time_input: time,
-                    conc_input2: (a*(time-T0)*(1.0 - Math.exp(b*(time-x))))});
+            for(temp = 0; temp <x; temp+= (x/500.)) {
+                array.push({time_input: temp,
+                    conc_input2: (a*(temp-T0)*(1.0 - Math.exp(b*(temp-Tmax))))});
             }
             return array;
         }
@@ -865,13 +881,13 @@
             Inputs: T0 -
                     a -
                     x (float)- growth coefficient, determines rate of bacteria growth
-            Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+            Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
             var array = [];
-            for(time = 0; time <x; time+= (x/500.)) {
-                array.push({time_input: time,
-                    conc_input2: (a*(time-T0))});
+            for(temp = 0; temp <x; temp+= (x/500.)) {
+                array.push({time_input: temp,
+                    conc_input2: (a*(temp-T0))});
             }
             return array;
         }
@@ -1006,7 +1022,15 @@
             }
         }
 
-
+        //sets the upper limit, lower limit, and current value of a given slider
+        function setSlider(slider,num_set){
+            console.log('setting sliders')
+            $$(slider).define('value',num_set[0])
+            $$(slider).define('min',num_set[1])
+            $$(slider).define('max',num_set[2])
+            $$(slider).define('step',num_set[3])
+            $$(slider).render()
+        }
 
          //checks to see if you data points has valid input
         function dataIsValid(){

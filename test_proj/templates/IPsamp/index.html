@@ -13,7 +13,7 @@
     <!-- <a href = "/">Home</a> -->
     <body>
     <script type="text/javascript" charset="utf-8">
-        var model = null;
+        var model = "None";
 
         var data_points = [
             { id: 1, time_input: 0, conc_input:1, conc_input2: null},
@@ -94,7 +94,7 @@
                                 {id: "Huang_full_temp", value: "Huang Full Range"},
                                 {id: "Huang_sub_temp", value: "Huang Sub Range"},
                                 {id: "Ratkowsky_full", value: "Ratowsky Full Range"},
-                                {id: "Ratkosky_sub", value: "Ratowsky Sub Range"}
+                                {id: "Ratkowsky_sub", value: "Ratowsky Sub Range"}
                             ]}
                        ]}
                ],
@@ -188,11 +188,11 @@
                                     {
                                         view: "fieldset", label: "Parameters", body: {
                                         rows: [
-                                            {view: "text", id: "f1", label: "\u03BC max", value: "1", name: "f1", hidden: true},
-                                            {view: "text", id: "f2", label: "\u03BB (Lag)", value: "1", name: "f2", hidden: true},
-                                            {view: "text", id: "f3", label: "\u03BB (Lag)", value: "1", name: "f3", hidden: true},
-                                            {view: "text", id: "f4", label: "\u03BB (Lag)", value: "1", name: "f4", hidden: true},
-                                            {view: "text", id: "f5", label: "\u03BB (Lag)", value: "1", name: "f5", hidden: true}
+                                            {view: "text", id: "f1", label: "\u03BC max", value: "1", name: "s1", hidden: true},
+                                            {view: "text", id: "f2", label: "\u03BB (Lag)", value: "1", name: "s2", hidden: true},
+                                            {view: "text", id: "f3", label: "\u03BB (Lag)", value: "1", name: "s3", hidden: true},
+                                            {view: "text", id: "f4", label: "\u03BB (Lag)", value: "1", name: "s4", hidden: true},
+                                            {view: "text", id: "f5", label: "\u03BB (Lag)", value: "1", name: "s5", hidden: true}
                                         ]
                                     }
                                     },
@@ -304,7 +304,7 @@
 
 
 
-        var changes3 = $$('s1').attachEvent("onSliderDrag", function(){
+        var changes1 = $$('s1').attachEvent("onSliderDrag", function(){
             get();
             if(model != null) {
                 plotData();
@@ -312,7 +312,32 @@
             }
         });
 
-        var changes5 = $$('s2').attachEvent("onSliderDrag", function(){
+
+        var changes2 = $$('s2').attachEvent("onSliderDrag", function(){
+            get();
+            if(model != null) {
+                plotData();
+                initialModel(model);
+            }
+        });
+
+        var changes3 = $$('s3').attachEvent("onSliderDrag", function(){
+            get();
+            if(model != null) {
+                plotData();
+                initialModel(model);
+            }
+        });
+
+        var changes4 = $$('s4').attachEvent("onSliderDrag", function(){
+            get();
+            if(model != null) {
+                plotData();
+                initialModel(model);
+            }
+        });
+
+        var changes5 = $$('s5').attachEvent("onSliderDrag", function(){
             get();
             if(model != null) {
                 plotData();
