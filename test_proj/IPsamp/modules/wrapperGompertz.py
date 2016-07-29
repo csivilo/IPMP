@@ -20,8 +20,6 @@ class dataAnalysis():
         self.parametersList = ['Ymax', 'Y0', 'mumax', "Lag"]
 
         self.calculation = GM.FitGompertz(rawdata, p0)
-        text_report = self.calculation.JDP.jacobianDeltaP
-        self.report = {}
         try:
             self.errorEstimate = EA.errorEstimate(rawdata[0], self.calculation.pOut, \
                 self.calculation.cov, self.calculation.residual, \
@@ -90,10 +88,8 @@ class dataAnalysis():
 
         try: 
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
-            self.report["jacobian"] = self.jacobian.jacob
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
-            self.report["ci_out"] = self.confidenceIntervals.CIOutputs
             self.errorMessage = "successful"
         except np.linalg.linalg.LinAlgError as e:
             self.errorMessage = e

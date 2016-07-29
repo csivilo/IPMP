@@ -24,6 +24,7 @@ def data(request):
     if request.method == "GET":
         xarray = []
         yarray = []
+        parray = []
         xjson = json.loads(request.GET.get("time_array"))
         for i in xjson:
             xarray.append(float(i))
@@ -32,8 +33,13 @@ def data(request):
         for i in yjson:
             yarray.append(float(i))
         yarray = np.array(yarray)
+        pjson = json.loads(request.GET.get("params"))
+        for i in pjson:
+            parray.append(float(i))
         model = request.GET.get('model')
-        p0 = [float(request.GET.get('rate')),float(request.GET.get('lag'))]
+
+
+        p0 = parray
 
 
 
@@ -86,7 +92,7 @@ def data(request):
 
             inst = WSW.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "S_mafar":
+        elif model == "S_mafart":
 
             inst = WSM.dataAnalysis([xarray, yarray], p0)
 
@@ -97,31 +103,31 @@ def data(request):
 
             inst = WSBTL.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "Arrhenius_full":
+        elif model == "D_Arrhenius_full":
 
             inst = WAF.dataAnalysis([xarray,yarray], p0)
 
-        elif model == "Arrhenius_sub":
+        elif model == "D_Arrhenius_sub":
 
             inst = WAS.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "Cardinal_full":
+        elif model == "D_Cardinal_full":
 
             inst = WC.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "Huang_full_temp":
+        elif model == "D_Huang_full_temp":
 
             inst = WHFT.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "Huang_sub_temp":
+        elif model == "D_Huang_sub_temp":
 
             inst = WHST.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "Ratkowsky_full":
+        elif model == "D_Ratkowsky_full":
 
             inst = WRF.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "Ratkowsky_sub":
+        elif model == "D_Ratkowsky_sub":
 
             inst = WRS.dataAnalysis([xarray, yarray], p0)
 
@@ -135,6 +141,9 @@ def data(request):
             dict["text_output"] = RP.report(inst)
             #dict["ci_vals"] = RP.conintervals(inst)
             dict['params'] = RP.params(inst)
+        else:
+            print("error: %s") % (inst.errorMessage)
+
 
 
         return JsonResponse(dict)

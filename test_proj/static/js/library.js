@@ -8,6 +8,13 @@
             $$('insert_input').setValues(data);
         }
 
+        //swaps two indices of an array
+        function swap(array,ind1,ind2) {
+            var temp = array[ind1]
+            array[ind1] = array[ind2]
+            array[ind2] = temp
+        }
+
 
         function getData() {
             //creates new array and pushes each value in the slider to the array
@@ -43,7 +50,7 @@
 
         function submitModel(){
         // submits model parameters and data to the backend, recieves json object through ajax, displays in browser
-            if(!(model)){
+            if(model.localeCompare("None")==0){
                 console.log("No model selected!");
                 return null;
             }
@@ -58,14 +65,18 @@
                     model: model,
                     time_array: JSON.stringify(table_data[0]),
                     conc_array: JSON.stringify(table_data[1]),
-                    rate: $$('slider_input').getValues().s1,
-                    lag: $$('slider_input').getValues().s2
+                    params: JSON.stringify(getData().slice(3))
+
                 },
                 success: function(json) {
                     var data = json;
                     if( data['error'].localeCompare("successful") == 0) {
                         var text = data['text_output'];
-                        graphCon(data['params']);
+                        var params = data['params'];
+                        if(model.slice(0,1).localeCompare("S") == 0 || model.slice(0,1).localeCompare("D") == 0) {
+                            swap(params, 0, 1)
+                        }
+                        graphCon(params);
                         $$("output_table").parse(data);
                         $$("export_table").setValue(text); //outputs info received to the user
 
@@ -126,9 +137,9 @@
 
         function graphCon(dub_array){
             $$('data_chart').clearAll()
-
+            console.log(dub_array)
             data_set = getData();
-            time = data_set[3];
+            time = data_set[2];
             model_data = [];
             var i = 0;
             if(model.localeCompare('Gompertz') == 0){
@@ -180,18 +191,17 @@
             }
             else if(model.localeCompare('S_weibull') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sWeibullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-
+                    model_data = model_data.concat(sWeibullModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('S_mafart') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sMafartModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                    model_data = model_data.concat(sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('S2_buchanan') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                    model_data = model_data.concat(sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
 
@@ -201,44 +211,44 @@
                 }
             }
 
-            else if(model.localeCompare('Arrhenius_full') == 0){
+            else if(model.localeCompare('D_Arrhenius_full') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                    model_data = model_data.concat(arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], dub_array[4], time));
                 }
             }
 
-            else if(model.localeCompare('Arrhenius_sub') == 0){
+            else if(model.localeCompare('D_Arrhenius_sub') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                    model_data = model_data.concat(arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
 
-            else if(model.localeCompare('Cardinal_full') == 0){
+            else if(model.localeCompare('D_Cardinal_full') == 0){
                 for(i = 0; i < 1; i++){
                     model_data = model_data.concat(cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
 
-            else if(model.localeCompare('Huang_full_temp') == 0){
+            else if(model.localeCompare('D_Huang_full_temp') == 0){
                 for(i = 0; i < 1; i++){
                     model_data = model_data.concat(huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
-            else if(model.localeCompare('Huang_sub_temp') == 0){
+            else if(model.localeCompare('D_Huang_sub_temp') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(huangSubModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                    model_data = model_data.concat(huangSubModel(dub_array[0], dub_array[1], time));
                 }
             }
 
-            else if(model.localeCompare('Ratkowsky_full') == 0){
+            else if(model.localeCompare('D_Ratkowsky_full') == 0){
                 for(i = 0; i < 1; i++){
                     model_data = model_data.concat(ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
 
-            else if(model.localeCompare('Ratkowsky_sub') == 0){
+            else if(model.localeCompare('D_Ratkowsky_sub') == 0){
                 for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(ratkowskysubModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                    model_data = model_data.concat(ratkowskySubModel(dub_array[0], dub_array[1],time));
                 }
             }
 
@@ -412,9 +422,9 @@
                 model_data = sThreeBuchananModel(data_set[3], data_set[4], data_set[5], data_set[6], t_max);
                 $$('header15').show();
             }
-            else if(model_type.localeCompare('Arrhenius_full') == 0){
-                if(!(model.localeCompare('Arrhenius_full')) == 0){
-                    model = "Arrhenius_full";
+            else if(model_type.localeCompare('D_Arrhenius_full') == 0){
+                if(!(model.localeCompare('D_Arrhenius_full')) == 0){
+                    model = "D_Arrhenius_full";
                     changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
                     setSlider('s1', ['2540', '2535', '2545', '2'])
                 }
@@ -422,38 +432,38 @@
                 model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
                 $$('header16').show();
             }
-            else if(model_type.localeCompare('Arrhenius_sub') == 0){
-                model = "Arrhenius_sub";
+            else if(model_type.localeCompare('D_Arrhenius_sub') == 0){
+                model = "D_Arrhenius_sub";
                 changeSliders(3,["Ea", "alpha", 'A' ])
                 model_data = arrheniusSubModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header17').show();
             }
-            else if(model_type.localeCompare('Cardinal_full') == 0){
-                model = "Cardinal_full";
+            else if(model_type.localeCompare('D_Cardinal_full') == 0){
+                model = "D_Cardinal_full";
                 changeSliders(4,["Tmin", "Topt", 'Tmax', "\u03BC max"])
                 model_data = cardinalFullModel(data_set[3], data_set[4], data_set[5],  data_set[6], t_max);
                 $$('header18').show();
             }
-            else if(model_type.localeCompare('Huang_full_temp') == 0){
-                model = "Huang_full_temp";
+            else if(model_type.localeCompare('D_Huang_full_temp') == 0){
+                model = "D_Huang_full_temp";
                 changeSliders(4,["T0", "Tmax", 'a', "b"])
                 model_data = huangFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header19').show();
             }
-            else if(model_type.localeCompare('Huang_sub_temp') == 0){
-                model = "Huang_sub_temp";
+            else if(model_type.localeCompare('D_Huang_sub_temp') == 0){
+                model = "D_Huang_sub_temp";
                 changeSliders(2,["T0","a"])
-                model_data = huangFullModel(data_set[3], data_set[4], t_max);
+                model_data = huangSubModel(data_set[3], data_set[4], t_max);
                 $$('header20').show();
             }
-            else if(model_type.localeCompare('Ratkowsky_full') == 0){
-                model = "Ratkowsky_full";
+            else if(model_type.localeCompare('D_Ratkowsky_full') == 0){
+                model = "D_Ratkowsky_full";
                 changeSliders(4,["T0", "Tmax", 'a', "b"])
                 model_data = ratkowskyFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header21').show();
             }
-            else if(model_type.localeCompare('Ratkowsky_sub') == 0){
-                model = "Ratkowsky_sub";
+            else if(model_type.localeCompare('D_Ratkowsky_sub') == 0){
+                model = "D_Ratkowsky_sub";
                 changeSliders(2,["T0","a"])
                 model_data = ratkowskySubModel(data_set[3], data_set[4], t_max);
                 $$('header22').show();
@@ -784,7 +794,7 @@
             var array = [];
             var m,c;
             for(temp = 0; temp <x; temp+= (x/500.)) {
-                m = Math.pow(((Ea/(temp+273.15))/8.314),alpha)
+                m = Math.pow((Ea/(temp+273.15)/8.314),alpha)
                 c = 1.0 - Math.exp(b*(temp-Tmax))
                 array.push({time_input: temp,
                     conc_input2: (A*(temp + 273.15)*Math.exp(-m)*c)});
@@ -793,8 +803,8 @@
         }
         function arrheniusSubModel(Ea, alpha, A, x) {
             /*used to run a simulation of the Arrhenius Sub Range Secondary model
-            Inputs: Ea -
-                    alpha -
+            Inputs: Ea - Activation energy, set 2000-3000
+                    alpha - coefficient, set 15-30
                     A -
                     x (float) - dt of the entire dataset
              Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
@@ -802,8 +812,8 @@
 
             var array = [];
             var m;
-            for(var temp = 0; temp <x; temp+= (x/500.)) {
-                m = Math.pow(((Ea/(temp+273.15))/8.314),alpha)
+            for(temp = 0; temp <x; temp+= (x/500.)) {
+                m = Math.pow((Ea/(temp+273.15)/8.314),alpha)
                 array.push({time_input: temp,
                     conc_input2: (A*(temp + 273.15)*Math.exp(-m))});
             }
@@ -824,7 +834,7 @@
                 c = ((t_opt - t_min)*(temp - t_opt) - (t_opt-t_max)*(t_opt + t_min - (2.0*temp))) * (t_opt - t_min)
                 array.push({time_input: temp, conc_input2: mu_max * (temp - t_max) * (Math.pow((temp - t_min),(2.0/c)))})
             }
-            console.log(array)
+
             return array;
         }
 
@@ -842,6 +852,7 @@
                     conc_input2: Math.pow((a*(temp-T0)), .75)});
             }
             return array;
+
         }
         function huangFullModel(T0,t_max,a,b,x) {
             /*used to run a simulation of the Huang Full Range Secondary model
@@ -893,6 +904,19 @@
         }
 
         function changeSliders(num,name_array){
+            if (num == 0){
+                $$('s1').hide()
+                $$('s2').hide()
+                $$('s3').hide()
+                $$('s4').hide()
+                $$('s5').hide()
+                
+                $$('f1').hide()
+                $$('f2').hide()
+                $$('f3').hide()
+                $$('f4').hide()
+                $$('f5').hide()
+            }
             if( num  == 1){
                 $$('s1').show()
                 $$('s2').hide()
@@ -1022,9 +1046,8 @@
             }
         }
 
-        //sets the upper limit, lower limit, and current value of a given slider
+        //sets the upper limit, lower limit, current value, and step of a given slider
         function setSlider(slider,num_set){
-            console.log('setting sliders')
             $$(slider).define('value',num_set[0])
             $$(slider).define('min',num_set[1])
             $$(slider).define('max',num_set[2])

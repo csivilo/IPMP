@@ -67,8 +67,10 @@ def conintervals(analysisObject):
         lower.append(analysisObject.errorEstimate.parameterOutput[4][i])
         upper.append(analysisObject.errorEstimate.parameterOutput[5][i])
 
-    lower[0],lower[1] = lower[1],lower[0]
-    upper[0], upper[1] = upper[1], upper[0]
+    if analysisObject.modelName[0] != "S":
+        print analysisObject.modelName[0]
+        lower[0],lower[1] = lower[1],lower[0]
+        upper[0], upper[1] = upper[1], upper[0]
 
     return [lower,upper]
 
@@ -76,6 +78,5 @@ def params(analysisObject):
     lst = []
     for i in analysisObject.errorEstimate.parameterOutput[0]:
         lst.append(float(i))
-
     lst[0], lst[1] = lst[1], lst[0]
     return lst

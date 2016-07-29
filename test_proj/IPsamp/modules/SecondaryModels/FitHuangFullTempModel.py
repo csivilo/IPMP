@@ -18,7 +18,7 @@ class FitHuangFullTemp:
         np.seterr(all='ignore')
         self.x = np.array(rawdata[0])
         self.y = np.array(rawdata[1])
-        self.p0 = np.array(p0)   # Rate and Shoulder
+        self.p0 = np.array(p0)   # rate and Shoulder
         
         #self.YTail = np.min( np.array(rawdata[1]))
         self.dataLength = len(self.x)

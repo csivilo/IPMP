@@ -27,7 +27,7 @@ class dataAnalysis():
         #except (ValueError,  OverflowError, ZeroDivisionError, FloatingPointError): 
         except:
             pass
-        self.parametersList = ['Tmin', 'Tmax', 'a', 'b']  
+        self.parametersList = ['T0', 'Tmax', 'a', 'b']
         #print "List of parameters = ", self.parametersList
         """
         The outputs from data analysis are included in two outfrom from the call to
@@ -85,13 +85,12 @@ class dataAnalysis():
         self.errorMessage = "successful"
         try: 
             self.jacobian = JA.Jacobian(self.calculation.JacobianMatrix, self.dataLength)
-            self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
+            self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE, self.jacobian.jacob, \
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
-
             self.outputXplot = self.calculation.Xplot
             self.outputYplot = self.calculation.Yplot
-        except np.linalg.linalg.LinAlgError as e:
-            self.errorMessage = e
+        except:
+            self.errorMessage = np.linalg.linalg.LinAlgError
         #print "error message = ", self.errorMessage
                 
         

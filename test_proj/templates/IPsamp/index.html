@@ -16,13 +16,13 @@
         var model = "None";
 
         var data_points = [
-            { id: 1, time_input: 0, conc_input:1, conc_input2: null},
+            { id: 1, time_input: 0, conc_input:0, conc_input2: null},
             { id: 2, time_input: 1, conc_input:1, conc_input2: null},
-            { id: 3, time_input: 2, conc_input:3, conc_input2: null},
-            { id: 4, time_input: 3, conc_input:6, conc_input2: null},
-            { id: 5, time_input: 4, conc_input:8, conc_input2: null},
-            { id: 6, time_input: 5, conc_input:8, conc_input2: null},
-            { id: 7, time_input: null, conc_input:null, conc_input2: null},
+            { id: 3, time_input: 2, conc_input:2, conc_input2: null},
+            { id: 4, time_input: 3, conc_input:3, conc_input2: null},
+            { id: 5, time_input: 4, conc_input:4, conc_input2: null},
+            { id: 6, time_input: 5, conc_input:2, conc_input2: null},
+            { id: 7, time_input: 6, conc_input:0, conc_input2: null},
             { id: 8, time_input: null, conc_input:null, conc_input2: null},
             { id: 9, time_input: null, conc_input:null, conc_input2: null},
             { id: 10, time_input: null, conc_input:null, conc_input2: null},
@@ -88,13 +88,13 @@
                                 {id: "S3_buchanan", value: "Buchanan Three-Phase"}
                             ]},
                             {id: "sec_models", value: "Secondary", submenu:[
-                                {id: "Arrhenius_full", value: "Arrhenius Full Range"},
-                                {id: "Arrhenius_sub", value: "Arrhenius Sub Range"},
-                                {id: "Cardinal_full", value: "Cardinal Full Range"},
-                                {id: "Huang_full_temp", value: "Huang Full Range"},
-                                {id: "Huang_sub_temp", value: "Huang Sub Range"},
-                                {id: "Ratkowsky_full", value: "Ratowsky Full Range"},
-                                {id: "Ratkowsky_sub", value: "Ratowsky Sub Range"}
+                                {id: "D_Arrhenius_full", value: "Arrhenius Full Range"},
+                                {id: "D_Arrhenius_sub", value: "Arrhenius Sub Range"},
+                                {id: "D_Cardinal_full", value: "Cardinal Full Range"},
+                                {id: "D_Huang_full_temp", value: "Huang Full Range"},
+                                {id: "D_Huang_sub_temp", value: "Huang Sub Range"},
+                                {id: "D_Ratkowsky_full", value: "Ratowsky Full Range"},
+                                {id: "D_Ratkowsky_sub", value: "Ratowsky Sub Range"}
                             ]}
                        ]}
                ],
@@ -103,6 +103,14 @@
                     if(id == "S_linear" || id == "S_linshoulder") {
                         model = id;
                         $$("data_chart").clearAll();
+                        hide();
+                        changeSliders(0,[])
+                        if(id == 'S_linear'){
+                            $$('header9').show()
+                        }
+                        else{
+                            $$('header10').show()
+                        }
                         submitModel(id);
                     }
                     else{

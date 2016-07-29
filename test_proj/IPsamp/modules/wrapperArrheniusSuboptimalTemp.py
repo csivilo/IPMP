@@ -91,8 +91,8 @@ class dataAnalysis():
             self.outputYplot = self.calculation.Yplot
             #print self.outputXplot, self.outputYplot
             
-        except np.linalg.linalg.LinAlgError as e:
-            self.errorMessage = e
+        except:
+            self.errorMessage = np.linalg.linalg.LinAlgError
         #print "error message = ", self.errorMessage
                 
         
