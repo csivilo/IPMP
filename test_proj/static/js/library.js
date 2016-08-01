@@ -300,7 +300,9 @@
  				id:"add_rows",
  				height:250,
  			    width:184,
- 			    position: "center",
+                left: 210,
+                top: 60,
+ 			    //position: "center",
  			    head:{
  					view:"toolbar", cols:[
  						{view:"button", label: 'Confirm', width: 87, align: 'center', click:"updateRows();"},
@@ -801,6 +803,7 @@
             }
             return array;
         }
+
         function arrheniusSubModel(Ea, alpha, A, x) {
             /*used to run a simulation of the Arrhenius Sub Range Secondary model
             Inputs: Ea - Activation energy, set 2000-3000
@@ -819,6 +822,7 @@
             }
             return array;
         }
+
         function cardinalFullModel(t_min,t_opt, t_max, mu_max,x) {
             /*used to run a simulation of the Cardinal Full Range Secondary model
             Inputs: t_min -
@@ -854,6 +858,7 @@
             return array;
 
         }
+
         function huangFullModel(T0,t_max,a,b,x) {
             /*used to run a simulation of the Huang Full Range Secondary model
             Inputs: T0 -
@@ -870,6 +875,7 @@
             }
             return array;
         }
+
         function ratkowskyFullModel(T0,Tmax,a,b,x) {
             /*used to run a simulation of the Ratkowsky Full Range Secondary model
             Inputs: T0 -
@@ -1233,7 +1239,7 @@
                 text: 'Use the sliders below to adjust the model curve you previously selected to make a better fit for your inputed data.' +
                 ' Then click "Model Submit" to submit your model.',
                 width: 120,
-                top: 165,
+                top: 155,
                 left: 3,
                 callback: function(result){
                     switch(result){
@@ -1267,22 +1273,34 @@
         }
 
         function importData(file_struct) {
-             webix.alert({
-                        ok: "Add",
-                        id: "win0",
-                        cancel: "Replace",
-                        //type: "alert-warning",
-                        text: "Do you want to add the file to the current data or replace the current data?",
-                        callback: function(result){
-                            //if they clicked ok ("Continue")
-                            if(result === true){
-                                addDataSet(file_struct);
-                            }
-                            else {
-                                replaceDataSet(file_struct);
-                            }
+            var type = file_struct.type;
+
+            //Check to see if the file type is valid, if it is not alert the user that it is not a valid type
+            if(type == "csv" || type == "txt"){
+                webix.alert({
+                    ok: "Add",
+                    id: "win0",
+                    cancel: "Replace",
+                    //type: "alert-warning",
+                    text: "Do you want to add the file to the current data or replace the current data?",
+                    callback: function(result){
+                        //if they clicked ok ("Continue")
+                        if(result === true){
+                            addDataSet(file_struct);
                         }
-                    });
+                        else {
+                            replaceDataSet(file_struct);
+                        }
+                   }
+                });
+            } else {
+                webix.alert({
+                   type: "alert-error",
+                   title: "Error- File Type Not Supported",
+                   ok: "Close",
+                   text: "Only files that end in .txt or .csv are supported at this time."
+               });
+            }
         }
 
         //replace current data with the file data
@@ -1452,7 +1470,7 @@
                 webix.alert({
                         ok: "Close",
                         id: "win0",
-                        text: "You have added the file to the already inputed data."
+                        text: "You have added the file to the inputed data."
                     });
 
                   //parse new data to the input_table
