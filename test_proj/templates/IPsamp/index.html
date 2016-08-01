@@ -67,10 +67,10 @@
                     {view:"menu", autowidth: true, data:[
                         {id: "models", value: "Models",  submenu:[
                             {id: "inc_models", value: "Incomplete", submenu:[
-                                {id: "No_lag", value: "No Lag Phase"},
+                                {id: "R_no_lag", value: "No Lag Phase"},
                                 {id: "R_huang", value: "Reduced Huang"},
                                 {id: "R_baranyi", value: "Reduced Baranyi"},
-                                {id: "2_buchanan", value: "Two Phase Buchanan"}
+                                {id: "R2_buchanan", value: "Two Phase Buchanan"}
                             ]},
                             {id: "full_models", value: "Full", submenu:[
                                 {id: "Gompertz", value: "Gompertz"},
@@ -84,7 +84,7 @@
                                 {id: "S_gompertz", value: "Gompertz"},
                                 {id: "S_weibull", value: "Weibull"},
                                 {id: "S_mafart", value: "Weibull-Mafart"},
-                                {id: "S2_buchanan", value: "Buchanan Two-Phase"},
+                                {id: "SR2_buchanan", value: "Buchanan Two-Phase"},
                                 {id: "S3_buchanan", value: "Buchanan Three-Phase"}
                             ]},
                             {id: "sec_models", value: "Secondary", submenu:[
@@ -286,10 +286,8 @@
                             resizeColumn: true,
                             datatype: "html",
                             columns:[
-                                {id: "text_output", header: "Reports", width: 450, height: 2000}
+                                {id: "text_output",}
                             ],
-
-                            editable: false
                         },//displays desired reports
                             {view: "textarea",
                             id: "export_table",
@@ -297,8 +295,9 @@
                             value: "No report",
                             placeholder: "No report",
                             datatype: "html",
+                            height: 200,
                             columns:[
-                                {id: "text_export", header: "Reports", width: 450, height: 2000}
+                                {id: "text_export", header: "Reports"}
                             ],
 
                             editable: false}

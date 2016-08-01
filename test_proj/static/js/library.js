@@ -38,7 +38,7 @@
 
             input_data.push( y_initial); //Y0
             input_data.push( y_max); //Ymax
-            input_data.push((t_max - t_initial));//time
+            input_data.push(t_max); //time
             input_data.push( parseFloat($$('slider_input').getValues().s1)); //Rate/mu
             input_data.push( parseFloat($$('slider_input').getValues().s2)); //Lag/lambda
             input_data.push( parseFloat($$('slider_input').getValues().s3));
@@ -73,7 +73,8 @@
                     if( data['error'].localeCompare("successful") == 0) {
                         var text = data['text_output'];
                         var params = data['params'];
-                        if(model.slice(0,1).localeCompare("S") == 0 || model.slice(0,1).localeCompare("D") == 0) {
+                        if(model.slice(0,1).localeCompare("S") == 0 || model.slice(0,1).localeCompare("D") == 0 ||
+                                    model.slice(0,1).localeCompare("R") == 0){
                             swap(params, 0, 1)
                         }
                         graphCon(params);
@@ -83,10 +84,9 @@
                         //118 length until first add
                         //var end = "" + text.slice(116);
                         //text += end;
-                        //console.log(text);
+                        console.log(text);
                     }
                     else{
-                        console.log("Backend analysis failed, adjust parameters for better fit");
                         $$("output_table").parse({text_output: "Backend analysis failed, adjust parameters for better fit"});
                         $$("export_table").setValue("Backend analysis failed, adjust parameters for better fit.");
                     }
@@ -137,7 +137,6 @@
 
         function graphCon(dub_array){
             $$('data_chart').clearAll()
-            console.log(dub_array)
             data_set = getData();
             time = data_set[2];
             model_data = [];
@@ -163,7 +162,7 @@
                     model_data = model_data.concat(buchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
                 }
             }
-            else if(model.localeCompare('No_lag') == 0){
+            else if(model.localeCompare('R_no_lag') == 0){
                 for(i = 0; i < 1; i++){
                     model_data = model_data.concat(noLagModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
@@ -179,9 +178,19 @@
                     model_data = model_data.concat(redBaranyiModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
-            else if(model.localeCompare('2_buchanan') == 0){
+            else if(model.localeCompare('R2_buchanan') == 0){
                 for(i = 0; i < 1; i++){
                     model_data = model_data.concat(twoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
+                }
+            }
+            else if(model.localeCompare('S_linear') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sLinearModel(dub_array[0], dub_array[1], time));
+                }
+            }
+            else if(model.localeCompare('S_linshoulder') == 0){
+                for(i = 0; i < 1; i++){
+                    model_data = model_data.concat(sLinearShoulderModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
             else if(model.localeCompare('S_gompertz') == 0){
@@ -199,7 +208,7 @@
                     model_data = model_data.concat(sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
             }
-            else if(model.localeCompare('S2_buchanan') == 0){
+            else if(model.localeCompare('SR2_buchanan') == 0){
                 for(i = 0; i < 1; i++){
                     model_data = model_data.concat(sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
                 }
@@ -286,11 +295,9 @@
 
         function printValue() {
              var datas =  $$('open_file').files.data.pull;
-             //console.log(datas);
              var file_id = $$("open_file").files.getFirstId(); //getting the ID
              var fileobj = $$("open_file").files.getItem(file_id).file; //getting file object
              filename = fileobj.name.getValues;
-            // console.log(filename);
          }
 
         //brings a pop-up window with a counter to add rows to the input_table
@@ -368,8 +375,8 @@
                 model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
             }
-            if(model_type.localeCompare('No_lag') == 0){
-                model = "No_lag";
+            if(model_type.localeCompare('R_no_lag') == 0){
+                model = "R_no_lag";
                 changeSliders(1,["\u03BC max"]);
                 model_data = noLagModel(data_set[0], data_set[1], data_set[3], t_max);
                 $$('header5').show();
@@ -386,8 +393,8 @@
                 model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header7').show();
             }
-            else if(model_type.localeCompare('2_buchanan') == 0){
-                model = "2_buchanan";
+            else if(model_type.localeCompare('R2_buchanan') == 0){
+                model = "R2_buchanan";
                 changeSliders(2,["\u03BC max","\u03BB (Lag)"])
                 model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header8').show();
@@ -410,8 +417,8 @@
                 model_data = sMafartModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header13').show();
             }
-            else if(model_type.localeCompare('S2_buchanan') == 0){
-                model = "S2_buchanan";
+            else if(model_type.localeCompare('SR2_buchanan') == 0){
+                model = "SR2_buchanan";
                 changeSliders(3,['Y0','k',"\u03BB (Lag)"])
                 model_data = sTwoBuchananModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header14').show();
@@ -674,6 +681,54 @@
 
             return array;
         }
+
+        function sLinearModel(y_initial, D,x) {
+            /*used to run a simulation of the survival gompertz model
+             Inputs: y_initial (float)- the y value of the first data points
+             D -
+             x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+             */
+
+            var array = [];
+            for(time = 0; time <x; time+= (x/500.)) {
+
+                array.push({
+                    time_input: time,conc_input2: y_initial - (time/D)
+                });
+            }
+            return array;
+
+        }
+
+        function sLinearShoulderModel(y_initial, D, y_tail,x) {
+            /*used to run a simulation of the survival gompertz model
+             Inputs: y_initial (float)- the y value of the first data points
+             D -
+             y_tail (float) - the y value of the tail of the growth curve
+             x (float) - dt of the entire dataset
+             Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
+             */
+            var array = [];
+            t_crit = D* (y_initial - y_tail)
+            for(time = 0; time <x; time+= (x/500.)) {
+                if (time < t_crit) {
+                    array.push({
+                        time_input: time, conc_input2: y_initial - (time/D)
+                    });
+                }
+                else{
+                    array.push({
+                        time_input: time, conc_input2: y_tail
+                    });
+                }
+            }
+            return array;
+
+
+
+        }
+
 
         function sGompertzModel(y_initial, mu_max,lag,x){
             /*used to run a simulation of the survival gompertz model
@@ -1288,24 +1343,25 @@
         //replace current data with the file data
         function replaceDataSet(file_struct){
             var reader = new FileReader();
-             var nextIndex = 1;
-             var isTime = true;
-             var currIndex = 0;
-             var time = 0, conc = 0, value= 0, char = 0, parsed = 0;
-             var bothDoubleDigits = 0; //added variable to offset the case that there are 2 double digit nums
-             var dataIndex = 0;
+            var nextIndex = 1;
+            var isTime = true;
+            var currIndex = 0;
+            var time = 0, conc = 0, value= 0, char = 0, parsed = 0;
+            var bothDoubleDigits = 0; //added variable to offset the case that there are 2 double digit nums
+            var dataIndex = 0;
 
-              reader.onload = function(e){
+            reader.onload = function(e){
                 var text = reader.result;
                 var str = text.length / 3;
 
+
                  //resets the arrays values
-                /*for(var a = 0; a < data_points.length; a++){
-                    if(data_points[a].conc_input2 == null){
-                        data_points[a].conc_input = null;
-                        data_points[a].time_input = null;
-                    }
-                }*/
+                for(var i = 0; i < data_points.length; i++){
+                           data_points[i].conc_input = null;
+                           data_points[i].time_input = null;
+                           data_points[i].conc_input2 = null;
+                       }
+                $$('input_table').refresh();
 
                 for(var i = 0; i < str; i++){
                      bothDoubleDigits = 0;
@@ -1369,8 +1425,10 @@
                      pos: 0, //number of records will be right the last index +1
                     data: data_points
                     });
+                    plotData();
+                    $$("data_chart").render();
              };
-             reader.readAsText(file_struct.file, "utf-8");
+            reader.readAsText(file_struct.file, "utf-8");
         }
 
         //Will add the files data to the current data

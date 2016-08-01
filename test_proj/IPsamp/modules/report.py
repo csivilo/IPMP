@@ -55,25 +55,6 @@ def report(analysisObj):
     return text
 
 
-"""
-function conintervals takes the upper and lower confidence intervals for each parameter and returns them in a master
-list
-"""
-def conintervals(analysisObject):
-    lower = []
-    upper = []
-
-    for i in range(len(analysisObject.parametersList)):
-        lower.append(analysisObject.errorEstimate.parameterOutput[4][i])
-        upper.append(analysisObject.errorEstimate.parameterOutput[5][i])
-
-    if analysisObject.modelName[0] != "S":
-        print analysisObject.modelName[0]
-        lower[0],lower[1] = lower[1],lower[0]
-        upper[0], upper[1] = upper[1], upper[0]
-
-    return [lower,upper]
-
 def params(analysisObject):
     lst = []
     for i in analysisObject.errorEstimate.parameterOutput[0]:

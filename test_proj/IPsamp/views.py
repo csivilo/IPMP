@@ -60,9 +60,9 @@ def data(request):
             inst = WBu.dataAnalysis([xarray, yarray], p0)
 
 
-        elif model == "No_lag":
+        elif model == "R_no_lag":
 
-            inst = WNL.dataAnalysis([xarray, yarray], p0)
+            inst = WNL.dataAnalysis([xarray, yarray], [p0[0]])
 
         elif model == "R_baranyi":
 
@@ -72,7 +72,7 @@ def data(request):
 
             inst = WRH.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "2_buchanan":
+        elif model == "R2_buchanan":
 
             inst = WTB.dataAnalysis([xarray, yarray], p0)
 
@@ -96,7 +96,7 @@ def data(request):
 
             inst = WSM.dataAnalysis([xarray, yarray], p0)
 
-        elif model == "S2_buchanan":
+        elif model == "SR2_buchanan":
 
             inst = WSBSL.dataAnalysis([xarray, yarray], p0)
         elif model == "S3_buchanan":
@@ -136,6 +136,8 @@ def data(request):
         #cont = {'plot': lst}
         #dict = inst.report
         dict = {"error": str(inst.errorMessage)}
+
+        print RP.report(inst)
 
         if inst.errorMessage == "successful":
             dict["text_output"] = RP.report(inst)
