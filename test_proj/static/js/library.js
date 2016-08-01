@@ -307,7 +307,9 @@
  				id:"add_rows",
  				height:250,
  			    width:184,
- 			    position: "center",
+                left: 210,
+                top: 60,
+ 			    //position: "center",
  			    head:{
  					view:"toolbar", cols:[
  						{view:"button", label: 'Confirm', width: 87, align: 'center', click:"updateRows();"},
@@ -856,6 +858,7 @@
             }
             return array;
         }
+
         function arrheniusSubModel(Ea, alpha, A, x) {
             /*used to run a simulation of the Arrhenius Sub Range Secondary model
             Inputs: Ea - Activation energy, set 2000-3000
@@ -874,6 +877,7 @@
             }
             return array;
         }
+
         function cardinalFullModel(t_min,t_opt, t_max, mu_max,x) {
             /*used to run a simulation of the Cardinal Full Range Secondary model
             Inputs: t_min -
@@ -909,6 +913,7 @@
             return array;
 
         }
+
         function huangFullModel(T0,t_max,a,b,x) {
             /*used to run a simulation of the Huang Full Range Secondary model
             Inputs: T0 -
@@ -925,6 +930,7 @@
             }
             return array;
         }
+
         function ratkowskyFullModel(T0,Tmax,a,b,x) {
             /*used to run a simulation of the Ratkowsky Full Range Secondary model
             Inputs: T0 -
@@ -1122,11 +1128,23 @@
                 if(data_points[i].conc_input == null && data_points[i].time_input == null){
                     continue;
                 }
+                //if user accidently hit one of the empty cells, it would change values from null to ""
+                //so account for that by setting them back to null
+                else if(data_points[i].time_input == "" || data_points[i].conc_input == ""){
+                    //console.log("here");
+                    data_points[i].conc_input == null;
+                    data_points[i].time_input == null;
+                    continue;
+                }
+
                 //converts the strings to floats, if not valid floats they evaluate to NaN
                 var timeValid = parseFloat(data_points[i].time_input); //x
                 var conValid = parseFloat(data_points[i].conc_input); //y
                 data_points[i].conc_input = conValid; //make the inputed values(strings) to floats in data_points in conc_input
                 data_points[i].time_input = timeValid;//make the inputed values(strings) to floats in data_points in time_input
+
+
+                //console.log(data_points);
 
                 if(!isInt(timeValid)){ //if timeValid is not valid input
                     webix.alert({
@@ -1201,7 +1219,8 @@
         //will convert from log to ln
         function convert(){
             for(var i = 0; i < data_points.length; i++){
-                if(data_points[i].conc_input == null && data_points[i].time_input == null){
+                if((data_points[i].conc_input == null && data_points[i].time_input == null) ||
+                    data_points[i].conc_input == "" || data_points[i].time_input == ""){
                     continue;
                 }
                 data_points[i].conc_input *= 2.303; //multiply by 2.303 puts the data into ln form
@@ -1285,10 +1304,10 @@
             webix.modalbox({
                 title: "Submitting Your Model",
                 buttons: ["Continue", "Close"],
-                text: 'Use the sliders below to adjust the model curve you previously selected to make a better fit for your inputed data.' +
+                text: 'Use the sliders, that will appear after selecting a model, below to adjust the model curve you previously selected to make a better fit for your inputed data.' +
                 ' Then click "Model Submit" to submit your model.',
                 width: 120,
-                top: 165,
+                top: 145,
                 left: 3,
                 callback: function(result){
                     switch(result){
@@ -1308,7 +1327,7 @@
                 title: "Managing Reports",
                 buttons: ["Close"],
                 text: 'After your reports are generated, they will be shown below. ' +
-                'You can then choose to export them as a PDF and save them or you can clear them.',
+                'You can then choose to export them as a PDF and save them, or you can clear them.',
                 width: 120,
                 top: 163,
                 left: 255,
@@ -1322,22 +1341,33 @@
         }
 
         function importData(file_struct) {
-             webix.alert({
-                        ok: "Add",
-                        id: "win0",
-                        cancel: "Replace",
-                        //type: "alert-warning",
-                        text: "Do you want to add the file to the current data or replace the current data?",
-                        callback: function(result){
-                            //if they clicked ok ("Continue")
-                            if(result === true){
-                                addDataSet(file_struct);
-                            }
-                            else {
-                                replaceDataSet(file_struct);
-                            }
+            var type = file_struct.type;
+
+            //Check to see if the file type is valid, if it is not, alert the user that it is not a valid type
+            if(type == "csv" || type == "txt"){
+                webix.alert({
+                    ok: "Add",
+                    cancel: "Replace",
+                    //type: "alert-warning",
+                    text: "Do you want to add the file to the current data or replace the current data?",
+                    callback: function(result){
+                        //if they clicked ok ("Continue")
+                        if(result === true){
+                            addDataSet(file_struct);
                         }
-                    });
+                        else {
+                            replaceDataSet(file_struct);
+                        }
+                   }
+                });
+            } else {
+                webix.alert({
+                   type: "alert-error",
+                   title: "Error- File Type Not Supported",
+                   ok: "Close",
+                   text: "Only files that end in .txt or .csv are supported at this time."
+               });
+            }
         }
 
         //replace current data with the file data
@@ -1416,7 +1446,6 @@
 
                 webix.alert({
                         ok: "Close",
-                        id: "win0",
                         text: "You have replaced the data with the uploaded data."
                 });
 
@@ -1434,13 +1463,13 @@
         //Will add the files data to the current data
         function addDataSet(file_struct){
             var reader = new FileReader();
-             var nextIndex = 1;
-             var isTime = true;
-             var currIndex = 0;
-             var time = 0, conc = 0, value= 0, char = 0, parsed = 0;
-             var bothDoubleDigits = 0; //added variable to offset the case that there are 2 double digit nums
-             var dataIndex = 0;
-              reader.onload = function(e){
+            var nextIndex = 1;
+            var isTime = true;
+            var currIndex = 0;
+            var time = 0, conc = 0, value= 0, char = 0, parsed = 0, arrayIndex = 0;
+            var bothDoubleDigits = 0; //added variable to offset the case that there are 2 double digit nums
+            var dataIndex = 0;
+            reader.onload = function(e){
                 var text = reader.result;
                 var str = text.length / 4;
 
@@ -1448,78 +1477,92 @@
                 for(var r = 0; r < data_points.length; r++){
                     //once we find the first null object in the array, get the index for later and break
                     if(data_points[r].time_input == null && data_points[r].conc_input == null){
+                        arrayIndex = r;
                         dataIndex = r + 1;
+                         //console.log("this is dataIndex" + dataIndex);
+                        //console.log("arrayIndex" + arrayIndex);
                         break;
                     }
                 }
 
+                //if the array was completly full, the indexs are still 0,
+                //set the indexs equal to the array length so we can "push" the new data onto the array
+                if(arrayIndex == 0 || dataIndex == 0) {
+                    arrayIndex = data_points.length;
+                    dataIndex = data_points.length + 1;
+                }
+
                 for(var i = 0; i < str; i++){
-                     bothDoubleDigits = 0;
-                     for(var j = 0; j < 2; j++){ //goes through 2 times to find the time and the conc values
-                        char = text.charAt(nextIndex);
-                        parsed = parseInt(char);
+                    bothDoubleDigits = 0;
+                    for(var j = 0; j < 2; j++){ //goes through 2 times to find the time and the conc values
+                       char = text.charAt(nextIndex);
+                       parsed = parseInt(char);
 
-                       //determines the 'time' value
-                       if(isNaN(parsed)){ //if it is NaN then we know the next index is a space
-                           //we can then set the variable and parse it because we know it is a
-                           //single digit number
+                        //determines the 'time' value
+                        if(isNaN(parsed)){ //if it is NaN then we know the next index is a space
+                            //we can then set the variable and parse it because we know it is a
+                            //single digit number
 
-                           value = text.charAt(currIndex);
-                           value = parseInt(value);
-                           nextIndex += 2;
-                           currIndex += 2;
-                       }
-                       else { //we know the second index has another value, so the 'time' value is a double digit
-                           value = text.substr(currIndex, currIndex + 2);
-                           value = parseInt(value);
-                           bothDoubleDigits ++;
+                            value = text.charAt(currIndex);
+                            value = parseInt(value);
+                            nextIndex += 2;
+                            currIndex += 2;
+                        }
+                        else { //we know the second index has another value, so the 'time' value is a double digit
+                            value = text.substr(currIndex, currIndex + 2);
+                            value = parseInt(value);
+                            bothDoubleDigits ++;
 
-                           if(bothDoubleDigits == 2){
-                               nextIndex ++;
-                               currIndex ++;
-                               bothDoubleDigits = 0;
-                           }
-                           nextIndex += 3;
-                           currIndex += 3;
-                       }
+                            if(bothDoubleDigits == 2){
+                                nextIndex ++;
+                                currIndex ++;
+                                bothDoubleDigits = 0;
+                            }
+                            nextIndex += 3;
+                            currIndex += 3;
+                        }
 
-                       if(isTime == true){
-                           time = value;
-                           isTime = false;
-                       }
-                       else{
-                           conc = value;
-                           isTime = true;
-                       }
-                   }
-                   //creates the correct obj with time and conc and adds it to the data_points array
-                    var obj = {id: dataIndex, time_input: time,
-                        conc_input: conc, conc_input2: null};
-
-                    if(!isNaN(obj.time_input) || !isNaN(obj.conc_input)){
-                        //Add the new obj to a blank object in the data_points array
-                        data_points[dataIndex] = obj;
-                        dataIndex++;
-
-                        //If there is no more space in the array, just push it onto the end of the array
-                        if(dataIndex >= data_points.length){
-                            data_points.push(obj);
+                        if(isTime == true){
+                            time = value;
+                            isTime = false;
+                        }
+                        else{
+                            conc = value;
+                            isTime = true;
                         }
                     }
-                }
+
+                   if(!isNaN(time) || !isNaN(conc)){
+                       //creates the correct obj with time and conc
+                       var obj = {id: dataIndex, time_input: time,
+                       conc_input: conc, conc_input2: null};
+
+                       //If there is no more space in the array, just push it onto the end of the array
+                       if(arrayIndex > data_points.length){
+                           data_points.push(obj);
+                           dataIndex++;
+                           arrayIndex++;
+                       }
+                       else { //otherwise there is still space in the array, so add it to the correct index
+                            //Add the new obj to a blank object in the data_points array
+                            data_points[arrayIndex] = obj;
+                            dataIndex++;
+                            arrayIndex++;
+                       }
+                   }
+               }
+                //parse new data to the input_table
+                $$('input_table').parse(data_points);//{
+                    // pos: arrayIndex, //number of records will be right the last index +1
+                    //data: data_points
+                //});
                 webix.alert({
                         ok: "Close",
-                        id: "win0",
-                        text: "You have added the file to the already inputed data."
-                    });
+                        text: "You have added the file to the inputed data."
+                });
 
-                  //parse new data to the input_table
-                  $$('input_table').parse({
-                     pos: dataIndex, //number of records will be right the last index +1
-                    data: data_points
-                    });
-             };
-             reader.readAsText(file_struct.file, "utf-8");
+            };
+            reader.readAsText(file_struct.file, "utf-8");
         }
 
 
