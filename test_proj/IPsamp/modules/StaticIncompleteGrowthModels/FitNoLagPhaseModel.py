@@ -12,6 +12,7 @@ import JacobianDeltaP as JDP
 
 class FitNoLagPhase:
     def __init__(self, rawdata, p0):
+        print rawdata,p0
         # raw data contain x, y data set
         # initP: initial values of parameters
         # xp is the x for prediced values
@@ -34,7 +35,7 @@ class FitNoLagPhase:
         self.cov = cov_x
         self.infodict = infodict
         self.mesg = mesg
-        print infodict,p
+        print p
         self.ier = ier
         #print "ier = ", self.ier
         #print self.YDiff(p)

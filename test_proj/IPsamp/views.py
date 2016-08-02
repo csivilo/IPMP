@@ -60,7 +60,7 @@ def data(request):
             inst = WBu.dataAnalysis([xarray, yarray], p0)
 
 
-        elif model == "R_no_lag":
+        elif model == "No_lag":
 
             inst = WNL.dataAnalysis([xarray, yarray], [p0[0]])
 
