@@ -881,8 +881,8 @@
 
         function cardinalFullModel(t_min,t_opt, t_max, mu_max,x) {
             /*used to run a simulation of the Cardinal Full Range Secondary model
-            Inputs: t_min -
-                    t_opt -
+            Inputs: t_min (float)- minimum temperature of bacteria growth
+                    t_opt (float)- optimum temperature of bacteria growth
                     x (float) - dt of the entire dataset
                     mu_max (float)- growth coefficient, determines rate of bacteria growth
              Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
@@ -891,16 +891,17 @@
             var array = [];
             var c;
             for(var temp = 0; temp <x; temp+= (x/500.)) {
-                c = ((t_opt - t_min)*(temp - t_opt) - (t_opt-t_max)*(t_opt + t_min - (2.0*temp))) * (t_opt - t_min)
-                array.push({time_input: temp, conc_input2: mu_max * (temp - t_max) * (Math.pow((temp - t_min),(2.0/c)))})
+                c = ((t_opt- t_min)*(temp - t_opt) - (t_opt-t_max)*(t_opt+t_min-2.*x))*(t_opt - t_min)
+                array.push({temp_input: temp, conc_input2: mu_max * (temp - t_max) * (Math.pow((x-t_min), (2.0/c)))})
             }
 
+            console.log(array)
             return array;
         }
 
         function huangSubModel(T0,a,x) {
             /*used to run a simulation of the Huang Sub Range Secondary model
-            Inputs: T0 -
+            Inputs: T0 (float)- minimum temperature of bacteria growth
                     a -
                     x (float)- growth coefficient, determines rate of bacteria growth
             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
@@ -917,7 +918,7 @@
 
         function huangFullModel(T0,t_max,a,b,x) {
             /*used to run a simulation of the Huang Full Range Secondary model
-            Inputs: T0 -
+            Inputs: T0 (float)- minimum temperature of bacteria growth
                     x (float)- growth coefficient, determines rate of bacteria growth
                     a -
                     b -
@@ -934,7 +935,7 @@
 
         function ratkowskyFullModel(T0,Tmax,a,b,x) {
             /*used to run a simulation of the Ratkowsky Full Range Secondary model
-            Inputs: T0 -
+            Inputs: T0 (float)- minimum temperature of bacteria growth
                     x (float)- growth coefficient, determines rate of bacteria growth
                     a -
                     b -
@@ -951,7 +952,7 @@
 
         function ratkowskySubModel(T0,a,x) {
             /*used to run a simulation of the Ratkowsky Sub Range Secondary model
-            Inputs: T0 -
+            Inputs: T0 (float)- minimum temperature of bacteria growth
                     a -
                     x (float)- growth coefficient, determines rate of bacteria growth
             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
