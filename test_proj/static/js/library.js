@@ -435,7 +435,8 @@
                 if(!(model.localeCompare('D_Arrhenius_full')) == 0){
                     model = "D_Arrhenius_full";
                     changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
-                    setSlider('s1', ['2500', '2000', '3000', '100'])
+                    setSlider('s1', ["2500", '2000', '3000', '100'])
+                    setAxes("Temp", "\u221A\u03BC" )
                 }
 
                 model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
@@ -966,154 +967,169 @@
 
         function changeSliders(num,name_array){
             if (num == 0){
-                $$('s1').hide()
-                $$('s2').hide()
-                $$('s3').hide()
-                $$('s4').hide()
-                $$('s5').hide()
+                $$('s1').hide();
+                $$('s2').hide();
+                $$('s3').hide();
+                $$('s4').hide();
+                $$('s5').hide();
                 
-                $$('f1').hide()
-                $$('f2').hide()
-                $$('f3').hide()
-                $$('f4').hide()
-                $$('f5').hide()
+                $$('f1').hide();
+                $$('f2').hide();
+                $$('f3').hide();
+                $$('f4').hide();
+                $$('f5').hide();
             }
             if( num  == 1){
-                $$('s1').show()
-                $$('s2').hide()
-                $$('s3').hide()
-                $$('s4').hide()
-                $$('s5').hide()
-                $$('s1').define('label',name_array[0])
-                $$('s1').render()
+                $$('s1').show();
+                $$('s2').hide();
+                $$('s3').hide();
+                $$('s4').hide();
+                $$('s5').hide();
+                $$('s1').define('label',name_array[0]);
+                $$('s1').render();
 
 
-                $$('f1').show()
-                $$('f2').hide()
-                $$('f3').hide()
-                $$('f4').hide()
-                $$('f5').hide()
-                $$('f1').define('label',name_array[0])
-                $$('f1').render()
+                $$('f1').show();
+                $$('f2').hide();
+                $$('f3').hide();
+                $$('f4').hide();
+                $$('f5').hide();
+                $$('f1').define('label',name_array[0]);
+                $$('f1').render();
 
             }
             else if( num  == 2){
-                $$('s1').show()
-                $$('s2').show()
-                $$('s3').hide()
-                $$('s4').hide()
-                $$('s5').hide()
-                $$('s1').define('label',name_array[0])
-                $$('s2').define('label',name_array[1])
-                $$('s1').render()
-                $$('s2').render()
+                $$('s1').show();
+                $$('s2').show();
+                $$('s3').hide();
+                $$('s4').hide();
+                $$('s5').hide();
+                $$('s1').define('label',name_array[0]);
+                $$('s2').define('label',name_array[1]);
+                $$('s1').render();
+                $$('s2').render();
                 
-                $$('f1').show()
-                $$('f2').show()
-                $$('f3').hide()
-                $$('f4').hide()
-                $$('f5').hide()
-                $$('f1').define('label',name_array[0])
-                $$('f2').define('label',name_array[1])
-                $$('f1').render()
-                $$('f2').render()
+                $$('f1').show();
+                $$('f2').show();
+                $$('f3').hide();
+                $$('f4').hide();
+                $$('f5').hide();
+                $$('f1').define('label',name_array[0]);
+                $$('f2').define('label',name_array[1]);
+                $$('f1').render();
+                $$('f2').render();
             }
             else if(num == 3){
-                $$('s1').show()
-                $$('s2').show()
-                $$('s3').show()
-                $$('s4').hide()
-                $$('s5').hide()
-                $$('s1').define('label',name_array[0])
-                $$('s2').define('label',name_array[1])
-                $$('s3').define('label',name_array[2])
-                $$('s1').render()
-                $$('s2').render()
-                $$('s3').render()
+                $$('s1').show();
+                $$('s2').show();
+                $$('s3').show();
+                $$('s4').hide();
+                $$('s5').hide();
+                $$('s1').define('label',name_array[0]);
+                $$('s2').define('label',name_array[1]);
+                $$('s3').define('label',name_array[2]);
+                $$('s1').render();
+                $$('s2').render();
+                $$('s3').render();
                 
-                $$('f1').show()
-                $$('f2').show()
-                $$('f3').show()
-                $$('f4').hide()
-                $$('f5').hide()
-                $$('f1').define('label',name_array[0])
-                $$('f2').define('label',name_array[1])
-                $$('f3').define('label',name_array[2])
-                $$('f1').render()
-                $$('f2').render()
-                $$('f3').render()
+                $$('f1').show();
+                $$('f2').show();
+                $$('f3').show();
+                $$('f4').hide();
+                $$('f5').hide();
+                $$('f1').define('label',name_array[0]);
+                $$('f2').define('label',name_array[1]);
+                $$('f3').define('label',name_array[2]);
+                $$('f1').render();
+                $$('f2').render();
+                $$('f3').render();
             }
             else if(num == 4){
-                $$('s1').show()
-                $$('s2').show()
-                $$('s3').show()
-                $$('s4').show()
-                $$('s5').hide()
-                $$('s1').define('label',name_array[0])
-                $$('s2').define('label',name_array[1])
-                $$('s3').define('label',name_array[2])
-                $$('s4').define('label',name_array[3])
-                $$('s1').render()
-                $$('s2').render()
-                $$('s3').render()
-                $$('s4').render()
+                $$('s1').show();
+                $$('s2').show();
+                $$('s3').show();
+                $$('s4').show();
+                $$('s5').hide();
+                $$('s1').define('label',name_array[0]);
+                $$('s2').define('label',name_array[1]);
+                $$('s3').define('label',name_array[2]);
+                $$('s4').define('label',name_array[3]);
+                $$('s1').render();
+                $$('s2').render();
+                $$('s3').render();
+                $$('s4').render();
                 
-                $$('f1').show()
-                $$('f2').show()
-                $$('f3').show()
-                $$('f4').show()
-                $$('f5').hide()
-                $$('f1').define('label',name_array[0])
-                $$('f2').define('label',name_array[1])
-                $$('f3').define('label',name_array[2])
-                $$('f4').define('label',name_array[3])
-                $$('f1').render()
-                $$('f2').render()
-                $$('f3').render()
-                $$('f4').render()
+                $$('f1').show();
+                $$('f2').show();
+                $$('f3').show();
+                $$('f4').show();
+                $$('f5').hide();
+                $$('f1').define('label',name_array[0]);
+                $$('f2').define('label',name_array[1]);
+                $$('f3').define('label',name_array[2]);
+                $$('f4').define('label',name_array[3]);
+                $$('f1').render();
+                $$('f2').render();
+                $$('f3').render();
+                $$('f4').render();
             }
             else if(num == 5){
-                $$('s1').show()
-                $$('s2').show()
-                $$('s3').show()
-                $$('s4').show()
-                $$('s5').show()
-                $$('s1').define('label',name_array[0])
-                $$('s2').define('label',name_array[1])
-                $$('s3').define('label',name_array[2])
-                $$('s4').define('label',name_array[3])
-                $$('s5').define('label',name_array[4])
-                $$('s1').render()
-                $$('s2').render()
-                $$('s3').render()
-                $$('s4').render()
-                $$('s5').render()
+                $$('s1').show();
+                $$('s2').show();
+                $$('s3').show();
+                $$('s4').show();
+                $$('s5').show();
+                $$('s1').define('label',name_array[0]);
+                $$('s2').define('label',name_array[1]);
+                $$('s3').define('label',name_array[2]);
+                $$('s4').define('label',name_array[3]);
+                $$('s5').define('label',name_array[4]);
+                $$('s1').render();
+                $$('s2').render();
+                $$('s3').render();
+                $$('s4').render();
+                $$('s5').render();
 
-                $$('f1').show()
-                $$('f2').show()
-                $$('f3').show()
-                $$('f4').show()
-                $$('f5').show()
-                $$('f1').define('label',name_array[0])
-                $$('f2').define('label',name_array[1])
-                $$('f3').define('label',name_array[2])
-                $$('f4').define('label',name_array[3])
-                $$('f5').define('label',name_array[4])
-                $$('f1').render()
-                $$('f2').render()
-                $$('f3').render()
-                $$('f4').render()
-                $$('f5').render()
+                $$('f1').show();
+                $$('f2').show();
+                $$('f3').show();
+                $$('f4').show();
+                $$('f5').show();
+                $$('f1').define('label',name_array[0]);
+                $$('f2').define('label',name_array[1]);
+                $$('f3').define('label',name_array[2]);
+                $$('f4').define('label',name_array[3]);
+                $$('f5').define('label',name_array[4]);
+                $$('f1').render();
+                $$('f2').render();
+                $$('f3').render();
+                $$('f4').render();
+                $$('f5').render();
             }
         }
 
         //sets the upper limit, lower limit, current value, and step of a given slider
         function setSlider(slider,num_set){
-            $$(slider).define('value',num_set[0])
-            $$(slider).define('min',num_set[1])
-            $$(slider).define('max',num_set[2])
-            $$(slider).define('step',num_set[3])
+            $$(slider).define('value',num_set[0]);
+            $$(slider).define('min',num_set[1]);
+            $$(slider).define('max',num_set[2]);
+            $$(slider).define('step',num_set[3]);
             $$(slider).render()
+        }
+        
+        function setAxes(x_name,y_name){
+            $$('data_chart').define({
+                xAxis:{
+                    title: x_name,
+                    start: 0,
+                    stop: 10,
+                    step: 1
+                },
+                yAxis:{
+                    title: y_name
+                }
+            });
+            $$('data_chart').refresh()
         }
 
          //checks to see if you data points has valid input
@@ -1373,10 +1389,8 @@
         //replace current data with the file data
         function replaceDataSet(file_struct){
             var reader = new FileReader();
-            console.log(data_points)
             reader.onload = function(e){
                 var text = reader.result;
-                console.log(text)
 
                  //resets the arrays values
                 for(var i = 0; i < data_points.length; i++){
@@ -1392,13 +1406,13 @@
 
                 //adds each individual float in the input text to an array, then to a time/conc array
                 while(end < text.length){
-                    if(text.charCodeAt(end) != 44 && text.charCodeAt(end) != 13){
+                    if(text.charCodeAt(end) != 44 && text.charCodeAt(end) != 13 && text.charCodeAt(end) != 9){
                         end++;
                     }
                     else {
                         float_list.push(parseFloat(text.slice(start, end)))
                         start = end + 1
-                        while (text.charCodeAt(start) == 32) {
+                        while (text.charCodeAt(start) == 32 || text.charCodeAt(start) == 9) {
                             start++
                         }
                         end = start + 1
@@ -1438,13 +1452,13 @@
 
                 //reads the numbers in the input file into a array of floats, then an array of conc/time objects
                 while(end < text.length){
-                    if(text.charCodeAt(end) != 44 && text.charCodeAt(end) != 13){
+                    if(text.charCodeAt(end) != 44 && text.charCodeAt(end) != 13 && text.charCodeAt(end) != 9){
                         end++;
                     }
                     else {
                         float_list.push(parseFloat(text.slice(start, end)))
                         start = end + 1
-                        while (text.charCodeAt(start) == 32) {
+                        while (text.charCodeAt(start) == 32|| text.charCodeAt(start) == 9) {
                             start++
                         }
                         end = start + 1
