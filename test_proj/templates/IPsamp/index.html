@@ -98,6 +98,9 @@
                             ]}
                        ]}
                ],
+               type: {
+                   subsign: true
+               },
                 on: { onMenuItemClick: function(id){
                     //if either of the linear survival models, no input is needed, straight to server-side
                     if(id == "S_linear" || id == "S_linshoulder") {
@@ -188,7 +191,7 @@
                                     value:"1", name:"s4", title:webix.template("#value#"), hidden: true, height:30},
                                 { view:"slider", id: "s5",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
                                     value:"1", name:"s5", title:webix.template("#value#"), hidden: true, height:30},
-                                ],
+                                ]
                             },
 						    {view:"form", id:"insert_input",padding:7, elements:[{
                                 type: "clean",
@@ -277,8 +280,35 @@
                                     }
                                 });
                             }},
-                            {view: "button", width: 100, align: "right",  label: "Save Reports", click:function(){
-					            webix.toPDF($$("output_table"));}}
+                            {view: "menu", autowidth: true, data: [
+                                {id: "save",  value: "Save", submenu: [
+                                    {id: "reports", value: "Save Reports"},
+                                    {id: "chart", value: "Save Chart"},
+                                    {id: "data", value: "Save Data"}
+                                ]}
+                            ],
+                            type: {
+                                subsign: true,
+                                height: 45
+                            },
+                            on: { onMenuItemClick: function(id){
+                                    //if either of the linear survival models, no input is needed, straight to server-side
+                                    if(id == "reports") {
+                                        saveReport();
+                                    }
+                                    else if(id == "chart"){
+                                        webix.toPNG($$('data_chart'));
+                                    }
+                                    else if(id == "data"){
+                                        webix.toExcel($$('input_table'));
+                                    }
+                                }
+                            }}
+                            /*{view: "button", width: 100, align: "right",  label: "Save Reports", click: "saveReport();"},
+                            {view: "button", width: 100, align: "right", label: "Save Chart", click: function(){
+                                webix.toPNG($$('data_chart'));
+                            }}*/
+
                         ]},
                         //hidden datatable to allow exporting to PDF appropriately
                         {view: "datatable",
@@ -288,8 +318,8 @@
                             resizeColumn: true,
                             datatype: "html",
                             columns:[
-                                {id: "text_output",}
-                            ],
+                                {id: "text_output"}
+                            ]
                         },//displays desired reports
                             {view: "textarea",
                             id: "export_table",
