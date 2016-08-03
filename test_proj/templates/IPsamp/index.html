@@ -190,7 +190,8 @@
                                 { view:"slider", id: "s4",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
                                     value:"1", name:"s4", title:webix.template("#value#"), hidden: true, height:30},
                                 { view:"slider", id: "s5",type:"alt", min:0, max:10,step:.5, label:"\u03BC max",
-                                    value:"1", name:"s5", title:webix.template("#value#"), hidden: true, height:30},
+                                    value:"1", name:"s5", title:webix.template("#value#"), hidden: true, height:30}
+
                                 ]
                             },
 						    {view:"form", id:"insert_input",padding:7, elements:[{
@@ -383,6 +384,8 @@
                 initialModel(model);
             }
         });
+
+
 
         // updates model if sliders are manipulated
         var changeSlider = $$('insert_input').attachEvent("onChange", function(){
