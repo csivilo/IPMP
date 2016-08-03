@@ -354,80 +354,144 @@
             var t_max = data_set[2];
             hide(); //hides all model names
             if(model_type.localeCompare('Gompertz') == 0){
-                model = "Gompertz";
-                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
+                if(!(model.localeCompare('Gompertz')) == 0) {
+                    model = "Gompertz";
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
+                    setSlider('s1', [1, 0, 10, 1]);
+                    //setAxes("CFU/g", "Time (h)" )
+                    setParam('f1', 1);
+                }
                 model_data = gompertzModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header').show();
                 }
             else if(model_type.localeCompare('Huang') == 0){
-                model = "Huang";
-                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
+                if(!(model.localeCompare('Huang')) == 0) {
+                    model = "Huang";
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = huangModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header2').show();
             }
             else if(model_type.localeCompare('Baranyi') == 0){
-                model = "Baranyi";
-                changeSliders(2,["\u03BC max","H0"]);
+                if(!(model.localeCompare('Baranyi')) == 0) {
+                    model = "Baranyi";
+                    changeSliders(2, ["\u03BC max", "H0"]);
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = baranyiModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header3').show();
             }
             else if(model_type.localeCompare('Buchanan') == 0){
-                model = "Buchanan";
-                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
+                if(!(model.localeCompare('Buchanan')) == 0) {
+                    model = "Buchanan";
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
             }
             if(model_type.localeCompare('No_lag') == 0){
-                model = "No_lag";
-                changeSliders(1,["\u03BC max"]);
+                if(!(model.localeCompare('No_lag')) == 0) {
+                    model = "No_lag";
+                    changeSliders(1, ["\u03BC max"]);
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = noLagModel(data_set[0], data_set[1], data_set[3], t_max);
                 $$('header5').show();
                 }
             else if(model_type.localeCompare('R_huang') == 0){
-                model = "R_huang";
-                changeSliders(2,["\u03BC max","\u03BB (Lag)"]);
+                if(!(model.localeCompare('R_huang')) == 0) {
+                    model = "R_huang";
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = redHuangModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header6').show();
             }
             else if(model_type.localeCompare('R_baranyi') == 0){
-                model = "R_baranyi";
-                changeSliders(2,["\u03BC max","H0"])
+                if(!(model.localeCompare('R_baranyi')) == 0) {
+                    model = "R_baranyi";
+                    changeSliders(2, ["\u03BC max", "H0"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header7').show();
             }
             else if(model_type.localeCompare('R2_buchanan') == 0){
-                model = "R2_buchanan";
-                changeSliders(2,["\u03BC max","\u03BB (Lag)"])
+                if(!(model.localeCompare('R2_buchanan')) == 0) {
+                    model = "R2_buchanan";
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header8').show();
             }
             else if(model_type.localeCompare('S_gompertz') == 0){
-                model = "S_gompertz";
-                changeSliders(2,["\u03BC max","\u03BB (Lag)"])
+                if(!(model.localeCompare('S_gompertz')) == 0) {
+                    model = "S_gompertz";
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = sGompertzModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header11').show();
             }
             else if(model_type.localeCompare('S_weibull') == 0){
-                model = "S_weibull";
-                changeSliders(3,["Y0","K","alpha"])
+                if(!(model.localeCompare('S_weibull')) == 0) {
+                    model = "S_weibull";
+                    changeSliders(3, ["Y0", "K", "alpha"])
+                    setSlider('s1', [1, 0, 10, 1]); //Y0 to 0-10
+                    //setSlider('s2', ["1", '0', '10', '1']); //K to 0-10
+                    setSlider('s3', [1, 0, 5, 1]); //alpha to 0-5
+                    setParam('f1', 1);
+                    setParam('f3', 1);
+                }
                 model_data = sWeibullModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header12').show();
             }
             else if(model_type.localeCompare('S_mafart') == 0){
-                model = "S_mafart";
-                changeSliders(3,["Y0","D","alpha"])
+                if(!(model.localeCompare('S_mafart')) == 0) {
+                    model = "S_mafart";
+                    changeSliders(3, ["Y0", "D", "alpha"])
+                    setSlider('s1', [1, 0, 10, 1]); //Y0 to 0-10---------should this slider be showing????
+                    //setSlider('s2', ["1", '0', '10', '1']); //D to 0-10
+                    setSlider('s3', [1, 0, 5, 1]); //Alpha to 0-5
+                    setParam('f1', 1);
+                    setParam('f3', 1);
+                }
                 model_data = sMafartModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header13').show();
             }
             else if(model_type.localeCompare('SR2_buchanan') == 0){
-                model = "SR2_buchanan";
-                changeSliders(3,['Y0','k',"\u03BB (Lag)"])
+                if(!(model.localeCompare('SR2_buchanan')) == 0) {
+                    model = "SR2_buchanan";
+                    changeSliders(3, ['Y0', 'k', "\u03BB (Lag)"])
+                    setSlider('s1', [1, 0, 10, 1]);  //Y0 to 0-10
+                    //setSlider('s2', ["1", '0', '10', '1']); //K to 0-10
+                    //setSlider('s3', ["1", '0', '10', '1']); //Lag to 0-10
+                    setParam('f1', 1);
+                }
                 model_data = sTwoBuchananModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header14').show();
             }
             else if(model_type.localeCompare('S3_buchanan') == 0){
-                model = "S3_buchanan";
-                changeSliders(4,['Y0',"YTail",'k',"\u03BB (Lag)"])
+                if(!(model.localeCompare('S3_buchanan')) == 0) {
+                    model = "S3_buchanan";
+                    changeSliders(4, ['Y0', "YTail", 'k', "\u03BB (Lag)"])
+                    setSlider('s1', [1, 0, 10, 1]); //Y0 to 0-10
+                    //setSlider('s2', ["1", '0', '10', '1']); //YTail to 0-10
+                    //setSlider('s3', ["1", '0', '10', '1']); //K to 0-10
+                    //setSlider('s4', ["1", '0', '10', '1']); //Lag to 0-10
+                    setParam('f1', 1);
+                }
                 model_data = sThreeBuchananModel(data_set[3], data_set[4], data_set[5], data_set[6], t_max);
                 $$('header15').show();
             }
@@ -435,46 +499,71 @@
                 if(!(model.localeCompare('D_Arrhenius_full')) == 0){
                     model = "D_Arrhenius_full";
                     changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
-                    setSlider('s1', ["2500", '2000', '3000', '100'])
-                    setAxes("Temp", "\u221A\u03BC" )
+                    setSlider('s1', [2500, 2000, 3000, 100])
+                    setAxes("Temp", "\u221A\u03BC")
+                    setParam('f1', 2500);
                 }
 
                 model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
                 $$('header16').show();
             }
             else if(model_type.localeCompare('D_Arrhenius_sub') == 0){
-                model = "D_Arrhenius_sub";
-                changeSliders(3,["Ea", "alpha", 'A' ])
+                if(!(model.localeCompare('D_Arrhenius_sub')) == 0) {
+                    model = "D_Arrhenius_sub";
+                    changeSliders(3, ["Ea", "alpha", 'A'])
+                    setSlider('s1', [2500, 2000, 3000, 100]);
+                    setParam('f1', 2500);
+                }
                 model_data = arrheniusSubModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header17').show();
             }
             else if(model_type.localeCompare('D_Cardinal_full') == 0){
-                model = "D_Cardinal_full";
-                changeSliders(4,["Tmin", "Topt", 'Tmax', "\u03BC max"])
+                if(!(model.localeCompare('D_Cardinal_full')) == 0) {
+                    model = "D_Cardinal_full";
+                    changeSliders(4, ["Tmin", "Topt", 'Tmax', "\u03BC max"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = cardinalFullModel(data_set[3], data_set[4], data_set[5],  data_set[6], t_max);
                 $$('header18').show();
             }
             else if(model_type.localeCompare('D_Huang_full_temp') == 0){
-                model = "D_Huang_full_temp";
-                changeSliders(4,["T0", "Tmax", 'a', "b"])
+                if(!(model.localeCompare('D_Huang_full_temp')) == 0) {
+                    model = "D_Huang_full_temp";
+                    changeSliders(4, ["T0", "Tmax", 'a', "b"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = huangFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header19').show();
             }
             else if(model_type.localeCompare('D_Huang_sub_temp') == 0){
-                model = "D_Huang_sub_temp";
-                changeSliders(2,["T0","a"])
+                if(!(model.localeCompare('D_Huang_sub_temp')) == 0) {
+                    model = "D_Huang_sub_temp";
+                    changeSliders(2, ["T0", "a"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = huangSubModel(data_set[3], data_set[4], t_max);
                 $$('header20').show();
             }
             else if(model_type.localeCompare('D_Ratkowsky_full') == 0){
-                model = "D_Ratkowsky_full";
-                changeSliders(4,["T0", "Tmax", 'a', "b"])
+                if(!(model.localeCompare('D_Ratkowsky_full')) == 0) {
+                    model = "D_Ratkowsky_full";
+                    changeSliders(4, ["T0", "Tmax", 'a', "b"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = ratkowskyFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header21').show();
             }
             else if(model_type.localeCompare('D_Ratkowsky_sub') == 0){
-                model = "D_Ratkowsky_sub";
-                changeSliders(2,["T0","a"])
+                if(!(model.localeCompare('D_Ratkowsky_sub')) == 0) {
+                    model = "D_Ratkowsky_sub";
+                    changeSliders(2, ["T0", "a"])
+                    setSlider('s1', [1, 0, 10, 1]);
+                    setParam('f1', 1);
+                }
                 model_data = ratkowskySubModel(data_set[3], data_set[4], t_max);
                 $$('header22').show();
             }
@@ -999,6 +1088,8 @@
 
             }
             else if( num  == 2){
+                console.log($$('s1'));
+                console.log($$('s2'));
                 $$('s1').show();
                 $$('s2').show();
                 $$('s3').hide();
@@ -1114,7 +1205,13 @@
             $$(slider).define('min',num_set[1]);
             $$(slider).define('max',num_set[2]);
             $$(slider).define('step',num_set[3]);
-            $$(slider).render()
+            $$(slider).render();
+        }
+
+        //Sets the parameters to the correct value after changing models
+        function setParam(param, value){
+            $$(param).define('value',value);
+            $$(param).render();
         }
         
         function setAxes(x_name,y_name){
