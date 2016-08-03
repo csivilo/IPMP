@@ -1215,6 +1215,17 @@
                     });
                 }
             }
+            
+            var lastObj = data_points[data_points.length - 1];
+            //if data_points array is full, then we need to add an extra obj to the array
+            //to avoid an error
+            if(lastObj.conc_input != null && lastObj.time_input != null){
+                var blankObj = {id: data_points.length + 1, time_input: null,
+                                conc_input: null, conc_input2: null};
+                data_points.push(blankObj);
+                $$('input_table').parse(data_points);
+            }
+
 
         }
 
@@ -1511,6 +1522,24 @@
 
             };
             reader.readAsText(file_struct.file, "utf-8");
+        }
+        
+         //check to see if there is any report, if not alert otherwise export to PDF
+         function saveReport(){
+            var value = $$('export_table').getValue();
+            //console.log($$('export_table').getValue());
+            if(value == "No report"){
+                webix.alert({
+                    type: "alert-error",
+                    title: "Error- No report",
+                    ok: "Close",
+                    text: "There is no report to save. Generate a report using 'Model Submit' " +
+                            "first before saving a report."
+                });
+            }
+            else {
+                webix.toPDF($$("output_table"));
+            }
         }
 
 
