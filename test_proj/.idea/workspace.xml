@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cb4a938-ad7d-499b-adb8-6d996c5f44eb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/welcome/index2.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperTwoPhaseBuchanan.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperTwoPhaseBuchanan.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullMafartSurvival.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullMafartSurvival.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullSurvival.py" afterPath="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullSurvival.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home/views.py" afterPath="$PROJECT_DIR$/home/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/library.js" afterPath="$PROJECT_DIR$/static/js/library.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/welcome/index.html" afterPath="$PROJECT_DIR$/templates/welcome/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_proj/urls.py" afterPath="$PROJECT_DIR$/test_proj/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/welcome/views.py" afterPath="$PROJECT_DIR$/welcome/views.py" />
     </list>
     <ignored path="test_proj.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,11 +47,11 @@
             <file leaf-file-name="library.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/static/js/library.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="119">
-                    <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+                  <state relative-caret-position="503">
+                    <caret line="626" column="26" selection-start-line="626" selection-start-column="26" selection-end-line="626" selection-end-column="26" />
                     <folding>
-                      <marker date="1470342048574" expanded="true" signature="5828:5869" ph="{...}" />
-                      <marker date="1470342048574" expanded="true" signature="70536:70546" ph="{...}" />
+                      <marker date="1470344069847" expanded="true" signature="5828:5869" ph="{...}" />
+                      <marker date="1470344069847" expanded="true" signature="70497:70507" ph="{...}" />
                     </folding>
                   </state>
                 </provider>
@@ -120,8 +111,8 @@
       <file leaf-file-name="welcome.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/welcome/welcome.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="85">
+              <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -243,11 +234,11 @@
         <option value="$PROJECT_DIR$/test_proj/urls.py" />
         <option value="$PROJECT_DIR$/templates/welcome/about.html" />
         <option value="$PROJECT_DIR$/templates/welcome/index.html" />
-        <option value="$PROJECT_DIR$/static/js/library.js" />
         <option value="$PROJECT_DIR$/IPsamp/modules/SecondaryModels/FitCardinalFullTempModel.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullSurvival.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperWeibullMafartSurvival.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperTwoPhaseBuchanan.py" />
+        <option value="$PROJECT_DIR$/static/js/library.js" />
       </list>
     </option>
   </component>
@@ -662,7 +653,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/static/js/library.js</url>
-          <line>1013</line>
+          <line>1032</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
@@ -979,17 +970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
-          <folding>
-            <marker date="1470342048574" expanded="true" signature="5828:5869" ph="{...}" />
-            <marker date="1470342048574" expanded="true" signature="70536:70546" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IPsamp/modules/wrapperWeibullMafartSurvival.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1040,9 +1020,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/welcome/welcome.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="626" column="26" selection-start-line="626" selection-start-column="26" selection-end-line="626" selection-end-column="26" />
+          <folding>
+            <marker date="1470344069847" expanded="true" signature="5828:5869" ph="{...}" />
+            <marker date="1470344069847" expanded="true" signature="70497:70507" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

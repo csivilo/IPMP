@@ -361,6 +361,7 @@
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
                     //setAxes("CFU/g", "Time (h)" )
+
                 }
                 model_data = gompertzModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header').show();
@@ -383,6 +384,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+
                 }
                 model_data = baranyiModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header3').show();
@@ -394,6 +396,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+
                 }
                 model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
@@ -415,6 +418,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+
                 }
                 model_data = redHuangModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header6').show();
@@ -426,6 +430,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+
                 }
                 model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header7').show();
@@ -437,6 +442,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+
                 }
                 model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header8').show();
@@ -454,11 +460,12 @@
             else if(model_type.localeCompare('S_weibull') == 0){
                 if(!(model.localeCompare('S_weibull')) == 0) {
                     model = "S_weibull";
-                    changeSliders(3, ["Y0", "K", "alpha"])
+
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 5 , .1]);
                     get();
+
 
                 }
                 model_data = sWeibullModel(data_set[3], data_set[4], data_set[5], t_max);
@@ -472,6 +479,7 @@
                     setSlider('s2', [1, 0, 10, .1]);
                     setSlider('s3', [1, 0, 5, .1]); //Alpha to 0-5
                     get();
+
                 }
                 model_data = sMafartModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header13').show();
@@ -484,6 +492,7 @@
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 10 , 1]);
                     get();
+
                 }
                 model_data = sTwoBuchananModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header14').show();
@@ -492,11 +501,13 @@
                 if(!(model.localeCompare('S3_buchanan')) == 0) {
                     model = "S3_buchanan";
                     changeSliders(4, ['Y0', "YTail", 'k', "\u03BB (Lag)"])
+
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [2, 0, 25, 1]);
                     setSlider('s3', [.5, 0, 5, .1]);
                     setSlider('s4', [1, 0, 5 , .1]);
                     get();
+
                 }
                 model_data = sThreeBuchananModel(data_set[3], data_set[4], data_set[5], data_set[6], t_max);
                 $$('header15').show();
@@ -506,12 +517,14 @@
                     model = "D_Arrhenius_full";
                     changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
                     setSlider('s1', [2500, 2000, 3000, 100])
+
                     setSlider('s2', [20, 0, 50, 1]);
                     setSlider('s3', [0.05, 0, .1, .005]);
                     setSlider('s4', [0.05, 0, .1, .005]);
                     setSlider('s5', [45, 10, 55, 1]);
                     get();
                     setAxes("Temp", "\u221A\u03BC")
+
                 }
 
                 model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
@@ -525,6 +538,7 @@
                     setSlider('s2', [20, 0, 50, 1]);
                     setSlider('s3', [0.05, 0, .1, .005]);
                     get();
+
                 }
                 model_data = arrheniusSubModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header17').show();
@@ -538,6 +552,7 @@
                     setSlider('s3', [45, 10, 55, 1]);
                     setSlider('s4', [0.5, 0, 2.5, .1]);
                     get();
+
                 }
                 model_data = cardinalFullModel(data_set[3], data_set[4], data_set[5],  data_set[6], t_max);
                 $$('header18').show();
@@ -551,6 +566,7 @@
                     setSlider('s3', [0.5, 0, 2, .1]);
                     setSlider('s4', [0.5, 0, 2, .1]);
                     get();
+
                 }
                 model_data = huangFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header19').show();
@@ -562,6 +578,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [0.5, 0, 2, .1]);
                     get();
+
                 }
                 model_data = huangSubModel(data_set[3], data_set[4], t_max);
                 $$('header20').show();
@@ -570,6 +587,7 @@
                 if(!(model.localeCompare('D_Ratkowsky_full')) == 0) {
                     model = "D_Ratkowsky_full";
                     changeSliders(4, ["T0", "Tmax", 'a', "b"])
+
                     setSlider('s1', [1, 0, 20, 1]);
                     setSlider('s2', [10, 10, 50, 1]);
                     setSlider('s3', [0.5, 0, 2, .1]);
@@ -586,6 +604,7 @@
                     setSlider('s1', [1, 0, 20, 1]);
                     setSlider('s2', [0, 0, .5, .01]);
                     get();
+
                 }
                 model_data = ratkowskySubModel(data_set[3], data_set[4], t_max);
                 $$('header22').show();
