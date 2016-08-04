@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
 def index(request):
-    return render(request, 'welcome/welcome.html')
+    return render(request, 'welcome/about.html')
 
 # Create your views here.

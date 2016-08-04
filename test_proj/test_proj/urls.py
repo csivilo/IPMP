@@ -23,7 +23,7 @@ from home import views
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
     url(r'^IPMP/', include('IPsamp.urls')),
-    url(r'^welcome/', include('welcome.urls')),
+    url(r'^about/', include('welcome.urls')),
     url(r'^admin/', admin.site.urls),
 
 ]

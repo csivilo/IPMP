@@ -358,8 +358,9 @@
                     model = "Gompertz";
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
                     setSlider('s1', [1, 0, 10, 1]);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                     //setAxes("CFU/g", "Time (h)" )
-                    setParam('f1', 1);
                 }
                 model_data = gompertzModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header').show();
@@ -369,7 +370,8 @@
                     model = "Huang";
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                 }
                 model_data = huangModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header2').show();
@@ -379,7 +381,8 @@
                     model = "Baranyi";
                     changeSliders(2, ["\u03BC max", "H0"]);
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                 }
                 model_data = baranyiModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header3').show();
@@ -389,7 +392,8 @@
                     model = "Buchanan";
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                 }
                 model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
@@ -399,7 +403,7 @@
                     model = "No_lag";
                     changeSliders(1, ["\u03BC max"]);
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    get();
                 }
                 model_data = noLagModel(data_set[0], data_set[1], data_set[3], t_max);
                 $$('header5').show();
@@ -409,7 +413,8 @@
                     model = "R_huang";
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                 }
                 model_data = redHuangModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header6').show();
@@ -419,7 +424,8 @@
                     model = "R_baranyi";
                     changeSliders(2, ["\u03BC max", "H0"])
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                 }
                 model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header7').show();
@@ -429,7 +435,8 @@
                     model = "R2_buchanan";
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
+                    get();
                 }
                 model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header8').show();
@@ -439,7 +446,7 @@
                     model = "S_gompertz";
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [1, 0, 10, 1]);
                 }
                 model_data = sGompertzModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header11').show();
@@ -448,11 +455,11 @@
                 if(!(model.localeCompare('S_weibull')) == 0) {
                     model = "S_weibull";
                     changeSliders(3, ["Y0", "K", "alpha"])
-                    setSlider('s1', [1, 0, 10, 1]); //Y0 to 0-10
-                    //setSlider('s2', ["1", '0', '10', '1']); //K to 0-10
-                    setSlider('s3', [1, 0, 5, 1]); //alpha to 0-5
-                    setParam('f1', 1);
-                    setParam('f3', 1);
+                    setSlider('s1', [7, 0, 25, 1]);
+                    setSlider('s2', [1, 0, 5, .1]);
+                    setSlider('s3', [1, 0, 5 , .1]);
+                    get();
+
                 }
                 model_data = sWeibullModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header12').show();
@@ -461,11 +468,10 @@
                 if(!(model.localeCompare('S_mafart')) == 0) {
                     model = "S_mafart";
                     changeSliders(3, ["Y0", "D", "alpha"])
-                    setSlider('s1', [1, 0, 10, 1]); //Y0 to 0-10---------should this slider be showing????
-                    //setSlider('s2', ["1", '0', '10', '1']); //D to 0-10
-                    setSlider('s3', [1, 0, 5, 1]); //Alpha to 0-5
-                    setParam('f1', 1);
-                    setParam('f3', 1);
+                    setSlider('s1', [7, 0, 25, 1]);
+                    setSlider('s2', [1, 0, 10, .1]);
+                    setSlider('s3', [1, 0, 5, .1]); //Alpha to 0-5
+                    get();
                 }
                 model_data = sMafartModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header13').show();
@@ -474,10 +480,10 @@
                 if(!(model.localeCompare('SR2_buchanan')) == 0) {
                     model = "SR2_buchanan";
                     changeSliders(3, ['Y0', 'k', "\u03BB (Lag)"])
-                    setSlider('s1', [1, 0, 10, 1]);  //Y0 to 0-10
-                    //setSlider('s2', ["1", '0', '10', '1']); //K to 0-10
-                    //setSlider('s3', ["1", '0', '10', '1']); //Lag to 0-10
-                    setParam('f1', 1);
+                    setSlider('s1', [7, 0, 25, 1]);
+                    setSlider('s2', [1, 0, 5, .1]);
+                    setSlider('s3', [1, 0, 10 , 1]);
+                    get();
                 }
                 model_data = sTwoBuchananModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header14').show();
@@ -486,11 +492,11 @@
                 if(!(model.localeCompare('S3_buchanan')) == 0) {
                     model = "S3_buchanan";
                     changeSliders(4, ['Y0', "YTail", 'k', "\u03BB (Lag)"])
-                    setSlider('s1', [1, 0, 10, 1]); //Y0 to 0-10
-                    //setSlider('s2', ["1", '0', '10', '1']); //YTail to 0-10
-                    //setSlider('s3', ["1", '0', '10', '1']); //K to 0-10
-                    //setSlider('s4', ["1", '0', '10', '1']); //Lag to 0-10
-                    setParam('f1', 1);
+                    setSlider('s1', [7, 0, 25, 1]);
+                    setSlider('s2', [2, 0, 25, 1]);
+                    setSlider('s3', [.5, 0, 5, .1]);
+                    setSlider('s4', [1, 0, 5 , .1]);
+                    get();
                 }
                 model_data = sThreeBuchananModel(data_set[3], data_set[4], data_set[5], data_set[6], t_max);
                 $$('header15').show();
@@ -500,8 +506,12 @@
                     model = "D_Arrhenius_full";
                     changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
                     setSlider('s1', [2500, 2000, 3000, 100])
+                    setSlider('s2', [20, 0, 50, 1]);
+                    setSlider('s3', [0.05, 0, .1, .005]);
+                    setSlider('s4', [0.05, 0, .1, .005]);
+                    setSlider('s5', [45, 10, 55, 1]);
+                    get();
                     setAxes("Temp", "\u221A\u03BC")
-                    setParam('f1', 2500);
                 }
 
                 model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
@@ -512,7 +522,9 @@
                     model = "D_Arrhenius_sub";
                     changeSliders(3, ["Ea", "alpha", 'A'])
                     setSlider('s1', [2500, 2000, 3000, 100]);
-                    setParam('f1', 2500);
+                    setSlider('s2', [20, 0, 50, 1]);
+                    setSlider('s3', [0.05, 0, .1, .005]);
+                    get();
                 }
                 model_data = arrheniusSubModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header17').show();
@@ -521,8 +533,11 @@
                 if(!(model.localeCompare('D_Cardinal_full')) == 0) {
                     model = "D_Cardinal_full";
                     changeSliders(4, ["Tmin", "Topt", 'Tmax', "\u03BC max"])
-                    setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s1', [5, 0, 10, 1]);
+                    setSlider('s2', [37.5, 10, 50, 1]);
+                    setSlider('s3', [45, 10, 55, 1]);
+                    setSlider('s4', [0.5, 0, 2.5, .1]);
+                    get();
                 }
                 model_data = cardinalFullModel(data_set[3], data_set[4], data_set[5],  data_set[6], t_max);
                 $$('header18').show();
@@ -532,7 +547,10 @@
                     model = "D_Huang_full_temp";
                     changeSliders(4, ["T0", "Tmax", 'a', "b"])
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [10, 10, 50, 1]);
+                    setSlider('s3', [0.5, 0, 2, .1]);
+                    setSlider('s4', [0.5, 0, 2, .1]);
+                    get();
                 }
                 model_data = huangFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header19').show();
@@ -542,7 +560,8 @@
                     model = "D_Huang_sub_temp";
                     changeSliders(2, ["T0", "a"])
                     setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s2', [0.5, 0, 2, .1]);
+                    get();
                 }
                 model_data = huangSubModel(data_set[3], data_set[4], t_max);
                 $$('header20').show();
@@ -551,8 +570,11 @@
                 if(!(model.localeCompare('D_Ratkowsky_full')) == 0) {
                     model = "D_Ratkowsky_full";
                     changeSliders(4, ["T0", "Tmax", 'a', "b"])
-                    setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s1', [1, 0, 20, 1]);
+                    setSlider('s2', [10, 10, 50, 1]);
+                    setSlider('s3', [0.5, 0, 2, .1]);
+                    setSlider('s4', [0.5, 0, 2, .1]);
+                    get();
                 }
                 model_data = ratkowskyFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header21').show();
@@ -561,8 +583,9 @@
                 if(!(model.localeCompare('D_Ratkowsky_sub')) == 0) {
                     model = "D_Ratkowsky_sub";
                     changeSliders(2, ["T0", "a"])
-                    setSlider('s1', [1, 0, 10, 1]);
-                    setParam('f1', 1);
+                    setSlider('s1', [1, 0, 20, 1]);
+                    setSlider('s2', [0, 0, .5, .01]);
+                    get();
                 }
                 model_data = ratkowskySubModel(data_set[3], data_set[4], t_max);
                 $$('header22').show();
@@ -984,7 +1007,6 @@
                 array.push({temp_input: temp, conc_input2: mu_max * (temp - t_max) * (Math.pow((x-t_min), (2.0/c)))})
             }
 
-            console.log(array)
             return array;
         }
 
@@ -1089,8 +1111,6 @@
 
             }
             else if( num  == 2){
-                console.log($$('s1'));
-                console.log($$('s2'));
                 $$('s1').show();
                 $$('s2').show();
                 $$('s3').hide();
@@ -1245,7 +1265,7 @@
                 //if user accidently hit one of the empty cells, it would change values from null to ""
                 //so account for that by setting them back to null
                 else if(data_points[i].time_input == "" || data_points[i].conc_input == ""){
-                    //console.log("here");
+
                     data_points[i].conc_input == null;
                     data_points[i].time_input == null;
                     continue;
@@ -1256,9 +1276,6 @@
                 var conValid = parseFloat(data_points[i].conc_input); //y
                 data_points[i].conc_input = conValid; //make the inputed values(strings) to floats in data_points in conc_input
                 data_points[i].time_input = timeValid;//make the inputed values(strings) to floats in data_points in time_input
-
-
-                //console.log(data_points);
 
                 if(!isInt(timeValid)){ //if timeValid is not valid input
                     webix.alert({
@@ -1532,10 +1549,6 @@
                         conc_input: float_list[item + 1], conc_input2: null})
                     dataIndex++;
                 }
-                webix.alert({
-                        ok: "Close",
-                        text: "You have replaced the data with the uploaded data."
-                });
 
                   //parse new data to the input_table
                   $$('input_table').parse({
@@ -1580,8 +1593,6 @@
                     if(data_points[r].time_input == null && data_points[r].conc_input == null){
                         arrayIndex = r;
                         dataIndex = r + 1;
-                         //console.log("this is dataIndex" + dataIndex);
-                        //console.log("arrayIndex" + arrayIndex);
                         break;
                     }
                 }
@@ -1613,10 +1624,6 @@
                     // pos: arrayIndex, //number of records will be right the last index +1
                     //data: data_points
                 //});
-                webix.alert({
-                        ok: "Close",
-                        text: "You have added the file to the inputed data."
-                });
 
             };
             reader.readAsText(file_struct.file, "utf-8");
@@ -1625,7 +1632,6 @@
          //check to see if there is any report, if not alert otherwise export to PDF
          function saveReport(){
             var value = $$('export_table').getValue();
-            //console.log($$('export_table').getValue());
             if(value == "No report"){
                 webix.alert({
                     type: "alert-error",
