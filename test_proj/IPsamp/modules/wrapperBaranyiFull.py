@@ -72,8 +72,8 @@ class dataAnalysis():
 
 
 
-        except np.linalg.linalg.LinAlgError as e:
-            self.errorMessage = e
+        except:
+            self.errorMessage =np.linalg.linalg.LinAlgError
 
                 
         

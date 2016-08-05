@@ -75,9 +75,9 @@ class dataAnalysis():
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
             self.report["jacobian"] = self.jacobian.jacob
             self.report["ci_out"] = self.confidenceIntervals.CIOutputs
-        except np.linalg.linalg.LinAlgError as e:
-            self.errorMessage = e
-        self.report["error"] = self.errorMessage
+        except:
+            self.errorMessage = np.linalg.linalg.LinAlgError
+
                 
         
         """

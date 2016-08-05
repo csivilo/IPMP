@@ -6,6 +6,7 @@
         function get() {
             var data = $$('slider_input').getValues();
             $$('insert_input').setValues(data);
+            $$('insert_input').refresh()
         }
 
         //swaps two indices of an array
@@ -140,125 +141,80 @@
             data_set = getData();
             time = data_set[2];
             model_data = [];
-            var i = 0;
+            
             if(model.localeCompare('Gompertz') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(gompertzModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-
-                }
+                   model_data = (gompertzModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('Huang') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(huangModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (huangModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('Baranyi') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(baranyiModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (baranyiModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('Buchanan') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(buchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (buchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('No_lag') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(noLagModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (noLagModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('R_huang') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(redHuangModel(dub_array[0], dub_array[1], dub_array[2], time));
-
-            }
+                   model_data = (redHuangModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('R_baranyi') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(redBaranyiModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (redBaranyiModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('R2_buchanan') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(twoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (twoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_linear') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sLinearModel(dub_array[0], dub_array[1], time));
-                }
+                   model_data = (sLinearModel(dub_array[0], dub_array[1], time));
             }
             else if(model.localeCompare('S_linshoulder') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sLinearShoulderModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (sLinearShoulderModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_gompertz') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sGompertzModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (sGompertzModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_weibull') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sWeibullModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (sWeibullModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_mafart') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('SR2_buchanan') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
 
             else if(model.localeCompare('S3_buchanan') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(sThreeBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (sThreeBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
 
             else if(model.localeCompare('D_Arrhenius_full') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], dub_array[4], time));
-                }
+                   model_data = (arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], dub_array[4], time));
             }
 
             else if(model.localeCompare('D_Arrhenius_sub') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], time));
-                }
+                   model_data = (arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
 
             else if(model.localeCompare('D_Cardinal_full') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
 
             else if(model.localeCompare('D_Huang_full_temp') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('D_Huang_sub_temp') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(huangSubModel(dub_array[0], dub_array[1], time));
-                }
+                   model_data = (huangSubModel(dub_array[0], dub_array[1], time));
             }
 
             else if(model.localeCompare('D_Ratkowsky_full') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-                }
+                   model_data = (ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+
             }
 
             else if(model.localeCompare('D_Ratkowsky_sub') == 0){
-                for(i = 0; i < 1; i++){
-                    model_data = model_data.concat(ratkowskySubModel(dub_array[0], dub_array[1],time));
-                }
+                   model_data = (ratkowskySubModel(dub_array[0], dub_array[1],time));
             }
 
         for(var i = 0; i < data_points.length; i++){
@@ -267,9 +223,7 @@
                     model_data.push(data_points[i]);
                 }
             }
-        //console.log(model_data);
         $$('data_chart').parse(model_data);
-
         }
 
         function clearData(){
@@ -280,7 +234,7 @@
                type: "alert-warning",
                text: "Are you sure you want to clear all data?",
                callback: function(result){
-                   //if they clicked ok ("yes")
+                   //if they clicked ok, wipe the input table clean
                    if(result === true){
                        for(var i = 0; i < data_points.length; i++){
                            data_points[i].conc_input = null;
@@ -360,8 +314,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    //setAxes("CFU/g", "Time (h)" )
-
+                    setAxes("Time (h)", "CFU/g")
                 }
                 model_data = gompertzModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header').show();
@@ -373,6 +326,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+                    setAxes("Time (h)", "CFU/g")
                 }
                 model_data = huangModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header2').show();
@@ -384,7 +338,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-
+                    setAxes("Time (h)", "CFU/g")
                 }
                 model_data = baranyiModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header3').show();
@@ -396,7 +350,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-
+                    setAxes("Time (h)", "CFU/g")
                 }
                 model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
@@ -407,6 +361,7 @@
                     changeSliders(1, ["\u03BC max"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     get();
+                    setAxes("Time (h)", "CFU/g")
                 }
                 model_data = noLagModel(data_set[0], data_set[1], data_set[3], t_max);
                 $$('header5').show();
@@ -418,6 +373,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+                    setAxes("Time (h)", "CFU/g")
 
                 }
                 model_data = redHuangModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -430,6 +386,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+                    setAxes("Time (h)", "CFU/g")
 
                 }
                 model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -442,6 +399,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
+                    setAxes("Time (h)", "CFU/g")
 
                 }
                 model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -453,6 +411,8 @@
                     changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
+                    setAxes("Time (h)", "CFU/g")
+                    get();
                 }
                 model_data = sGompertzModel(data_set[0], data_set[3], data_set[4], t_max);
                 $$('header11').show();
@@ -464,9 +424,8 @@
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 5 , .1]);
+                    setAxes("Time (h)", "CFU/g")
                     get();
-
-
                 }
                 model_data = sWeibullModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header12').show();
@@ -478,6 +437,7 @@
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 10, .1]);
                     setSlider('s3', [1, 0, 5, .1]); //Alpha to 0-5
+                    setAxes("Time (h)", "CFU/g")
                     get();
 
                 }
@@ -491,6 +451,7 @@
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 10 , 1]);
+                    setAxes("Time (h)", "CFU/g")
                     get();
 
                 }
@@ -506,6 +467,7 @@
                     setSlider('s2', [2, 0, 25, 1]);
                     setSlider('s3', [.5, 0, 5, .1]);
                     setSlider('s4', [1, 0, 5 , .1]);
+                    setAxes("Time (h)", "CFU/g")
                     get();
 
                 }
@@ -517,13 +479,13 @@
                     model = "D_Arrhenius_full";
                     changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
                     setSlider('s1', [2500, 2000, 3000, 100])
-
                     setSlider('s2', [20, 0, 50, 1]);
                     setSlider('s3', [0.05, 0, .1, .005]);
                     setSlider('s4', [0.05, 0, .1, .005]);
                     setSlider('s5', [45, 10, 55, 1]);
                     get();
                     setAxes("Temp", "\u221A\u03BC")
+
 
                 }
 
@@ -537,6 +499,7 @@
                     setSlider('s1', [2500, 2000, 3000, 100]);
                     setSlider('s2', [20, 0, 50, 1]);
                     setSlider('s3', [0.05, 0, .1, .005]);
+                    setAxes("Temp", "\u221A\u03BC")
                     get();
 
                 }
@@ -550,7 +513,8 @@
                     setSlider('s1', [5, 0, 10, 1]);
                     setSlider('s2', [37.5, 10, 50, 1]);
                     setSlider('s3', [45, 10, 55, 1]);
-                    setSlider('s4', [0.5, 0, 2.5, .1]);
+                    setSlider('s4', [2, 0, 5, .25]);
+                    setAxes("Temp", "\u221A\u03BC")
                     get();
 
                 }
@@ -565,6 +529,7 @@
                     setSlider('s2', [10, 10, 50, 1]);
                     setSlider('s3', [0.5, 0, 2, .1]);
                     setSlider('s4', [0.5, 0, 2, .1]);
+                    setAxes("Temp", "\u221A\u03BC")
                     get();
 
                 }
@@ -577,6 +542,7 @@
                     changeSliders(2, ["T0", "a"])
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [0.5, 0, 2, .1]);
+                    setAxes("Temp", "\u221A\u03BC")
                     get();
 
                 }
@@ -592,6 +558,7 @@
                     setSlider('s2', [10, 10, 50, 1]);
                     setSlider('s3', [0.5, 0, 2, .1]);
                     setSlider('s4', [0.5, 0, 2, .1]);
+                    setAxes("Temp", "\u221A\u03BC")
                     get();
                 }
                 model_data = ratkowskyFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
@@ -603,6 +570,7 @@
                     changeSliders(2, ["T0", "a"])
                     setSlider('s1', [1, 0, 20, 1]);
                     setSlider('s2', [0, 0, .5, .01]);
+                    setAxes("Temp", "\u221A\u03BC")
                     get();
 
                 }
@@ -1022,10 +990,9 @@
             var array = [];
             var c;
             for(var temp = 0; temp <x; temp+= (x/500.)) {
-                c = ((t_opt- t_min)*(temp - t_opt) - (t_opt-t_max)*(t_opt+t_min-2.*x))*(t_opt - t_min)
-                array.push({temp_input: temp, conc_input2: mu_max * (temp - t_max) * (Math.pow((x-t_min), (2.0/c)))})
+                c = (((t_opt - t_min)*(temp - t_opt))  -  (t_opt - t_max) * (t_opt + t_min - (2.0*temp)))*(t_opt - t_min)
+                array.push({time_input: temp, conc_input2: (mu_max * (temp - t_max) * (Math.pow((temp-t_min),(2.0))/c))})
             }
-
             return array;
         }
 
@@ -1258,9 +1225,6 @@
             $$('data_chart').define({
                 xAxis:{
                     title: x_name,
-                    start: 0,
-                    stop: 10,
-                    step: 1
                 },
                 yAxis:{
                     title: y_name

@@ -79,7 +79,8 @@ class FitCardinalFullTemp:
     def YDiff(self, p):
         Y_calculate = self.CardinalSubTempModelfunc(p[0], p[1], p[2], p[3], self.x)
         return self.y- Y_calculate
-    
+
+
 
 def main():
     # generate an x array or list   

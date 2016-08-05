@@ -71,8 +71,8 @@ class dataAnalysis():
             self.confidenceIntervals = CI.ConfidenceIntervals(self.errorEstimate.MSE,  self.jacobian.jacob,\
             self.calculation.YPredictedValue, self.errorEstimate.t_critical)
 
-        except np.linalg.linalg.LinAlgError as e:
-            self.errorMessage = e
+        except:
+            self.errorMessage =np.linalg.linalg.LinAlgError
 
 
                 
