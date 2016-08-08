@@ -111,6 +111,7 @@
             }
             $$("data_chart").parse(updatedData);
             $$('data_chart').show();
+            isPlotted = true;
         }
 
         function getTableData(){
@@ -307,6 +308,8 @@
             var data_set = getData();
             var t_max = data_set[2];
             hide(); //hides all model names
+            isPlotted = true;
+
             if(model_type.localeCompare('Gompertz') == 0){
                 if(!(model.localeCompare('Gompertz')) == 0) {
                     model = "Gompertz";
@@ -314,7 +317,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                 }
                 model_data = gompertzModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header').show();
@@ -326,7 +329,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                 }
                 model_data = huangModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header2').show();
@@ -338,7 +341,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                 }
                 model_data = baranyiModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header3').show();
@@ -350,7 +353,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                 }
                 model_data = buchananModel(data_set[0], data_set[1], data_set[3], data_set[4], t_max);
                 $$('header4').show();
@@ -361,7 +364,7 @@
                     changeSliders(1, ["\u03BC max"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                 }
                 model_data = noLagModel(data_set[0], data_set[1], data_set[3], t_max);
                 $$('header5').show();
@@ -373,7 +376,7 @@
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
 
                 }
                 model_data = redHuangModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -382,11 +385,11 @@
             else if(model_type.localeCompare('R_baranyi') == 0){
                 if(!(model.localeCompare('R_baranyi')) == 0) {
                     model = "R_baranyi";
-                    changeSliders(2, ["\u03BC max", "H0"])
+                    changeSliders(2, ["\u03BC max", "H0"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
 
                 }
                 model_data = redBaranyiModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -395,11 +398,11 @@
             else if(model_type.localeCompare('R2_buchanan') == 0){
                 if(!(model.localeCompare('R2_buchanan')) == 0) {
                     model = "R2_buchanan";
-                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
                     get();
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
 
                 }
                 model_data = twoBuchananModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -408,10 +411,10 @@
             else if(model_type.localeCompare('S_gompertz') == 0){
                 if(!(model.localeCompare('S_gompertz')) == 0) {
                     model = "S_gompertz";
-                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"])
+                    changeSliders(2, ["\u03BC max", "\u03BB (Lag)"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [1, 0, 10, 1]);
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                     get();
                 }
                 model_data = sGompertzModel(data_set[0], data_set[3], data_set[4], t_max);
@@ -424,7 +427,7 @@
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 5 , .1]);
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                     get();
                 }
                 model_data = sWeibullModel(data_set[3], data_set[4], data_set[5], t_max);
@@ -433,11 +436,11 @@
             else if(model_type.localeCompare('S_mafart') == 0){
                 if(!(model.localeCompare('S_mafart')) == 0) {
                     model = "S_mafart";
-                    changeSliders(3, ["Y0", "D", "alpha"])
+                    changeSliders(3, ["Y0", "D", "alpha"]);
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 10, .1]);
                     setSlider('s3', [1, 0, 5, .1]); //Alpha to 0-5
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                     get();
 
                 }
@@ -447,11 +450,11 @@
             else if(model_type.localeCompare('SR2_buchanan') == 0){
                 if(!(model.localeCompare('SR2_buchanan')) == 0) {
                     model = "SR2_buchanan";
-                    changeSliders(3, ['Y0', 'k', "\u03BB (Lag)"])
+                    changeSliders(3, ['Y0', 'k', "\u03BB (Lag)"]);
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 10 , 1]);
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                     get();
 
                 }
@@ -461,13 +464,13 @@
             else if(model_type.localeCompare('S3_buchanan') == 0){
                 if(!(model.localeCompare('S3_buchanan')) == 0) {
                     model = "S3_buchanan";
-                    changeSliders(4, ['Y0', "YTail", 'k', "\u03BB (Lag)"])
+                    changeSliders(4, ['Y0', "YTail", 'k', "\u03BB (Lag)"]);
 
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [2, 0, 25, 1]);
                     setSlider('s3', [.5, 0, 5, .1]);
                     setSlider('s4', [1, 0, 5 , .1]);
-                    setAxes("Time (h)", "CFU/g")
+                    setAxes("Time (h)", "CFU/g");
                     get();
 
                 }
@@ -477,8 +480,8 @@
             else if(model_type.localeCompare('D_Arrhenius_full') == 0){
                 if(!(model.localeCompare('D_Arrhenius_full')) == 0){
                     model = "D_Arrhenius_full";
-                    changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax'])
-                    setSlider('s1', [2500, 2000, 3000, 100])
+                    changeSliders(5,["Ea", "alpha", 'A', 'b', 'Tmax']);
+                    setSlider('s1', [2500, 2000, 3000, 100]);
                     setSlider('s2', [20, 0, 50, 1]);
                     setSlider('s3', [0.05, 0, .1, .005]);
                     setSlider('s4', [0.05, 0, .1, .005]);
@@ -495,11 +498,11 @@
             else if(model_type.localeCompare('D_Arrhenius_sub') == 0){
                 if(!(model.localeCompare('D_Arrhenius_sub')) == 0) {
                     model = "D_Arrhenius_sub";
-                    changeSliders(3, ["Ea", "alpha", 'A'])
+                    changeSliders(3, ["Ea", "alpha", 'A']);
                     setSlider('s1', [2500, 2000, 3000, 100]);
                     setSlider('s2', [20, 0, 50, 1]);
                     setSlider('s3', [0.05, 0, .1, .005]);
-                    setAxes("Temp", "\u221A\u03BC")
+                    setAxes("Temp", "\u221A\u03BC");
                     get();
 
                 }
@@ -509,12 +512,12 @@
             else if(model_type.localeCompare('D_Cardinal_full') == 0){
                 if(!(model.localeCompare('D_Cardinal_full')) == 0) {
                     model = "D_Cardinal_full";
-                    changeSliders(4, ["Tmin", "Topt", 'Tmax', "\u03BC max"])
+                    changeSliders(4, ["Tmin", "Topt", 'Tmax', "\u03BC max"]);
                     setSlider('s1', [5, 0, 10, 1]);
                     setSlider('s2', [37.5, 10, 50, 1]);
                     setSlider('s3', [45, 10, 55, 1]);
                     setSlider('s4', [2, 0, 5, .25]);
-                    setAxes("Temp", "\u221A\u03BC")
+                    setAxes("Temp", "\u221A\u03BC");
                     get();
 
                 }
@@ -524,12 +527,12 @@
             else if(model_type.localeCompare('D_Huang_full_temp') == 0){
                 if(!(model.localeCompare('D_Huang_full_temp')) == 0) {
                     model = "D_Huang_full_temp";
-                    changeSliders(4, ["T0", "Tmax", 'a', "b"])
+                    changeSliders(4, ["T0", "Tmax", 'a', "b"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [10, 10, 50, 1]);
                     setSlider('s3', [0.5, 0, 2, .1]);
                     setSlider('s4', [0.5, 0, 2, .1]);
-                    setAxes("Temp", "\u221A\u03BC")
+                    setAxes("Temp", "\u221A\u03BC");
                     get();
 
                 }
@@ -539,10 +542,10 @@
             else if(model_type.localeCompare('D_Huang_sub_temp') == 0){
                 if(!(model.localeCompare('D_Huang_sub_temp')) == 0) {
                     model = "D_Huang_sub_temp";
-                    changeSliders(2, ["T0", "a"])
+                    changeSliders(2, ["T0", "a"]);
                     setSlider('s1', [1, 0, 10, 1]);
                     setSlider('s2', [0.5, 0, 2, .1]);
-                    setAxes("Temp", "\u221A\u03BC")
+                    setAxes("Temp", "\u221A\u03BC");
                     get();
 
                 }
@@ -552,7 +555,7 @@
             else if(model_type.localeCompare('D_Ratkowsky_full') == 0){
                 if(!(model.localeCompare('D_Ratkowsky_full')) == 0) {
                     model = "D_Ratkowsky_full";
-                    changeSliders(4, ["T0", "Tmax", 'a', "b"])
+                    changeSliders(4, ["T0", "Tmax", 'a', "b"]);
 
                     setSlider('s1', [1, 0, 20, 1]);
                     setSlider('s2', [10, 10, 50, 1]);
@@ -567,7 +570,7 @@
             else if(model_type.localeCompare('D_Ratkowsky_sub') == 0){
                 if(!(model.localeCompare('D_Ratkowsky_sub')) == 0) {
                     model = "D_Ratkowsky_sub";
-                    changeSliders(2, ["T0", "a"])
+                    changeSliders(2, ["T0", "a"]);
                     setSlider('s1', [1, 0, 20, 1]);
                     setSlider('s2', [0, 0, .5, .01]);
                     setAxes("Temp", "\u221A\u03BC")
@@ -772,9 +775,7 @@
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
                     if(time< lag){
-                        array.push({ time_input: time, conc_input2:y_initial
-
-                        });
+                        array.push({ time_input: time, conc_input2:y_initial});
                     }
                     else if ( time >= lag) {
                         array.push({time_input: time, conc_input2: y_initial + mu_max * (time - lag)});
@@ -864,7 +865,7 @@
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
 
-                array.push({time_input: time, conc_input2: y_initial - ( k * (Math.pow(time, alpha)))})
+                array.push({time_input: time, conc_input2: y_initial - ( k * (Math.pow(time, alpha)))});
 
             }
             return array;
@@ -921,14 +922,14 @@
             */
 
             var array = [];
-            var tc = ((y_initial-y_tail)*k) + lag
+            var tc = ((y_initial-y_tail)*k) + lag;
             for(time = 0; time <x; time+= (x/500.)) {
                 if (time < lag) {
                     array.push({
                         time_input: time, conc_input2: y_initial});
                 }
                 else if (time >= tc){
-                    array.push({time_input: time, conc_input2: y_tail})
+                    array.push({time_input: time, conc_input2: y_tail});
                 }
                 else if (time >= lag) {
                     array.push({time_input: time, conc_input2: y_initial  - ((time-lag)/k)});
@@ -1490,7 +1491,7 @@
                    type: "alert-error",
                    title: "Error- File Type Not Supported",
                    ok: "Close",
-                   text: "Only .txt or .csv files are supported"
+                   text: "Only .txt or .csv files are supported."
                });
             }
         }
@@ -1508,7 +1509,7 @@
                            data_points[i].conc_input2 = null;
                        }
 
-                var float_list =[]
+                var float_list =[];
                 var start = 0;
                 var end = 1;
                 var dataIndex = 1;
@@ -1520,16 +1521,16 @@
                     }
                     else {
                         float_list.push(parseFloat(text.slice(start, end)))
-                        start = end + 1
+                        start = end + 1;
                         while (text.charCodeAt(start) == 32 || text.charCodeAt(start) == 9) {
-                            start++
+                            start++;
                         }
-                        end = start + 1
+                        end = start + 1;
                     }
                 }
                 for(var item = 0; item < float_list.length; item += 2){
                     data_points.push({id: dataIndex, time_input: float_list[item],
-                        conc_input: float_list[item + 1], conc_input2: null})
+                        conc_input: float_list[item + 1], conc_input2: null});
                     dataIndex++;
                 }
 
@@ -1550,10 +1551,12 @@
             var time = 0, conc = 0, value= 0, char = 0, parsed = 0, arrayIndex = 0;
             reader.onload = function(e){
                 var text = reader.result;
-                var float_list =[]
+                var float_list =[];
                 var start = 0;
                 var end = 1;
                 var dataIndex = 1;
+                var endValue = text.substr(text.length - 1);
+                console.log(endValue);
 
                 //reads the numbers in the input file into a array of floats, then an array of conc/time objects
                 while(end < text.length){
@@ -1561,12 +1564,13 @@
                         end++;
                     }
                     else {
-                        float_list.push(parseFloat(text.slice(start, end)))
-                        start = end + 1
+                        float_list.push(parseFloat(text.slice(start, end)));
+                        //console.log(parseFloat(text.slice(start, end)));
+                        start = end + 1;
                         while (text.charCodeAt(start) == 32|| text.charCodeAt(start) == 9) {
-                            start++
+                            start++;
                         }
-                        end = start + 1
+                        end = start + 1;
                     }
                 }
 
@@ -1587,7 +1591,7 @@
                     dataIndex = data_points.length + 1;
                 }
 
-                for(var item = 0; item < float_list.length; item += 2) {
+                for(var item = 0; item <= float_list.length; item += 2) {
                      if (arrayIndex < data_points.length) { //set the correct index to the correct data
                         data_points[arrayIndex] = ({id: dataIndex, time_input: float_list[item],
                                                             conc_input: float_list[item + 1], conc_input2: null})
@@ -1595,7 +1599,7 @@
                         arrayIndex++;
                     }
                     else {//Push the new data_point to the end of the array
-                        data_points.data_points.push({
+                        data_points.push({
                         id: dataIndex, time_input: float_list[item],
                         conc_input: float_list[item + 1], conc_input2: null})
                         dataIndex++;
@@ -1612,7 +1616,7 @@
             reader.readAsText(file_struct.file, "utf-8");
         }
         
-         //check to see if there is any report, if not alert otherwise export to PDF
+         //check to see if there is any report, if not alert, otherwise, export to PDF
          function saveReport(){
             var value = $$('export_table').getValue();
             if(value == "No report"){
@@ -1629,5 +1633,44 @@
             }
         }
 
+        //Global var to determine if a chart has been plotted yet
+        var isPlotted = false;
 
+        //Determines if the chart has been plotted, if it has, export as a PNG file
+        //Otherwise, notify user that the chart area is blank
+        function saveChart() {
+            if(isPlotted == false){
+                webix.alert({
+                    type: "alert-error",
+                    title: "Error- No chart plotted",
+                    text: "The chart area is blank, please plot your data before selecting to save the chart."
+                });
+            }
+            else {
+                webix.toPNG($$('data_chart'));
+            }
+        }
 
+        //Checks to see if there is any data to save, if there is, export it to Excel
+        //Otherwise, alert that there is no data to save
+        function saveData(){
+            var isData = false;
+            for(var i = 0; i < data_points.length; i++){
+                if(data_points[i].time_input != null || data_points[i].conc_input != null){
+                    isData = true;
+                    break;
+                }
+            }
+
+            if(isData == false){
+                webix.alert({
+                    type: "alert-error",
+                    title: "Error- No data",
+                    ok: "Close",
+                    text: "There is no data to save. Please input data into the table before trying to save."
+                });
+            }
+            else {
+                webix.toExcel($$('input_table'));
+            }
+        }

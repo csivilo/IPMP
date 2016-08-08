@@ -148,7 +148,7 @@
 
 
 
-               {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
+               {view: "button" ,width:150, align: "right", value: "Plot", click: "dataIsValid();plotData()"},
                {view: "button", width:150, align: "right", value: "Model Output", click: "$$('data_chart').clearAll(); initialModel('Gompertz')"}
                ]},
                 {cols:[
@@ -298,10 +298,12 @@
                                         saveReport();
                                     }
                                     else if(id == "chart"){
-                                        webix.toPNG($$('data_chart'));
+                                        saveChart();
+                                        //webix.toPNG($$('data_chart'));
                                     }
                                     else if(id == "data"){
-                                        webix.toExcel($$('input_table'));
+                                        saveData();
+                                        //webix.toExcel($$('input_table'));
                                     }
                                 }
                             }}
