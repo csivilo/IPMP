@@ -1,8 +1,12 @@
+        
+
+
+        //sets the parameter slider inputs based off of the insert inputs
         function set(){
             var data = $$('insert_input').getValues();
             $$('slider_input').setValues(data);
         }
-
+        //sets the parameter insert inputs based off of the slider inputs
         function get() {
             var data = $$('slider_input').getValues();
             $$('insert_input').setValues(data);
@@ -135,7 +139,8 @@
         }
 
 
-
+        //Graphs a model based off of parameters calculated in the backend
+        //Inputs: dub_array (array) - the list of model parameters generated on the backend
         function graphCon(dub_array){
             $$('data_chart').clearAll()
             data_set = getData();
@@ -210,7 +215,6 @@
 
             else if(model.localeCompare('D_Ratkowsky_full') == 0){
                    model_data = (ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-
             }
 
             else if(model.localeCompare('D_Ratkowsky_sub') == 0){
@@ -226,8 +230,8 @@
         $$('data_chart').parse(model_data);
         }
 
+        //sets all elements of data_points global array to have all fields null
         function clearData(){
-            //$$('input_table').clearAll()
             webix.confirm({
                ok: "Yes",
                cancel: "No",
@@ -787,7 +791,7 @@
         function sLinearModel(y_initial, D,x) {
             /*used to run a simulation of the survival gompertz model
              Inputs: y_initial (float)- the y value of the first data points
-             D -
+             D (float) - model coefficient
              x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
              */
@@ -806,7 +810,7 @@
         function sLinearShoulderModel(y_initial, D, y_tail,x) {
             /*used to run a simulation of the survival gompertz model
              Inputs: y_initial (float)- the y value of the first data points
-             D -
+             D (float) - model coefficient
              y_tail (float) - the y value of the tail of the growth curve
              x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
@@ -855,8 +859,8 @@
          function sWeibullModel(y_initial, k,alpha,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
-                     k -
-                     alpha -
+                     k (float) - model coefficient
+                     alpha (float) - model coefficient
                      x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
@@ -873,8 +877,8 @@
          function sMafartModel(y_initial, D, alpha,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
-                     d -
-                     alpha -
+                     d (float) - model coefficient
+                     alpha (float) - model coefficient
                      x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
@@ -890,7 +894,7 @@
          function sTwoBuchananModel(y_initial,k,lag,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
-                     k -
+                     k (float) - model coefficient
                      lag (float) - time value before growth begins
                      x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
@@ -912,9 +916,9 @@
         
          function sThreeBuchananModel(y_initial, y_tail,k,lag,x){
             /*used to run a simulation of the gompertz model
-             Inputs: y_initial (float)- the y value of the first data points
-                     y_tail -
-                     k -
+             Inputs: y_initial (float)- the y value of the beginning of the curve
+                     y_tail (float) - the y value of the end of the curve
+                     k (float) - model coefficient
                      lag (float) - time value before growth begins
                      x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
@@ -940,10 +944,10 @@
 
          function arrheniusFullModel(Ea, alpha, A, b, Tmax, x) {
             /*used to run a simulation of the Arrhenius Full Range Secondary model
-            Inputs: Ea (float)-
-                    alpha -
-                    A
-                    b
+            Inputs: Ea (float)- Activation energy
+                    alpha (float) - model coefficient
+                    A (float) - model coefficient
+                    b (float) - model coefficient
                     x (float) - dt of the entire dataset
              Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
@@ -963,7 +967,7 @@
             /*used to run a simulation of the Arrhenius Sub Range Secondary model
             Inputs: Ea - Activation energy, set 2000-3000
                     alpha - coefficient, set 15-30
-                    A -
+                    A - (float) - model coefficient
                     x (float) - dt of the entire dataset
              Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
@@ -999,7 +1003,7 @@
         function huangSubModel(T0,a,x) {
             /*used to run a simulation of the Huang Sub Range Secondary model
             Inputs: T0 (float)- minimum temperature of bacteria growth
-                    a -
+                    a (float) - model coefficient
                     x (float)- growth coefficient, determines rate of bacteria growth
             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
@@ -1017,8 +1021,8 @@
             /*used to run a simulation of the Huang Full Range Secondary model
             Inputs: T0 (float)- minimum temperature of bacteria growth
                     x (float)- growth coefficient, determines rate of bacteria growth
-                    a -
-                    b -
+                    a (float) - model coefficient
+                    b (float) - model coefficient
             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
@@ -1034,8 +1038,8 @@
             /*used to run a simulation of the Ratkowsky Full Range Secondary model
             Inputs: T0 (float)- minimum temperature of bacteria growth
                     x (float)- growth coefficient, determines rate of bacteria growth
-                    a -
-                    b -
+                    a (float) - model coefficient
+                    b (float) - model coefficient
             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
 
@@ -1050,7 +1054,7 @@
         function ratkowskySubModel(T0,a,x) {
             /*used to run a simulation of the Ratkowsky Sub Range Secondary model
             Inputs: T0 (float)- minimum temperature of bacteria growth
-                    a -
+                    a (float) - model coefficient
                     x (float)- growth coefficient, determines rate of bacteria growth
             Returns: array - a list of temp/conc_input2 objects represting the calculated growth curve
             */
@@ -1206,7 +1210,7 @@
             }
         }
 
-        //sets the upper limit, lower limit, current value, and step of a given slider
+        //sets the upper limit, lower limit, current value, and step of a given webix slider
         function setSlider(slider,num_set){
             $$(slider).define('value',num_set[0]);
             $$(slider).define('min',num_set[1]);
@@ -1215,10 +1219,10 @@
             $$(slider).render();
         }
 
-        //Sets the parameters to the correct value after changing models
-        function setParam(param, value){
-            $$(param).define('value',value);
-            $$(param).render();
+        //Sets the value of a webix component
+        function setParam(component, value){
+            $$(component).define('value',value);
+            $$(component).render();
         }
         
         function setAxes(x_name,y_name){
@@ -1341,7 +1345,7 @@
             return false;
         }
 
-        //will convert from log to ln
+        //Converts elements in the data_points array from log base 10 to natural log base
         function convert(){
             for(var i = 0; i < data_points.length; i++){
                 if((data_points[i].conc_input == null && data_points[i].time_input == null) ||

@@ -15,6 +15,7 @@
     <script type="text/javascript" charset="utf-8">
         var model = "None";
 
+        // default starting data
         var data_points = [
             { id: 1, time_input: 0, conc_input:0, conc_input2: null},
             { id: 2, time_input: 1, conc_input:1, conc_input2: null},
@@ -149,7 +150,6 @@
 
 
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
-               {view: "button", width:150, align: "right", value: "Model Output", click: "$$('data_chart').clearAll(); initialModel('Gompertz')"}
                ]},
                 {cols:[
                     {rows:[
@@ -168,9 +168,6 @@
                         multiselect: true,
                         blockselect: true,
                         data: data_points
-
-                       // select: "cell",
-                       // on: {'onMouseOut': function(){$$("input_table").unselect(data_points[data_points.length].id)}}
                         },
 
                         {view: "toolbar", id:"toolbar", elements:[
@@ -230,9 +227,6 @@
                         origin: 0,
                         yAxis:{
                             title:"CFU/g",
-                            start: 0,
-                            stop: 10,
-                            step: 1
                         },
                         xAxis:{
                             title:"Time (h)"
