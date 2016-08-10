@@ -1,6 +1,4 @@
         
-
-
         //sets the parameter slider inputs based off of the insert inputs
         function set(){
             var data = $$('insert_input').getValues();
@@ -186,42 +184,35 @@
             else if(model.localeCompare('S_mafart') == 0){
                    model_data = (sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
-            else if(model.localeCompare('SR2_buchanan') == 0){
-                   model_data = (sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
+            else if(model.localeCompare('SR2_buchanan') == 0) {
+                model_data = (sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
-
             else if(model.localeCompare('S3_buchanan') == 0){
                    model_data = (sThreeBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
-
             else if(model.localeCompare('D_Arrhenius_full') == 0){
                    model_data = (arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], dub_array[4], time));
             }
-
             else if(model.localeCompare('D_Arrhenius_sub') == 0){
                    model_data = (arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
-
             else if(model.localeCompare('D_Cardinal_full') == 0){
                    model_data = (cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
-
             else if(model.localeCompare('D_Huang_full_temp') == 0){
                    model_data = (huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('D_Huang_sub_temp') == 0){
                    model_data = (huangSubModel(dub_array[0], dub_array[1], time));
             }
-
             else if(model.localeCompare('D_Ratkowsky_full') == 0){
                    model_data = (ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
-
             else if(model.localeCompare('D_Ratkowsky_sub') == 0){
                    model_data = (ratkowskySubModel(dub_array[0], dub_array[1],time));
             }
 
-        for(var i = 0; i < data_points.length; i++){
+            for(var i = 0; i < data_points.length; i++){
                 //if either conc_inputs have a value and time_input is not null, we want to add it to the array
                 if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
                     model_data.push(data_points[i]);
@@ -424,7 +415,7 @@
             else if(model_type.localeCompare('S_weibull') == 0){
                 if(!(model.localeCompare('S_weibull')) == 0) {
                     model = "S_weibull";
-
+                    changeSliders(3, ["Y0", "k", "alpha"])
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [1, 0, 5, .1]);
                     setSlider('s3', [1, 0, 5 , .1]);
@@ -457,7 +448,6 @@
                     setSlider('s3', [1, 0, 10 , 1]);
                     setAxes("Time (h)", "CFU/g")
                     get();
-
                 }
                 model_data = sTwoBuchananModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header14').show();
@@ -466,14 +456,12 @@
                 if(!(model.localeCompare('S3_buchanan')) == 0) {
                     model = "S3_buchanan";
                     changeSliders(4, ['Y0', "YTail", 'k', "\u03BB (Lag)"])
-
                     setSlider('s1', [7, 0, 25, 1]);
                     setSlider('s2', [2, 0, 25, 1]);
                     setSlider('s3', [.5, 0, 5, .1]);
                     setSlider('s4', [1, 0, 5 , .1]);
                     setAxes("Time (h)", "CFU/g")
                     get();
-
                 }
                 model_data = sThreeBuchananModel(data_set[3], data_set[4], data_set[5], data_set[6], t_max);
                 $$('header15').show();
@@ -489,10 +477,7 @@
                     setSlider('s5', [45, 10, 55, 1]);
                     get();
                     setAxes("Temp", "\u221A\u03BC")
-
-
                 }
-
                 model_data = arrheniusFullModel(data_set[3], data_set[4],data_set[5], data_set[6],data_set[7],t_max);
                 $$('header16').show();
             }
@@ -505,7 +490,6 @@
                     setSlider('s3', [0.05, 0, .1, .005]);
                     setAxes("Temp", "\u221A\u03BC")
                     get();
-
                 }
                 model_data = arrheniusSubModel(data_set[3], data_set[4], data_set[5], t_max);
                 $$('header17').show();
@@ -520,7 +504,6 @@
                     setSlider('s4', [2, 0, 5, .25]);
                     setAxes("Temp", "\u221A\u03BC")
                     get();
-
                 }
                 model_data = cardinalFullModel(data_set[3], data_set[4], data_set[5],  data_set[6], t_max);
                 $$('header18').show();
@@ -535,7 +518,6 @@
                     setSlider('s4', [0.5, 0, 2, .1]);
                     setAxes("Temp", "\u221A\u03BC")
                     get();
-
                 }
                 model_data = huangFullModel(data_set[3], data_set[4], data_set[5],  data_set[6],t_max);
                 $$('header19').show();
@@ -548,7 +530,6 @@
                     setSlider('s2', [0.5, 0, 2, .1]);
                     setAxes("Temp", "\u221A\u03BC")
                     get();
-
                 }
                 model_data = huangSubModel(data_set[3], data_set[4], t_max);
                 $$('header20').show();
@@ -557,7 +538,6 @@
                 if(!(model.localeCompare('D_Ratkowsky_full')) == 0) {
                     model = "D_Ratkowsky_full";
                     changeSliders(4, ["T0", "Tmax", 'a', "b"])
-
                     setSlider('s1', [1, 0, 20, 1]);
                     setSlider('s2', [10, 10, 50, 1]);
                     setSlider('s3', [0.5, 0, 2, .1]);
@@ -576,7 +556,6 @@
                     setSlider('s2', [0, 0, .5, .01]);
                     setAxes("Temp", "\u221A\u03BC")
                     get();
-
                 }
                 model_data = ratkowskySubModel(data_set[3], data_set[4], t_max);
                 $$('header22').show();
@@ -733,9 +712,7 @@
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
             */
 
-
             var array = [];
-
             for(time = 0; time <x; time+= (x/500.)) {
                 array.push({time_input: time,
                     conc_input2: y_initial+ mu_max*(time + 0.25*
@@ -776,15 +753,12 @@
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
                     if(time< lag){
-                        array.push({ time_input: time, conc_input2:y_initial
-
-                        });
+                        array.push({ time_input: time, conc_input2:y_initial});
                     }
                     else if ( time >= lag) {
                         array.push({time_input: time, conc_input2: y_initial + mu_max * (time - lag)});
                     }
             }
-
             return array;
         }
 
@@ -798,13 +772,11 @@
 
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
-
                 array.push({
                     time_input: time,conc_input2: y_initial - (time/D)
                 });
             }
             return array;
-
         }
 
         function sLinearShoulderModel(y_initial, D, y_tail,x) {
@@ -815,18 +787,15 @@
              x (float) - dt of the entire dataset
              Returns: array - a list of time/conc_input2 objects represting the calculated growth curve
              */
+
             var array = [];
             t_crit = D* (y_initial - y_tail)
             for(time = 0; time <x; time+= (x/500.)) {
                 if (time < t_crit) {
-                    array.push({
-                        time_input: time, conc_input2: y_initial - (time/D)
-                    });
+                    array.push({time_input: time, conc_input2: y_initial - (time/D)});
                 }
                 else{
-                    array.push({
-                        time_input: time, conc_input2: y_tail
-                    });
+                    array.push({time_input: time, conc_input2: y_tail});
                 }
             }
             return array;
@@ -847,7 +816,6 @@
 
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
-
                 array.push({
                     time_input: time,conc_input2: y_initial *
                                         (1.0 - Math.exp(-Math.exp(-(mu_max*Math.exp(1.0)*(time-lag)/y_initial - 1.0 ))))
@@ -867,9 +835,7 @@
 
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
-
                 array.push({time_input: time, conc_input2: y_initial - ( k * (Math.pow(time, alpha)))})
-
             }
             return array;
         }
@@ -885,7 +851,6 @@
 
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
-
                 array.push({time_input: time, conc_input2: y_initial - (Math.pow((time/D),alpha))});
             }
             return array;
@@ -903,9 +868,7 @@
             var array = [];
             for(time = 0; time <x; time+= (x/500.)) {
                     if(time< lag){
-                        array.push({ time_input: time, conc_input2:y_initial
-
-                        });
+                        array.push({ time_input: time, conc_input2:y_initial});
                     }
                     else if ( time >= lag) {
                         array.push({time_input: time, conc_input2: y_initial  - ((time-lag)/k)});
@@ -928,8 +891,7 @@
             var tc = ((y_initial-y_tail)*k) + lag
             for(time = 0; time <x; time+= (x/500.)) {
                 if (time < lag) {
-                    array.push({
-                        time_input: time, conc_input2: y_initial});
+                    array.push({time_input: time, conc_input2: y_initial});
                 }
                 else if (time >= tc){
                     array.push({time_input: time, conc_input2: y_tail})
@@ -937,7 +899,6 @@
                 else if (time >= lag) {
                     array.push({time_input: time, conc_input2: y_initial  - ((time-lag)/k)});
                 }
-
             }
             return array;
         }
@@ -957,8 +918,7 @@
             for(temp = 0; temp <x; temp+= (x/500.)) {
                 m = Math.pow((Ea/(temp+273.15)/8.314),alpha)
                 c = 1.0 - Math.exp(b*(temp-Tmax))
-                array.push({time_input: temp,
-                    conc_input2: (A*(temp + 273.15)*Math.exp(-m)*c)});
+                array.push({time_input: temp, conc_input2: (A*(temp + 273.15)*Math.exp(-m)*c)});
             }
             return array;
         }
@@ -1010,11 +970,9 @@
 
             var array = [];
             for(temp = 0; temp <x; temp+= (x/500.)) {
-                array.push({time_input: temp,
-                    conc_input2: Math.pow((a*(temp-T0)), .75)});
+                array.push({time_input: temp, conc_input2: Math.pow((a*(temp-T0)), .75)});
             }
             return array;
-
         }
 
         function huangFullModel(T0,t_max,a,b,x) {
@@ -1029,7 +987,7 @@
             var array = [];
             for(temp = 0; temp <x; temp+= (x/500.)) {
                 array.push({time_input: temp,
-                    conc_input2: Math.pow(a*(temp-T0),(0.75*(1.0 - Math.exp(b*(temp-t_max)))))});
+                                conc_input2: Math.pow(a*(temp-T0),(0.75*(1.0 - Math.exp(b*(temp-t_max)))))});
             }
             return array;
         }
@@ -1061,12 +1019,15 @@
 
             var array = [];
             for(temp = 0; temp <x; temp+= (x/500.)) {
-                array.push({time_input: temp,
-                    conc_input2: (a*(temp-T0))});
+                array.push({time_input: temp, conc_input2: (a*(temp-T0))});
             }
             return array;
         }
 
+        //Hides/shows and changes the labels of parameter sliders and insert inputs
+        //Inputs:   num (int) (0-5) - the number of sliders to be shown
+        //          name_array (array) - list of strings that will be the labels of the sliders and insert inputs,
+        //                                  must be at least 'num' entries
         function changeSliders(num,name_array){
             if (num == 0){
                 $$('s1').hide();
@@ -1224,7 +1185,9 @@
             $$(component).define('value',value);
             $$(component).render();
         }
-        
+
+        //resets the axis labels of the data chart
+        //TODO
         function setAxes(x_name,y_name){
             $$('data_chart').define({
                 xAxis:{
@@ -1237,7 +1200,7 @@
             $$('data_chart').refresh()
         }
 
-         //checks to see if you data points has valid input
+        //Runs through the input table, ensures that all data points are valid
         function dataIsValid(){
             var min = data_points[0].conc_input;
             var popBox = true;
