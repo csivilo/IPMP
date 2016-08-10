@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cb4a938-ad7d-499b-adb8-6d996c5f44eb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/slider/petri.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/img/ARS_logo.png" afterPath="$PROJECT_DIR$/static/img/ARS_logo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/img/USDA_logo.png" afterPath="$PROJECT_DIR$/static/img/USDA_logo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/library.js" afterPath="$PROJECT_DIR$/static/js/library.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/welcome/about.html" afterPath="$PROJECT_DIR$/templates/welcome/about.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/IPsamp/index.html" afterPath="$PROJECT_DIR$/templates/IPsamp/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/welcome/index.html" afterPath="$PROJECT_DIR$/templates/welcome/index.html" />
     </list>
     <ignored path="test_proj.iws" />
@@ -42,17 +38,14 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/IPsamp/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="399" column="55" selection-start-line="399" selection-start-column="55" selection-end-line="399" selection-end-column="55" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="2125">
+              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="about.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="about.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/welcome/about.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
@@ -72,15 +65,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="library.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="library.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/library.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="1202" column="78" selection-start-line="1202" selection-start-column="78" selection-end-line="1202" selection-end-column="78" />
-              <folding>
-                <marker date="1470850335144" expanded="true" signature="6191:6232" ph="{...}" />
-                <marker date="1470850335144" expanded="true" signature="70872:70882" ph="{...}" />
-              </folding>
+            <state relative-caret-position="275">
+              <caret line="220" column="13" selection-start-line="220" selection-start-column="13" selection-end-line="220" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -152,10 +142,10 @@
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperReducedBaranyi.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/wrapperReducedHuang.py" />
         <option value="$PROJECT_DIR$/IPsamp/modules/StaticFullGrowthModel/FitHuangFull.py" />
-        <option value="$PROJECT_DIR$/templates/IPsamp/index.html" />
-        <option value="$PROJECT_DIR$/static/js/library.js" />
         <option value="$PROJECT_DIR$/templates/welcome/about.html" />
         <option value="$PROJECT_DIR$/templates/welcome/index.html" />
+        <option value="$PROJECT_DIR$/templates/IPsamp/index.html" />
+        <option value="$PROJECT_DIR$/static/js/library.js" />
       </list>
     </option>
   </component>
@@ -886,28 +876,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/library.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="1202" column="78" selection-start-line="1202" selection-start-column="78" selection-end-line="1202" selection-end-column="78" />
-          <folding>
-            <marker date="1470850335144" expanded="true" signature="6191:6232" ph="{...}" />
-            <marker date="1470850335144" expanded="true" signature="70872:70882" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/IPsamp/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="399" column="55" selection-start-line="399" selection-start-column="55" selection-end-line="399" selection-end-column="55" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/welcome/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -920,6 +888,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/IPsamp/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2125">
+          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/library.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="220" column="13" selection-start-line="220" selection-start-column="13" selection-end-line="220" selection-end-column="13" />
           <folding />
         </state>
       </provider>

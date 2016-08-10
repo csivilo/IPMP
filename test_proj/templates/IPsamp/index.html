@@ -108,7 +108,7 @@
                         model = id;
                         $$("data_chart").clearAll();
                         hide();
-                        changeSliders(0,[])
+                        changeSliders(0,[]);
                         if(id == 'S_linear'){
                             $$('header9').show()
                         }
@@ -150,6 +150,7 @@
 
 
                {view: "button" ,width:150, align: "right", value: "Plot", click: "plotData()"},
+
                ]},
                 {cols:[
                     {rows:[
@@ -287,23 +288,18 @@
                                 height: 45
                             },
                             on: { onMenuItemClick: function(id){
-                                    //if either of the linear survival models, no input is needed, straight to server-side
-                                    if(id == "reports") {
-                                        saveReport();
-                                    }
-                                    else if(id == "chart"){
-                                        webix.toPNG($$('data_chart'));
-                                    }
-                                    else if(id == "data"){
-                                        webix.toExcel($$('input_table'));
-                                    }
+                                //if either of the linear survival models, no input is needed, straight to server-side
+                                if(id == "reports") {
+                                    saveReport();
                                 }
-                            }}
-                            /*{view: "button", width: 100, align: "right",  label: "Save Reports", click: "saveReport();"},
-                            {view: "button", width: 100, align: "right", label: "Save Chart", click: function(){
-                                webix.toPNG($$('data_chart'));
-                            }}*/
-
+                                else if(id == "chart"){
+                                    saveChart();
+                                }
+                                else if(id == "data"){
+                                    saveData();
+                                }
+                                }}
+                            }
                         ]},
                         //hidden datatable to allow exporting to PDF appropriately
                         {view: "datatable",
@@ -326,17 +322,11 @@
                             columns:[
                                 {id: "text_export", header: "Reports"}
                             ],
-
                             editable: false}
                     ]}
                 ]}
-
             ]
         });
-
-
-
-
 
         var changes1 = $$('s1').attachEvent("onSliderDrag", function(){
             get();
@@ -345,7 +335,6 @@
                 initialModel(model);
             }
         });
-
 
         var changes2 = $$('s2').attachEvent("onSliderDrag", function(){
             get();
@@ -379,8 +368,6 @@
             }
         });
 
-
-
         // updates model if sliders are manipulated
         var changeSlider = $$('insert_input').attachEvent("onChange", function(){
             set();
@@ -389,11 +376,6 @@
                 initialModel(model);
             }
         });
-
-
-
-
-
 
     </script>
     <img src= "{% static 'img/USDA_logo.png' %}" style="width: 108px;height: 75px;margin-left: 30px;margin-top: 20px"/>
