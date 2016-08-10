@@ -16,7 +16,6 @@
             array[ind2] = temp
         }
 
-
         function getData() {
             //creates new array and pushes each value in the slider to the array
             //the array hold the data in the same order:
@@ -46,13 +45,19 @@
             input_data.push( parseFloat($$('slider_input').getValues().s4));
             input_data.push( parseFloat($$('slider_input').getValues().s5));
 
-            return input_data
+            return input_data;
         }
 
         function submitModel(){
         // submits model parameters and data to the backend, recieves json object through ajax, displays in browser
             if(model.localeCompare("None")==0){
                 console.log("No model selected!");
+                webix.alert({
+                    type: "alert-error",
+                    title: "Error- No Model Selected",
+                    ok: "Close",
+                    text: "Please select a model and adjust the sliders above before submitting the model."
+                });
                 return null;
             }
             var table_data = getTableData();
@@ -96,7 +101,7 @@
             });
         }
 
-	//will refresh the scatter plot with the updated data passed in via the datatable
+	    //will refresh the scatter plot with the updated data passed in via the datatable
         function plotData(){
             updatedData = [];
             $$("data_chart").clearAll();
@@ -115,7 +120,7 @@
         }
 
         function getTableData(){
-             //creates two new arrays filled with x and y data from the input table, then returns them in a master array
+            //creates two new arrays filled with x and y data from the input table, then returns them in a master array
             var time_array = [];
             var conc_array = [];
             var indexed = 0;
@@ -126,16 +131,12 @@
                 conc_array.push(parseFloat($$("input_table").getItem($$("input_table").getIdByIndex(indexed)).conc_input));
                 indexed++;
             }
-
             return [time_array, conc_array];
-
         }
 
         function printData(){
             $$('output_table').add(data_points);
         }
-
-
 
         function graphCon(dub_array){
             $$('data_chart').clearAll()
@@ -144,107 +145,99 @@
             model_data = [];
             
             if(model.localeCompare('Gompertz') == 0){
-                   model_data = (gompertzModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (gompertzModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('Huang') == 0){
-                   model_data = (huangModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (huangModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('Baranyi') == 0){
-                   model_data = (baranyiModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (baranyiModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('Buchanan') == 0){
-                   model_data = (buchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (buchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('No_lag') == 0){
-                   model_data = (noLagModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (noLagModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('R_huang') == 0){
-                   model_data = (redHuangModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (redHuangModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('R_baranyi') == 0){
-                   model_data = (redBaranyiModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (redBaranyiModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('R2_buchanan') == 0){
-                   model_data = (twoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (twoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_linear') == 0){
-                   model_data = (sLinearModel(dub_array[0], dub_array[1], time));
+                model_data = (sLinearModel(dub_array[0], dub_array[1], time));
             }
             else if(model.localeCompare('S_linshoulder') == 0){
-                   model_data = (sLinearShoulderModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (sLinearShoulderModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_gompertz') == 0){
-                   model_data = (sGompertzModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (sGompertzModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_weibull') == 0){
-                   model_data = (sWeibullModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (sWeibullModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('S_mafart') == 0){
-                   model_data = (sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (sMafartModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
             else if(model.localeCompare('SR2_buchanan') == 0){
-                   model_data = (sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (sTwoBuchananModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
-
             else if(model.localeCompare('S3_buchanan') == 0){
-                   model_data = (sThreeBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (sThreeBuchananModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
-
             else if(model.localeCompare('D_Arrhenius_full') == 0){
-                   model_data = (arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], dub_array[4], time));
+                model_data = (arrheniusFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], dub_array[4], time));
             }
-
             else if(model.localeCompare('D_Arrhenius_sub') == 0){
-                   model_data = (arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], time));
+                model_data = (arrheniusSubModel(dub_array[0], dub_array[1], dub_array[2], time));
             }
-
             else if(model.localeCompare('D_Cardinal_full') == 0){
-                   model_data = (cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (cardinalFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
-
             else if(model.localeCompare('D_Huang_full_temp') == 0){
-                   model_data = (huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
+                model_data = (huangFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
             else if(model.localeCompare('D_Huang_sub_temp') == 0){
-                   model_data = (huangSubModel(dub_array[0], dub_array[1], time));
+                model_data = (huangSubModel(dub_array[0], dub_array[1], time));
             }
-
             else if(model.localeCompare('D_Ratkowsky_full') == 0){
-                   model_data = (ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
-
+                model_data = (ratkowskyFullModel(dub_array[0], dub_array[1], dub_array[2], dub_array[3], time));
             }
-
             else if(model.localeCompare('D_Ratkowsky_sub') == 0){
-                   model_data = (ratkowskySubModel(dub_array[0], dub_array[1],time));
+                model_data = (ratkowskySubModel(dub_array[0], dub_array[1],time));
             }
 
         for(var i = 0; i < data_points.length; i++){
-                //if either conc_inputs have a value and time_input is not null, we want to add it to the array
-                if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
-                    model_data.push(data_points[i]);
-                }
+            //if either conc_inputs have a value and time_input is not null, we want to add it to the array
+            if((data_points[i].conc_input !=  null || data_points[i].conc_input2 != null) && data_points[i].time_input != null) {
+                model_data.push(data_points[i]);
             }
+        }
         $$('data_chart').parse(model_data);
         }
 
         function clearData(){
             //$$('input_table').clearAll()
             webix.confirm({
-               ok: "Yes",
-               cancel: "No",
-               type: "alert-warning",
-               text: "Are you sure you want to clear all data?",
-               callback: function(result){
-                   //if they clicked ok, wipe the input table clean
-                   if(result === true){
-                       for(var i = 0; i < data_points.length; i++){
-                           data_points[i].conc_input = null;
-                           data_points[i].time_input = null;
-                           data_points[i].conc_input2 = null;
-                       }
-                       $$('input_table').refresh();
-                   }
-               }
+                ok: "Yes",
+                cancel: "No",
+                type: "alert-warning",
+                text: "Are you sure you want to clear all data?",
+                callback: function(result){
+                    //if they clicked ok, wipe the input table clean
+                    if(result === true){
+                        for(var i = 0; i < data_points.length; i++){
+                            data_points[i].conc_input = null;
+                            data_points[i].time_input = null;
+                            data_points[i].conc_input2 = null;
+                        }
+                        $$('input_table').refresh();
+                    }
+                }
            });
         }
 
@@ -253,7 +246,7 @@
              var file_id = $$("open_file").files.getFirstId(); //getting the ID
              var fileobj = $$("open_file").files.getItem(file_id).file; //getting file object
              filename = fileobj.name.getValues;
-         }
+        }
 
         //brings a pop-up window with a counter to add rows to the input_table
         function addRows(){
@@ -269,36 +262,33 @@
  					view:"toolbar", cols:[
  						{view:"button", label: 'Confirm', width: 87, align: 'center', click:"updateRows();"},
                          {view: "button", label: "Cancel", width: 87, click: "$$('add_rows').close();"}
- 						]
+                    ]
  				},
  				body:{
  				    view: "counter",
-                     label: "Add rows",
-                     id: "counter",
-                     align: "center",
-                     value: 1,
-                     min: 0
+                    label: "Add rows",
+                    id: "counter",
+                    align: "center",
+                    value: 1,
+                    min: 0
 
                  }
  			}).show();
-         }
-
-
+        }
 
         //updates number of rows the user wants to update
         function updateRows(){
             var count = $$('counter').getValue(); //number of rows the user wants to add to the table
 
             for(var i=0; i < count; i++){
-             var obj = {id: data_points.length + 1, time_input: null, conc_input: null, conc_input2: null};
-             data_points.push(obj); //add obj to data_points
-             $$('input_table').add(obj); //add obj (the blank row) to the input table
+                var obj = {id: data_points.length + 1, time_input: null, conc_input: null, conc_input2: null};
+                data_points.push(obj); //add obj to data_points
+                $$('input_table').add(obj); //add obj (the blank row) to the input table
             }
             //refresh the data table and close the popup window
             $$('input_table').refresh();
             $$('add_rows').close();
-            }
-
+        }
 
         function initialModel(model_type){
             //Runs a default simulation based off of known models sets up a user editable model
@@ -832,7 +822,6 @@
 
         }
 
-
         function sGompertzModel(y_initial, mu_max,lag,x){
             /*used to run a simulation of the survival gompertz model
             Inputs: y_initial (float)- the y value of the first data points
@@ -853,7 +842,7 @@
             return array;
         }
 
-         function sWeibullModel(y_initial, k,alpha,x){
+        function sWeibullModel(y_initial, k,alpha,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
                      k -
@@ -871,7 +860,7 @@
             return array;
         }
         
-         function sMafartModel(y_initial, D, alpha,x){
+        function sMafartModel(y_initial, D, alpha,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
                      d -
@@ -888,7 +877,7 @@
             return array;
         }
         
-         function sTwoBuchananModel(y_initial,k,lag,x){
+        function sTwoBuchananModel(y_initial,k,lag,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
                      k -
@@ -911,7 +900,7 @@
             return array;
         }
         
-         function sThreeBuchananModel(y_initial, y_tail,k,lag,x){
+        function sThreeBuchananModel(y_initial, y_tail,k,lag,x){
             /*used to run a simulation of the gompertz model
              Inputs: y_initial (float)- the y value of the first data points
                      y_tail -
@@ -939,7 +928,7 @@
             return array;
         }
 
-         function arrheniusFullModel(Ea, alpha, A, b, Tmax, x) {
+        function arrheniusFullModel(Ea, alpha, A, b, Tmax, x) {
             /*used to run a simulation of the Arrhenius Full Range Secondary model
             Inputs: Ea (float)-
                     alpha -
@@ -1234,7 +1223,7 @@
             $$('data_chart').refresh()
         }
 
-         //checks to see if you data points has valid input
+        //checks to see if you data points has valid input
         function dataIsValid(){
             var min = data_points[0].conc_input;
             var popBox = true;
@@ -1263,8 +1252,8 @@
 
                 if(!isInt(timeValid)){ //if timeValid is not valid input
                     webix.alert({
-                            type: "alert-warning",
-                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
+                        type: "alert-warning",
+                        text: "Warning! The data contains at least one non-numeric entry. Please verify!"
                     });
                     popBox = false;
                     $$('input_table').addCellCss(data_points[i].id, "time_input", "my_style");
@@ -1273,8 +1262,8 @@
                 else if(!isInt(conValid)){ //if conc input isnt valid, have them verify
 
                     webix.alert({
-                            type: "alert-warning",
-                            text: "Warning! The data contains at least one non-numeric entry. Please verify!"
+                        type: "alert-warning",
+                        text: "Warning! The data contains at least one non-numeric entry. Please verify!"
                     });
                     popBox = false;
                     $$('input_table').addCellCss(data_points[i].id, "conc_input", "my_style");
@@ -1303,7 +1292,7 @@
                         cancel: "No",
                         type: "confirm-error",
                         text: "Warning!- The colony counts appear to be in log CFU. They must be converted to ln " +
-                            "CFU for data analysis. Do you want to convert data to ln CFU?",
+                                "CFU for data analysis. Do you want to convert data to ln CFU?",
                         callback: function(result){
                             //if they clicked ok ("yes")
                             if(result === true){
@@ -1433,7 +1422,7 @@
                 text: 'Use the sliders, that will appear after selecting a model, below to adjust the model curve you previously selected to make a better fit for your inputed data.' +
                 ' Then click "Model Submit" to submit your model.',
                 width: 120,
-                top: 145,
+                top: 142,
                 left: 3,
                 callback: function(result){
                     switch(result){
@@ -1502,12 +1491,12 @@
             reader.onload = function(e){
                 var text = reader.result;
 
-                 //resets the arrays values
+                //resets the arrays values
                 for(var i = 0; i < data_points.length; i++){
-                           data_points[i].conc_input = null;
-                           data_points[i].time_input = null;
-                           data_points[i].conc_input2 = null;
-                       }
+                    data_points[i].conc_input = null;
+                    data_points[i].time_input = null;
+                    data_points[i].conc_input2 = null;
+                }
 
                 var float_list =[];
                 var start = 0;
@@ -1528,35 +1517,38 @@
                         end = start + 1;
                     }
                 }
+
                 for(var item = 0; item < float_list.length; item += 2){
+                    //if the item and next item are NaN then skip it
+                    if(isNaN(float_list[item]) && isNaN(float_list[item + 1])){
+                        continue;
+                    }
                     data_points.push({id: dataIndex, time_input: float_list[item],
                         conc_input: float_list[item + 1], conc_input2: null});
                     dataIndex++;
                 }
 
-                  //parse new data to the input_table
-                  $$('input_table').parse({
-                     pos: 0, //number of records will be right the last index +1
+                //parse new data to the input_table
+                $$('input_table').parse({
+                    pos: 0, //number of records will be right the last index +1
                     data: data_points
-                    });
-                    plotData();
-                    $$("data_chart").render();
-             };
+                });
+                plotData();
+                $$("data_chart").render();
+            };
             reader.readAsText(file_struct.file, "utf-8");
         }
 
         //Will add the selected file's data to the current data
         function addDataSet(file_struct){
             var reader = new FileReader();
-            var time = 0, conc = 0, value= 0, char = 0, parsed = 0, arrayIndex = 0;
+            var arrayIndex = 0;
             reader.onload = function(e){
                 var text = reader.result;
                 var float_list =[];
                 var start = 0;
                 var end = 1;
                 var dataIndex = 1;
-                var endValue = text.substr(text.length - 1);
-                console.log(endValue);
 
                 //reads the numbers in the input file into a array of floats, then an array of conc/time objects
                 while(end < text.length){
@@ -1592,7 +1584,7 @@
                 }
 
                 for(var item = 0; item <= float_list.length; item += 2) {
-                     if (arrayIndex < data_points.length) { //set the correct index to the correct data
+                    if (arrayIndex < data_points.length) { //set the correct index to the correct data
                         data_points[arrayIndex] = ({id: dataIndex, time_input: float_list[item],
                                                             conc_input: float_list[item + 1], conc_input2: null})
                         dataIndex++;
@@ -1604,7 +1596,6 @@
                         conc_input: float_list[item + 1], conc_input2: null})
                         dataIndex++;
                     }
-
                 }
                 //parse new data to the input_table
                 $$('input_table').parse(data_points);//{
@@ -1616,8 +1607,8 @@
             reader.readAsText(file_struct.file, "utf-8");
         }
         
-         //check to see if there is any report, if not alert, otherwise, export to PDF
-         function saveReport(){
+        //check to see if there is any report, if not alert, otherwise, export to PDF
+        function saveReport(){
             var value = $$('export_table').getValue();
             if(value == "No report"){
                 webix.alert({
