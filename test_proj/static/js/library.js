@@ -88,15 +88,11 @@
                         graphCon(params);
                         $$("output_table").parse(data);
                         $$("export_table").setValue(text); //outputs info received to the user
-
-                        //118 length until first add
-                        //var end = "" + text.slice(116);
-                        //text += end;
                         console.log(text);
                     }
                     else{
-                        $$("output_table").parse({text_output: "Backend analysis failed, adjust parameters for better fit"});
-                        $$("export_table").setValue("Backend analysis failed, adjust parameters for better fit.");
+                        $$("output_table").parse({text_output: "Regression failed, adjust parameters for better fit"});
+                        $$("export_table").setValue("Regression failed, adjust parameters for better fit.");
                     }
                 },
 

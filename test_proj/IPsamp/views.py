@@ -144,7 +144,10 @@ def data(request):
             #dict["ci_vals"] = RP.conintervals(inst)
             dict['params'] = RP.params(inst)
         else:
-            print("error: %s") % (inst.errorMessage)
+            if( str(inst.errorMessage) == "<class 'numpy.linalg.linalg.LinAlgError'>"):
+                print("Regression failed with parameters %s" % p0)
+            else:
+                print("Numpy error: %s") % (inst.errorMessage)
 
 
 
